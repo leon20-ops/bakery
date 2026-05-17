@@ -46,34 +46,225 @@
 
     <!-- Gallery Grid -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="masonry-grid">
-            <!-- Items injected via JS for cleaner code layout, but here is the HTML structure -->
-            <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
-                <img src="https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?auto=format&fit=crop&w=800&q=80" alt="Baking" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
-                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <span class="text-white font-serif text-2xl font-bold">Artisan Loaf</span>
-                </div>
-            </div>
-            <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
-                <img src="https://images.unsplash.com/photo-1579697096985-41fe1430e5d6?auto=format&fit=crop&w=800&q=80" alt="Donuts" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
-            </div>
-            <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
-                <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=800&q=80" alt="Bread" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
-            </div>
-            <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
-                <img src="https://images.unsplash.com/photo-1612203985729-70726954388c?auto=format&fit=crop&w=800&q=80" alt="Pastry" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
-            </div>
-            <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
-                <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=800&q=80" alt="Cake" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
-            </div>
-             <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
-                <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=800&q=80" alt="Croissant" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
-            </div>
-            <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
-                <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=800&q=80" alt="Birthday Cake" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+    <div class="masonry-grid">
+        
+        <!-- 1. Artisan Loaf -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?auto=format&fit=crop&w=800&q=80" alt="Baking" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <span class="text-white font-serif text-2xl font-bold">Artisan Loaf</span>
             </div>
         </div>
-    </section>
+
+        <!-- 2. Assorted Donuts (FIXED) -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80" alt="Assorted Donuts" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Assorted Donuts</span>
+            </div>
+        </div>
+
+        <!-- 3. Sourdough Boule -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=800&q=80" alt="Bread" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Sourdough Boule</span>
+            </div>
+        </div>
+
+        <!-- 4. Fruit Pastry -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1612203985729-70726954388c?auto=format&fit=crop&w=800&q=80" alt="Pastry" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Fruit Danish</span>
+            </div>
+        </div>
+
+        <!-- 5. Berry Sponge Cake -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=800&q=80" alt="Cake" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Berry Sponge Cake</span>
+            </div>
+        </div>
+
+        <!-- 6. Croissant -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=800&q=80" alt="Croissant" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Butter Croissant</span>
+            </div>
+        </div>
+
+        <!-- 7. Birthday Cake -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=800&q=80" alt="Birthday Cake" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Celebration Cake</span>
+            </div>
+        </div>
+
+        <!-- 8. Colorful Macarons (NEW) -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=800&q=80" alt="Macarons" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">French Macarons</span>
+            </div>
+        </div>
+
+        <!-- 9. Fresh Fruit Tart (NEW) -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=800&q=80" alt="Fruit Tart" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Fresh Fruit Tart</span>
+            </div>
+        </div>
+
+        <!-- 10. Cinnamon Rolls (NEW) -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?auto=format&fit=crop&w=800&q=80" alt="Cinnamon Rolls" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Cinnamon Rolls</span>
+            </div>
+        </div>
+
+        <!-- 11. Chocolate Chip Cookies (NEW) -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80" alt="Cookies" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Chocolate Chip Cookies</span>
+            </div>
+        </div>
+
+       <!-- 12. Rustic Apple Pie -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1562007908-17c67e878c88?auto=format&fit=crop&w=800&q=80" alt="Apple Pie" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Rustic Apple Pie</span>
+            </div>
+        </div>
+
+        <!-- 13. Gourmet Cupcakes (NEW) -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?auto=format&fit=crop&w=800&q=80" alt="Cupcakes" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Gourmet Cupcakes</span>
+            </div>
+        </div>
+
+        <!-- 14. Strawberry Shortcake (NEW) -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=800&q=80" alt="Strawberry Cake" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Strawberry Shortcake</span>
+            </div>
+        </div>
+
+        <!-- 15. Blueberry Muffins -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&w=800&q=80" alt="Blueberry Muffins" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Blueberry Muffins</span>
+            </div>
+        </div>
+
+        <!-- 16. Fudge Brownies (NEW) -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80" alt="Brownies" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Fudge Brownies</span>
+            </div>
+        </div>
+
+        <!-- 17. Chocolate Eclairs (NEW) -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1621236378699-8597faf6a176?auto=format&fit=crop&w=800&q=80" alt="Eclairs" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Chocolate Eclairs</span>
+            </div>
+        </div>
+
+        <!-- 18. Decadent Chocolate Soufflé -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80" alt="Chocolate Soufflé" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Decadent Chocolate Soufflé</span>
+            </div>
+        </div>
+
+        <!-- 19. Vanilla Cherry Cupcake -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?auto=format&fit=crop&w=800&q=80" alt="Vanilla Cupcake" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Vanilla Cherry Cupcake</span>
+            </div>
+        </div>
+
+        <!-- 20. Lemon Meringue Tart -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1514517521153-1be72277b32f?auto=format&fit=crop&w=800&q=80" alt="Lemon Tart" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Lemon Meringue Tart</span>
+            </div>
+        </div>
+
+        <!-- 22. Artisan Croissant -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1654808991961-141a731f55db?auto=format&fit=crop&w=800&q=80" alt="Artisan Croissant" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Artisan Croissant</span>
+            </div>
+        </div>
+
+        <!-- 22. Decadent Chocolate Cake -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80" alt="Chocolate Cake" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Decadent Chocolate Cake</span>
+            </div>
+        </div>
+
+        <!-- 24. Gourmet Cupcakes -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=800&q=80" alt="Gourmet Cupcakes" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Gourmet Cupcakes</span>
+            </div>
+        </div>
+
+        <!-- 24. Stacked Cookies -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80" alt="Stacked Cookies" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Artisan Cookies</span>
+            </div>
+        </div>
+
+        <!-- 25. Cherry Pecan Pie -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1601000938259-9e92002320b2?auto=format&fit=crop&w=800&q=80" alt="Cherry Pie" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Cherry Pecan Pie</span>
+            </div>
+        </div>
+
+        <!-- 26. Rosemary Focaccia -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=800&q=80" alt="Focaccia Bread" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Rosemary Focaccia</span>
+            </div>
+        </div>
+
+        <!-- 27. Chocolate Chip Cookies -->
+        <div class="masonry-item relative group overflow-hidden rounded-2xl cursor-pointer gs-img">
+            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80" alt="Chocolate Chip Cookies" class="w-full object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center px-4">
+                <span class="text-white font-serif text-2xl font-bold">Chocolate Chip Cookies</span>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
