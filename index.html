@@ -743,6 +743,151 @@
             transform: scale(1.4);
             box-shadow: 0 0 15px rgba(139, 94, 60, 0.5);
         }
+
+        /* --- 8. PROCESS SECTION: 3D & CINEMATIC EFFECTS --- */
+        .process-perspective {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+
+        .process-img-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s ease;
+            will-change: transform;
+        }
+
+        .process-img-3d:hover {
+            box-shadow: 0 30px 60px -15px rgba(74, 44, 26, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .process-img-inner {
+            transform: translateZ(20px) scale(1.02);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+            will-change: transform, filter;
+        }
+
+        .process-img-3d:hover .process-img-inner {
+            transform: translateZ(45px) scale(1.08);
+        }
+
+        /* Ambient Timeline Glows */
+        .process-line-glow {
+            box-shadow: 0 0 15px 1px rgba(212, 163, 115, 0.4);
+            transform-origin: top center;
+            will-change: transform, opacity;
+        }
+
+        .process-dot-pulse::before {
+            animation: pulseDot 4s infinite alternate ease-in-out;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .process-step:hover .process-dot-pulse::before {
+            transform: scale(1.3);
+            background: #8B5E3C;
+            box-shadow: 0 0 0 4px #FFF8F0, 0 0 20px 5px rgba(212, 163, 115, 0.6);
+        }
+
+        @keyframes pulseDot {
+            0% {
+                box-shadow: 0 0 0 3px #8B5E3C, 0 0 10px rgba(212, 163, 115, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 3px #8B5E3C, 0 0 20px rgba(212, 163, 115, 0.6);
+            }
+        }
+        /* --- 9. GALLERY: 3D & CINEMATIC EFFECTS --- */
+        
+        .gallery-perspective {
+            perspective: 1500px;
+            transform-style: preserve-3d;
+        }
+
+        /* Base 3D Card */
+        .gallery-card-3d {
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s ease, filter 0.8s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .gallery-card-3d:hover {
+            box-shadow: 0 40px 80px -20px rgba(74, 44, 26, 0.5), inset 0 0 30px rgba(255, 255, 255, 0.1);
+            filter: brightness(1.05);
+            z-index: 20;
+        }
+
+        /* Image Depth Layer */
+        .gallery-img {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+            transform: translateZ(0px) scale(1.01); /* scale prevents edge bleeding */
+            will-change: transform;
+        }
+
+        .gallery-card-3d:hover .gallery-img {
+            transform: translateZ(20px) scale(1.08); /* Cinematic slow zoom & pop */
+            filter: contrast(1.1);
+        }
+
+        /* Cinematic Overlay */
+        .gallery-overlay {
+            background: radial-gradient(circle at center, rgba(74, 44, 26, 0.1) 0%, rgba(74, 44, 26, 0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateZ(35px); /* Suspended above the image */
+            pointer-events: none;
+        }
+
+        .gallery-card-3d:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Heart Icon Glow & Pulse */
+        .gallery-heart {
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease, text-shadow 0.6s ease, color 0.4s ease;
+            transform: scale(0.4) translateZ(50px); /* Highest depth layer */
+            opacity: 0;
+            color: #FFF8F0;
+        }
+
+        .gallery-card-3d:hover .gallery-heart {
+            opacity: 1;
+            transform: scale(1) translateZ(70px);
+            text-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+            animation: heartPulse 2s infinite alternate ease-in-out 0.4s;
+        }
+
+        .gallery-heart:hover {
+            color: #F7D6D0; /* Blush */
+            text-shadow: 0 0 30px rgba(247, 214, 208, 1);
+        }
+
+        @keyframes heartPulse {
+            0% { transform: scale(1) translateZ(70px); text-shadow: 0 0 20px rgba(255, 255, 255, 0.7); }
+            100% { transform: scale(1.15) translateZ(70px); text-shadow: 0 0 40px rgba(255, 255, 255, 1); }
+        }
+
+        /* Premium Link Underline */
+        .gallery-link-underline {
+            position: relative;
+            display: inline-block;
+        }
+
+        .gallery-link-underline::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 1px;
+            bottom: -3px;
+            left: 0;
+            background-color: #4A2C1A;
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery-link-underline:hover::after {
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -1476,76 +1621,96 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-pagination mt-8 testi-pagination-glow"></div>
+
             </div>
+            <div class="swiper-pagination mt-8 testi-pagination-glow" style="margin-bottom: -40px;"></div>
         </div>
     </section>
 
     <!-- 8. BAKERY PROCESS -->
-    <section id="process" class="py-24 bg-cream">
-        <div class="max-w-5xl mx-auto px-6 lg:px-16">
-            <div class="text-center mb-20 gsap-fade-up">
+    <section id="process" class="py-24 bg-cream overflow-hidden">
+        <div class="process-container max-w-5xl mx-auto px-6 lg:px-16">
+            <div class="text-center mb-20 process-heading-wrap">
                 <h2 class="font-playfair text-4xl lg:text-5xl text-chocolate mb-4">Our Craftsmanship</h2>
                 <p class="text-softbrown">The journey from raw ingredients to your table.</p>
             </div>
 
             <div class="relative border-l-2 border-caramel/30 pl-8 md:pl-0 md:border-l-0">
-                <!-- Line for Desktop -->
+                <!-- Cinematic Line for Desktop -->
                 <div
-                    class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-caramel/30 transform -translate-x-1/2">
+                    class="process-center-line hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-caramel/50 process-line-glow transform -translate-x-1/2">
                 </div>
 
                 <!-- Step 1 -->
-                <div class="relative flex flex-col md:flex-row justify-between items-center mb-16 gsap-fade-up">
+                <div class="process-step relative flex flex-col md:flex-row justify-between items-center mb-16 group">
                     <div
-                        class="w-full md:w-[45%] text-left md:text-right pr-0 md:pr-10 timeline-dot relative md:before:left-auto md:before:-right-[30px]">
-                        <h3 class="font-playfair text-2xl text-chocolate mb-2">1. Pure Sourcing</h3>
+                        class="w-full md:w-[45%] text-left md:text-right pr-0 md:pr-10 timeline-dot process-dot-pulse relative md:before:left-auto md:before:-right-[30px] process-text-anim">
+                        <h3
+                            class="font-playfair text-2xl text-chocolate mb-2 transition-colors duration-500 group-hover:text-caramel">
+                            1. Pure Sourcing</h3>
                         <p class="text-softbrown text-sm">We select only the finest organic flour, farm-fresh eggs, and
                             imported European butter to form our base.</p>
                     </div>
-                    <div class="w-full md:w-[45%] mt-6 md:mt-0">
-                        <img src="https://images.unsplash.com/photo-1508338712271-4052fa0ebffe?q=80&w=600&auto=format&fit=crop"
-                            class="rounded-2xl shadow-lg w-full h-48 object-cover" alt="Ingredients">
+                    <div class="w-full md:w-[45%] mt-6 md:mt-0 process-perspective process-img-anim">
+                        <div class="process-img-3d relative w-full h-48 rounded-2xl overflow-hidden cursor-crosshair">
+                            <img src="https://images.unsplash.com/photo-1508338712271-4052fa0ebffe?q=80&w=600&auto=format&fit=crop"
+                                class="process-img-inner w-full h-full object-cover" alt="Ingredients">
+                        </div>
                     </div>
                 </div>
 
                 <!-- Step 2 -->
-                <div class="relative flex flex-col md:flex-row-reverse justify-between items-center mb-16 gsap-fade-up">
-                    <div class="w-full md:w-[45%] text-left pl-0 md:pl-10 timeline-dot relative md:before:left-[-30px]">
-                        <h3 class="font-playfair text-2xl text-chocolate mb-2">2. Artisan Prep</h3>
+                <div
+                    class="process-step relative flex flex-col md:flex-row-reverse justify-between items-center mb-16 group">
+                    <div
+                        class="w-full md:w-[45%] text-left pl-0 md:pl-10 timeline-dot process-dot-pulse relative md:before:left-[-30px] process-text-anim">
+                        <h3
+                            class="font-playfair text-2xl text-chocolate mb-2 transition-colors duration-500 group-hover:text-caramel">
+                            2. Artisan Prep</h3>
                         <p class="text-softbrown text-sm">Doughs are naturally fermented and pastries are meticulously
                             layered by hand over 48 hours.</p>
                     </div>
-                    <div class="w-full md:w-[45%] mt-6 md:mt-0">
-                        <img src="https://images.unsplash.com/photo-1556217646-95f87b8d4f04?q=80&w=600&auto=format&fit=crop"
-                            class="rounded-2xl shadow-lg w-full h-48 object-cover" alt="Kneading Dough">
+                    <div class="w-full md:w-[45%] mt-6 md:mt-0 process-perspective process-img-anim">
+                        <div class="process-img-3d relative w-full h-48 rounded-2xl overflow-hidden cursor-crosshair">
+                            <img src="https://images.unsplash.com/photo-1556217646-95f87b8d4f04?q=80&w=600&auto=format&fit=crop"
+                                class="process-img-inner w-full h-full object-cover" alt="Kneading Dough">
+                        </div>
                     </div>
                 </div>
 
                 <!-- Step 3 -->
-                <div class="relative flex flex-col md:flex-row justify-between items-center mb-16 gsap-fade-up">
+                <div class="process-step relative flex flex-col md:flex-row justify-between items-center mb-16 group">
                     <div
-                        class="w-full md:w-[45%] text-left md:text-right pr-0 md:pr-10 timeline-dot relative md:before:left-auto md:before:-right-[30px]">
-                        <h3 class="font-playfair text-2xl text-chocolate mb-2">3. Masterful Baking</h3>
+                        class="w-full md:w-[45%] text-left md:text-right pr-0 md:pr-10 timeline-dot process-dot-pulse relative md:before:left-auto md:before:-right-[30px] process-text-anim">
+                        <h3
+                            class="font-playfair text-2xl text-chocolate mb-2 transition-colors duration-500 group-hover:text-caramel">
+                            3. Masterful Baking</h3>
                         <p class="text-softbrown text-sm">Baked in traditional stone deck ovens to achieve the perfect
                             crust, rise, and golden color.</p>
                     </div>
-                    <div class="w-full md:w-[45%] mt-6 md:mt-0">
-                        <img src="https://images.unsplash.com/photo-1588691069818-f682855fbcce?q=80&w=600&auto=format&fit=crop"
-                            class="rounded-2xl shadow-lg w-full h-48 object-cover" alt="Oven">
+                    <div class="w-full md:w-[45%] mt-6 md:mt-0 process-perspective process-img-anim">
+                        <div class="process-img-3d relative w-full h-48 rounded-2xl overflow-hidden cursor-crosshair">
+                            <img src="https://images.unsplash.com/photo-1588691069818-f682855fbcce?q=80&w=600&auto=format&fit=crop"
+                                class="process-img-inner w-full h-full object-cover" alt="Oven">
+                        </div>
                     </div>
                 </div>
 
                 <!-- Step 4 -->
-                <div class="relative flex flex-col md:flex-row-reverse justify-between items-center gsap-fade-up">
-                    <div class="w-full md:w-[45%] text-left pl-0 md:pl-10 timeline-dot relative md:before:left-[-30px]">
-                        <h3 class="font-playfair text-2xl text-chocolate mb-2">4. Final Touch</h3>
+                <div class="process-step relative flex flex-col md:flex-row-reverse justify-between items-center group">
+                    <div
+                        class="w-full md:w-[45%] text-left pl-0 md:pl-10 timeline-dot process-dot-pulse relative md:before:left-[-30px] process-text-anim">
+                        <h3
+                            class="font-playfair text-2xl text-chocolate mb-2 transition-colors duration-500 group-hover:text-caramel">
+                            4. Final Touch</h3>
                         <p class="text-softbrown text-sm">Each piece is inspected, delicately garnished, and packaged
                             beautifully for your enjoyment.</p>
                     </div>
-                    <div class="w-full md:w-[45%] mt-6 md:mt-0">
-                        <img src="https://images.unsplash.com/photo-1557308536-ee471ef2c390?q=80&w=600&auto=format&fit=crop"
-                            class="rounded-2xl shadow-lg w-full h-48 object-cover" alt="Packaged Box">
+                    <div class="w-full md:w-[45%] mt-6 md:mt-0 process-perspective process-img-anim">
+                        <div class="process-img-3d relative w-full h-48 rounded-2xl overflow-hidden cursor-crosshair">
+                            <img src="https://images.unsplash.com/photo-1557308536-ee471ef2c390?q=80&w=600&auto=format&fit=crop"
+                                class="process-img-inner w-full h-full object-cover" alt="Packaged Box">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1553,74 +1718,65 @@
     </section>
 
     <!-- 9. GALLERY (Masonry Layout) -->
-    <section id="gallery" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6 lg:px-16">
-            <div class="flex justify-between items-end mb-12 gsap-fade-up">
-                <h2 class="font-playfair text-4xl lg:text-5xl text-chocolate">Visual Tasting</h2>
+    <section id="gallery" class="py-24 bg-white gallery-perspective">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16 gallery-container-anim">
+            
+            <div class="flex justify-between items-end mb-12">
+                <h2 class="gallery-heading-anim font-playfair text-4xl lg:text-5xl text-chocolate origin-left">Visual Tasting</h2>
                 <a href="#"
-                    class="hidden md:inline-block text-caramel font-semibold uppercase tracking-widest text-sm hover:text-chocolate transition">Explore
+                    class="gallery-link-anim gallery-link-underline hidden md:inline-block text-caramel font-semibold uppercase tracking-widest text-sm hover:text-chocolate transition-colors duration-500">Explore
                     Instagram</a>
             </div>
 
             <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
                 <!-- G1 -->
-                <div class="relative rounded-2xl overflow-hidden group cursor-pointer break-inside-avoid">
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
                     <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?q=80&w=600&auto=format&fit=crop"
-                        class="w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        class="gallery-img w-full object-cover"
                         alt="Cupcakes">
-                    <div
-                        class="absolute inset-0 bg-chocolate/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <i
-                            class="fa-solid fa-heart text-white text-2xl transform scale-50 group-hover:scale-100 transition-transform duration-300"></i>
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- G2 -->
-                <div class="relative rounded-2xl overflow-hidden group cursor-pointer break-inside-avoid">
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
                     <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?q=80&w=600&auto=format&fit=crop"
-                        class="w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        class="gallery-img w-full object-cover"
                         alt="Chocolate Cake">
-                    <div
-                        class="absolute inset-0 bg-chocolate/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <i
-                            class="fa-solid fa-heart text-white text-2xl transform scale-50 group-hover:scale-100 transition-transform duration-300"></i>
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- G3 -->
-                <div class="relative rounded-2xl overflow-hidden group cursor-pointer break-inside-avoid">
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
                     <img src="https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?q=80&w=600&auto=format&fit=crop"
-                        class="w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        class="gallery-img w-full object-cover"
                         alt="Bread Assortment">
-                    <div
-                        class="absolute inset-0 bg-chocolate/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <i
-                            class="fa-solid fa-heart text-white text-2xl transform scale-50 group-hover:scale-100 transition-transform duration-300"></i>
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- G4 -->
-                <div class="relative rounded-2xl overflow-hidden group cursor-pointer break-inside-avoid">
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
                     <img src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?q=80&w=600&auto=format&fit=crop"
-                        class="w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        class="gallery-img w-full object-cover"
                         alt="Macarons">
-                    <div
-                        class="absolute inset-0 bg-chocolate/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <i
-                            class="fa-solid fa-heart text-white text-2xl transform scale-50 group-hover:scale-100 transition-transform duration-300"></i>
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- G5 -->
-                <div class="relative rounded-2xl overflow-hidden group cursor-pointer break-inside-avoid">
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
                     <img src="https://images.unsplash.com/photo-1615837197154-2e801f41d0bc?q=80&w=600&auto=format&fit=crop"
-                        class="w-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Tart">
-                    <div
-                        class="absolute inset-0 bg-chocolate/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <i
-                            class="fa-solid fa-heart text-white text-2xl transform scale-50 group-hover:scale-100 transition-transform duration-300"></i>
+                        class="gallery-img w-full object-cover" alt="Tart">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-8 text-center md:hidden">
-                <a href="#" class="text-caramel font-semibold uppercase tracking-widest text-sm underline">Explore
+            <div class="mt-8 text-center md:hidden gallery-link-anim">
+                <a href="#" class="gallery-link-underline text-caramel font-semibold uppercase tracking-widest text-sm text-chocolate">Explore
                     Instagram</a>
             </div>
         </div>
@@ -1996,7 +2152,89 @@
                     y: 30, opacity: 0, scale: 0.9, duration: 0.8, stagger: 0.1, ease: "power3.out", clearProps: "transform"
                 }, "-=0.8");
         });
+        // --- PROCESS SECTION: CINEMATIC BLUR, ZOOM & 3D ANIMATIONS ---
 
+        // 1. Heading Reveal (Blur to Clear, Zoom In)
+        gsap.fromTo(".process-heading-wrap",
+            { opacity: 0, scale: 0.85, filter: "blur(15px)" },
+            {
+                opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.5, ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#process",
+                    start: "top 75%",
+                    toggleActions: "play none none reverse"
+                }
+            }
+        );
+
+        // 2. Cinematic Center Line Draw (ScaleY & Ambient Glow)
+        gsap.fromTo(".process-center-line",
+            { scaleY: 0, opacity: 0 },
+            {
+                scaleY: 1, opacity: 1, ease: "none",
+                scrollTrigger: {
+                    trigger: "#process",
+                    start: "top 50%",
+                    end: "bottom 80%",
+                    scrub: 1.5
+                }
+            }
+        );
+
+        // 3. Process Steps Staggered Reveal (NO sliding. Only Fade, Zoom & Blur)
+        const processSteps = document.querySelectorAll('.process-step');
+        processSteps.forEach((step) => {
+            const textWrap = step.querySelector('.process-text-anim');
+            const imgWrap = step.querySelector('.process-img-anim');
+
+            gsap.fromTo([textWrap, imgWrap],
+                { opacity: 0, scale: 0.9, filter: "blur(12px)" },
+                {
+                    opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.4, stagger: 0.2, ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: step,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        });
+
+        // 4. Immersive 3D Hover Interactions on Process Images
+        const processCards3D = document.querySelectorAll('.process-img-3d');
+        processCards3D.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                // Subtle, elegant rotation
+                const rotateX = ((y - centerY) / centerY) * -8;
+                const rotateY = ((x - centerX) / centerX) * 8;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            });
+        });
+
+        // 5. Scroll Exit (Fade Out & Zoom Out deeply into the background)
+        gsap.to(".process-container", {
+            scale: 0.9,
+            opacity: 0,
+            filter: "blur(8px)",
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#process",
+                start: "bottom 85%",
+                end: "bottom top",
+                scrub: 1
+            }
+        });
         // Initialize Lenis for Smooth Scrolling
         const lenis = new Lenis({
             duration: 1.2,
@@ -2541,7 +2779,87 @@
         videoWrapper.addEventListener('mouseleave', () => {
             videoInner.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0) scale(1.05)`;
         });
+        // --- GALLERY SECTION: CINEMATIC BLURS, ZOOMS, AND 3D HOVER ---
 
+        // 1. Enter Animation: Fades, Blurs, and Zooms (NO sliding)
+        const galleryEnterTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#gallery",
+                start: "top 75%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // Heading & Links (Blur & Zoom Reveal)
+        galleryEnterTl.fromTo(".gallery-heading-anim",
+            { opacity: 0, scale: 0.9, filter: "blur(15px)" },
+            { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.6, ease: "power3.out" }
+        )
+        .fromTo(".gallery-link-anim",
+            { opacity: 0, filter: "blur(5px)" },
+            { opacity: 1, filter: "blur(0px)", duration: 1.2, ease: "power2.out" },
+            "-=1.2"
+        );
+
+        // Masonry Cards (Organic Random Stagger, Blur to Clear, Zoom out to neutral)
+        const galleryCards = document.querySelectorAll('.gallery-card-3d');
+        galleryEnterTl.fromTo(galleryCards,
+            { opacity: 0, scale: 0.85, filter: "blur(8px)", rotateX: -15 },
+            {
+                opacity: 1, 
+                scale: 1, 
+                filter: "blur(0px)", 
+                rotateX: 0,
+                duration: 1.8,
+                stagger: {
+                    amount: 1.2,
+                    from: "random" // Creates an organic, non-linear luxury reveal
+                },
+                ease: "power3.out",
+                clearProps: "transform" // Releases CSS to take over for 3D hovering
+            },
+            "-=2"
+        );
+
+        // 2. Interactive 3D Depth on Hover
+        galleryCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                // Disable aggressive 3D rotation on mobile for performance/UX
+                if (window.innerWidth < 768) return; 
+
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                // Ultra-smooth, elegant tracking
+                const rotateX = ((y - centerY) / centerY) * -8;
+                const rotateY = ((x - centerX) / centerX) * 8;
+
+                card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                if (window.innerWidth < 768) return;
+                // Return to flat via CSS transition
+                card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+
+        // 3. Exit Scroll (Fade Out, Deep Zoom Out)
+        gsap.to(".gallery-container-anim", {
+            scale: 0.9,
+            opacity: 0,
+            filter: "blur(12px)",
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#gallery",
+                start: "bottom 85%",
+                end: "bottom top",
+                scrub: 1
+            }
+        });
         // General Fade Up Elements
         const fadeUps = document.querySelectorAll('.gsap-fade-up');
         fadeUps.forEach(el => {
@@ -2608,15 +2926,15 @@
             }
         });
 
-        testiEnterTl.to(".testi-blob", { 
-            scale: 1, opacity: 1, filter: "blur(0px)", duration: 2, ease: "power2.out" 
+        testiEnterTl.to(".testi-blob", {
+            scale: 1, opacity: 1, filter: "blur(0px)", duration: 2, ease: "power2.out"
         })
-        .to(".testi-quote-icon", { 
-            y: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: 1.5, ease: "back.out(1.2)" 
-        }, "-=1.5")
-        .to(".testi-swiper-container", { 
-            y: 0, scale: 1, opacity: 1, duration: 1.5, ease: "power3.out", clearProps: "transform" 
-        }, "-=1.0");
+            .to(".testi-quote-icon", {
+                y: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: 1.5, ease: "back.out(1.2)"
+            }, "-=1.5")
+            .to(".testi-swiper-container", {
+                y: 0, scale: 1, opacity: 1, duration: 1.5, ease: "power3.out", clearProps: "transform"
+            }, "-=1.0");
 
         // 2. Swiper Initialization with Inner Slide Cinematic Animations
         const testimonialSwiper = new Swiper('.testimonial-swiper', {
@@ -2643,20 +2961,20 @@
                     const stars = activeSlide.querySelector('.testi-stars');
 
                     // Layered cinematic build-in using fromTo for absolute stability
-                    gsap.fromTo(text, 
-                        { opacity: 0, y: 20, filter: "blur(8px)" }, 
+                    gsap.fromTo(text,
+                        { opacity: 0, y: 20, filter: "blur(8px)" },
                         { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.2, ease: "power3.out", delay: 0.1 }
                     );
-                    gsap.fromTo(profile, 
-                        { opacity: 0, scale: 0.8, filter: "blur(8px)" }, 
+                    gsap.fromTo(profile,
+                        { opacity: 0, scale: 0.8, filter: "blur(8px)" },
                         { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.0, ease: "back.out(1.5)", delay: 0.3 }
                     );
-                    gsap.fromTo(name, 
-                        { opacity: 0, y: 10, filter: "blur(4px)" }, 
+                    gsap.fromTo(name,
+                        { opacity: 0, y: 10, filter: "blur(4px)" },
                         { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.0, ease: "power3.out", delay: 0.4 }
                     );
-                    gsap.fromTo(stars, 
-                        { opacity: 0, y: 10, filter: "blur(4px)" }, 
+                    gsap.fromTo(stars,
+                        { opacity: 0, y: 10, filter: "blur(4px)" },
                         { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.0, ease: "power3.out", delay: 0.5 }
                     );
                 }
