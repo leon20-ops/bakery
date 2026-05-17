@@ -1284,24 +1284,25 @@
             </button>
         </div>
 
-        <!-- Mobile Menu (Removed opacity/pointer Tailwind classes for GSAP control) -->
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="fixed inset-0 bg-cream z-40 flex flex-col items-center justify-center hidden"
             style="clip-path: circle(0% at 100% 0%);">
             <button id="close-menu-btn"
-                class="absolute top-10 right-10 text-3xl text-chocolate hover-3d inline-block"><i
+                class="absolute top-10 right-10 text-3xl text-chocolate inline-block"><i
                     class="fa-solid fa-times"></i></button>
+            
             <!-- Wrapped links in overflow hidden for 3D slide-up effect -->
             <div class="overflow-hidden my-4"><a href="#about"
-                    class="block font-playfair text-4xl text-chocolate mobile-link hover-3d inline-block transform-origin-left">Story</a>
+                    class="font-playfair text-4xl text-chocolate mobile-link inline-block transform-origin-left">Story</a>
             </div>
             <div class="overflow-hidden my-4"><a href="#featured"
-                    class="block font-playfair text-4xl text-chocolate mobile-link hover-3d inline-block transform-origin-left">Signatures</a>
+                    class="font-playfair text-4xl text-chocolate mobile-link inline-block transform-origin-left">Signatures</a>
             </div>
             <div class="overflow-hidden my-4"><a href="#menu"
-                    class="block font-playfair text-4xl text-chocolate mobile-link hover-3d inline-block transform-origin-left">Menu</a>
+                    class="font-playfair text-4xl text-chocolate mobile-link inline-block transform-origin-left">Menu</a>
             </div>
             <div class="overflow-hidden my-4"><a href="#contact"
-                    class="block font-playfair text-4xl text-chocolate mobile-link hover-3d inline-block transform-origin-left">Contact</a>
+                    class="font-playfair text-4xl text-chocolate mobile-link inline-block transform-origin-left">Contact</a>
             </div>
         </div>
     </nav>
@@ -2847,7 +2848,7 @@
             }
         });
 
-        // --- NEW: Advanced GSAP Mobile Menu Animation ---
+       // --- NEW: Advanced GSAP Mobile Menu Animation ---
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const closeBtn = document.getElementById('close-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -2863,15 +2864,23 @@
             duration: 0.8,
             ease: "power4.inOut"
         })
-            .from(mobileLinks, {
-                y: 50,
-                opacity: 0,
-                rotateX: -45, // 3D swing-up effect
-                transformOrigin: "top center",
-                duration: 0.6,
-                stagger: 0.1,
-                ease: "back.out(1.4)"
-            }, "-=0.4");
+        .fromTo(mobileLinks, 
+            { 
+                y: 50, 
+                opacity: 0, 
+                rotateX: -45, 
+                transformOrigin: "top center" 
+            },
+            { 
+                y: 0, 
+                opacity: 1, 
+                rotateX: 0, 
+                duration: 0.6, 
+                stagger: 0.1, 
+                ease: "back.out(1.4)" 
+            }, 
+            "-=0.4"
+        );
 
         // Toggle Function
         function toggleMenu() {
