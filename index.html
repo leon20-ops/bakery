@@ -596,6 +596,153 @@
             color: #FFF8F0;
             border-color: #4A2C1A;
         }
+
+        /* --- TESTIMONIALS SECTION 3D & CINEMATIC EFFECTS --- */
+
+        /* Ambient Floating Effects */
+        .testi-quote-icon {
+            animation: floatAmbient 6s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+
+        .testi-profile-3d {
+            animation: floatAmbientImg 8s ease-in-out infinite alternate;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes floatAmbient {
+            0% {
+                transform: translateY(0px) scale(1);
+                opacity: 0.8;
+                filter: drop-shadow(0 10px 15px rgba(212, 163, 115, 0.2));
+            }
+
+            100% {
+                transform: translateY(-10px) scale(1.05);
+                opacity: 1;
+                filter: drop-shadow(0 20px 25px rgba(212, 163, 115, 0.4));
+            }
+        }
+
+        @keyframes floatAmbientImg {
+            0% {
+                transform: translateY(0px) translateZ(20px);
+            }
+
+            100% {
+                transform: translateY(-8px) translateZ(30px);
+            }
+        }
+
+        /* 3D Depth Tracking for Active Slide */
+        .testi-card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+
+        .testi-text {
+            transform: translateZ(40px);
+            will-change: transform, filter, opacity;
+        }
+
+        .testi-name {
+            transform: translateZ(25px);
+        }
+
+        .testi-stars {
+            transform: translateZ(15px);
+        }
+
+        /* Profile Image Hover Elegance */
+        .testi-profile-3d {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+        }
+
+        .testi-profile-3d:hover {
+            transform: scale(1.15) translateZ(50px) !important;
+            /* overrides float */
+        }
+
+        .testi-profile-3d:hover .testi-img {
+            border-color: #8B5E3C;
+            box-shadow: 0 20px 40px -10px rgba(139, 94, 60, 0.5);
+        }
+
+        /* Cinematic Glare on Profile */
+        .testi-img-glare {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: linear-gradient(105deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 80%);
+            transform: translateX(-150%) skewX(-15deg);
+            z-index: 10;
+            pointer-events: none;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .testi-profile-3d:hover .testi-img-glare {
+            transform: translateX(150%) skewX(-15deg);
+        }
+
+        /* Star Shimmer Animation */
+        .testi-stars i {
+            opacity: 0.8;
+            animation: starShimmer 3s infinite ease-in-out;
+        }
+
+        .testi-stars i:nth-child(1) {
+            animation-delay: 0.0s;
+        }
+
+        .testi-stars i:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .testi-stars i:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .testi-stars i:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        .testi-stars i:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes starShimmer {
+
+            0%,
+            100% {
+                opacity: 0.7;
+                transform: scale(1);
+                text-shadow: none;
+                color: #D4A373;
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.15);
+                text-shadow: 0 0 12px rgba(212, 163, 115, 0.8);
+                color: #C5A059;
+            }
+        }
+
+        /* Premium Pagination Glow */
+        .testi-pagination-glow .swiper-pagination-bullet {
+            background: #D4A373;
+            opacity: 0.4;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(0.8);
+        }
+
+        .testi-pagination-glow .swiper-pagination-bullet-active {
+            opacity: 1;
+            background: #8B5E3C;
+            transform: scale(1.4);
+            box-shadow: 0 0 15px rgba(139, 94, 60, 0.5);
+        }
     </style>
 </head>
 
@@ -1203,45 +1350,133 @@
     </section>
 
     <!-- 7. TESTIMONIALS -->
-    <section id="testimonials" class="py-24 bg-beige relative overflow-hidden">
-        <div class="blob bg-caramel w-96 h-96 rounded-full top-0 left-0 opacity-20"></div>
-        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
-            <i class="fa-solid fa-quote-right text-6xl text-caramel/30 mb-8"></i>
+    <section id="testimonials" class="py-24 bg-beige relative overflow-hidden perspective-container">
+        <!-- Ambient Blob -->
+        <div class="testi-blob blob bg-caramel w-96 h-96 rounded-full top-0 left-0 opacity-20 mix-blend-multiply"></div>
 
-            <div class="swiper testimonial-swiper">
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center testi-container-3d">
+            <div class="testi-quote-wrapper inline-block">
+                <i class="fa-solid fa-quote-right text-6xl text-caramel/30 mb-8 testi-quote-icon drop-shadow-lg"></i>
+            </div>
+
+            <div class="swiper testimonial-swiper testi-swiper-container">
                 <div class="swiper-wrapper">
-                    <!-- T1 -->
+                    <!-- T1 (Original) -->
                     <div class="swiper-slide cursor-grab">
-                        <p class="font-playfair text-2xl lg:text-4xl text-chocolate mb-8 leading-snug">"Aura made our
-                            wedding cake and it was a masterpiece. Not only did it look like it belonged in a magazine,
-                            but it tasted phenomenal. Truly luxury baking."</p>
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop"
-                            class="w-16 h-16 rounded-full mx-auto mb-4 object-cover border-2 border-caramel"
-                            alt="Client">
-                        <h4 class="font-medium text-chocolate">Sarah Jenkins</h4>
-                        <div class="text-caramel text-sm mt-1">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i>
+                        <div class="testi-card-3d">
+                            <p
+                                class="testi-text font-playfair text-2xl lg:text-4xl text-chocolate mb-8 leading-snug drop-shadow-sm">
+                                "Aura made our wedding cake and it was a masterpiece. Not only did it look like it
+                                belonged in a magazine, but it tasted phenomenal. Truly luxury baking."
+                            </p>
+                            <div class="testi-profile-3d inline-block relative">
+                                <div class="testi-img-glare"></div>
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop"
+                                    class="testi-img w-16 h-16 rounded-full mx-auto mb-4 object-cover border-2 border-caramel shadow-lg"
+                                    alt="Sarah Jenkins">
+                            </div>
+                            <h4 class="testi-name font-medium text-chocolate">Sarah Jenkins</h4>
+                            <div class="testi-stars text-caramel text-sm mt-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i>
+                            </div>
                         </div>
                     </div>
-                    <!-- T2 -->
+
+                    <!-- T2 (Original) -->
                     <div class="swiper-slide cursor-grab">
-                        <p class="font-playfair text-2xl lg:text-4xl text-chocolate mb-8 leading-snug">"The best
-                            sourdough in the city, hands down. I come here every Sunday morning and the warmth of the
-                            staff matches the quality of the bread."</p>
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop"
-                            class="w-16 h-16 rounded-full mx-auto mb-4 object-cover border-2 border-caramel"
-                            alt="Client">
-                        <h4 class="font-medium text-chocolate">Michael T.</h4>
-                        <div class="text-caramel text-sm mt-1">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i>
+                        <div class="testi-card-3d">
+                            <p
+                                class="testi-text font-playfair text-2xl lg:text-4xl text-chocolate mb-8 leading-snug drop-shadow-sm">
+                                "The best sourdough in the city, hands down. I come here every Sunday morning and the
+                                warmth of the staff matches the quality of the bread."
+                            </p>
+                            <div class="testi-profile-3d inline-block relative">
+                                <div class="testi-img-glare"></div>
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop"
+                                    class="testi-img w-16 h-16 rounded-full mx-auto mb-4 object-cover border-2 border-caramel shadow-lg"
+                                    alt="Michael T.">
+                            </div>
+                            <h4 class="testi-name font-medium text-chocolate">Michael T.</h4>
+                            <div class="testi-stars text-caramel text-sm mt-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- T3 (New - Pastries/Experience) -->
+                    <div class="swiper-slide cursor-grab">
+                        <div class="testi-card-3d">
+                            <p
+                                class="testi-text font-playfair text-2xl lg:text-4xl text-chocolate mb-8 leading-snug drop-shadow-sm">
+                                "Every bite of their almond croissants transports me straight to Paris. The delicate
+                                layers and buttery perfection are unmatched. An absolute weekend ritual."
+                            </p>
+                            <div class="testi-profile-3d inline-block relative">
+                                <div class="testi-img-glare"></div>
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop"
+                                    class="testi-img w-16 h-16 rounded-full mx-auto mb-4 object-cover border-2 border-caramel shadow-lg"
+                                    alt="Elena Rodriguez">
+                            </div>
+                            <h4 class="testi-name font-medium text-chocolate">Elena Rodriguez</h4>
+                            <div class="testi-stars text-caramel text-sm mt-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- T4 (New - Event Catering/Luxury) -->
+                    <div class="swiper-slide cursor-grab">
+                        <div class="testi-card-3d">
+                            <p
+                                class="testi-text font-playfair text-2xl lg:text-4xl text-chocolate mb-8 leading-snug drop-shadow-sm">
+                                "We ordered a tiered masterpiece for our anniversary gala. The midnight truffle was an
+                                absolute sensation. Exquisite design met unparalleled flavor."
+                            </p>
+                            <div class="testi-profile-3d inline-block relative">
+                                <div class="testi-img-glare"></div>
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
+                                    class="testi-img w-16 h-16 rounded-full mx-auto mb-4 object-cover border-2 border-caramel shadow-lg"
+                                    alt="James Harrison">
+                            </div>
+                            <h4 class="testi-name font-medium text-chocolate">James & Olivia</h4>
+                            <div class="testi-stars text-caramel text-sm mt-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- T5 (New - Service/Atmosphere) -->
+                    <div class="swiper-slide cursor-grab">
+                        <div class="testi-card-3d">
+                            <p
+                                class="testi-text font-playfair text-2xl lg:text-4xl text-chocolate mb-8 leading-snug drop-shadow-sm">
+                                "Beyond the flawless desserts, the warmth of the staff is what makes Aura so special.
+                                You don't just buy a pastry here; you experience true luxury and care."
+                            </p>
+                            <div class="testi-profile-3d inline-block relative">
+                                <div class="testi-img-glare"></div>
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop"
+                                    class="testi-img w-16 h-16 rounded-full mx-auto mb-4 object-cover border-2 border-caramel shadow-lg"
+                                    alt="Sophia Chen">
+                            </div>
+                            <h4 class="testi-name font-medium text-chocolate">Sophia Chen</h4>
+                            <div class="testi-stars text-caramel text-sm mt-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="swiper-pagination mt-8"></div>
+                <div class="swiper-pagination mt-8 testi-pagination-glow"></div>
             </div>
         </div>
     </section>
@@ -2356,11 +2591,40 @@
             }
         });
 
+        // --- TESTIMONIALS: CINEMATIC SCROLL REVEALS & 3D PHYSICS ---
+
+        // 1. Enter Section Reveal
+        // Set initial states explicitly to prevent any "popping" or FOUC (Flash of Unstyled Content)
+        gsap.set([".testi-blob", ".testi-quote-icon", ".testi-swiper-container"], { opacity: 0 });
+        gsap.set(".testi-blob", { scale: 0.8, filter: "blur(20px)" });
+        gsap.set(".testi-quote-icon", { y: 40, scale: 0.5, filter: "blur(10px)" });
+        gsap.set(".testi-swiper-container", { y: 60, scale: 0.95 });
+
+        const testiEnterTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#testimonials",
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        testiEnterTl.to(".testi-blob", { 
+            scale: 1, opacity: 1, filter: "blur(0px)", duration: 2, ease: "power2.out" 
+        })
+        .to(".testi-quote-icon", { 
+            y: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: 1.5, ease: "back.out(1.2)" 
+        }, "-=1.5")
+        .to(".testi-swiper-container", { 
+            y: 0, scale: 1, opacity: 1, duration: 1.5, ease: "power3.out", clearProps: "transform" 
+        }, "-=1.0");
+
+        // 2. Swiper Initialization with Inner Slide Cinematic Animations
         const testimonialSwiper = new Swiper('.testimonial-swiper', {
             slidesPerView: 1,
             loop: true,
+            speed: 1200, // Luxurious slow crossfade
             autoplay: {
-                delay: 5000,
+                delay: 6000,
                 disableOnInteraction: false,
             },
             pagination: {
@@ -2368,7 +2632,76 @@
                 clickable: true,
             },
             effect: 'fade',
-            fadeEffect: { crossFade: true }
+            fadeEffect: { crossFade: true },
+            on: {
+                // When a slide transitions in, trigger inner element animations
+                slideChangeTransitionStart: function () {
+                    const activeSlide = this.slides[this.activeIndex];
+                    const text = activeSlide.querySelector('.testi-text');
+                    const profile = activeSlide.querySelector('.testi-profile-3d');
+                    const name = activeSlide.querySelector('.testi-name');
+                    const stars = activeSlide.querySelector('.testi-stars');
+
+                    // Layered cinematic build-in using fromTo for absolute stability
+                    gsap.fromTo(text, 
+                        { opacity: 0, y: 20, filter: "blur(8px)" }, 
+                        { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.2, ease: "power3.out", delay: 0.1 }
+                    );
+                    gsap.fromTo(profile, 
+                        { opacity: 0, scale: 0.8, filter: "blur(8px)" }, 
+                        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.0, ease: "back.out(1.5)", delay: 0.3 }
+                    );
+                    gsap.fromTo(name, 
+                        { opacity: 0, y: 10, filter: "blur(4px)" }, 
+                        { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.0, ease: "power3.out", delay: 0.4 }
+                    );
+                    gsap.fromTo(stars, 
+                        { opacity: 0, y: 10, filter: "blur(4px)" }, 
+                        { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.0, ease: "power3.out", delay: 0.5 }
+                    );
+                }
+            }
+        });
+
+        // 3. Immersive 3D Hover Tracking over the active testimonial text
+        const testiContainer = document.querySelector('.testi-container-3d');
+
+        testiContainer.addEventListener('mousemove', (e) => {
+            const activeCard = document.querySelector('.testimonial-swiper .swiper-slide-active .testi-card-3d');
+            if (!activeCard) return;
+
+            const rect = testiContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            // Extremely soft, luxurious tracking
+            const rotateX = ((y - centerY) / centerY) * -4;
+            const rotateY = ((x - centerX) / centerX) * 4;
+
+            activeCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        testiContainer.addEventListener('mouseleave', () => {
+            const activeCards = document.querySelectorAll('.testi-card-3d');
+            activeCards.forEach(card => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            });
+        });
+
+        // 4. Scroll Exit (Fade Out / Zoom Out into distance)
+        gsap.to(".testi-container-3d", {
+            scale: 0.9,
+            opacity: 0,
+            filter: "blur(10px)",
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#testimonials",
+                start: "bottom 85%",
+                end: "bottom top",
+                scrub: 1
+            }
         });
 
         // FAQ Accordion Vanilla JS
