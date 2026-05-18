@@ -1,0 +1,3022 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Premium Luxury Bakery</title>
+
+    <!-- Fonts: Playfair Display (Headings) & Poppins (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS (Configured via CDN for single-file deployment) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FFF8F0',
+                        beige: '#F5E6D3',
+                        softbrown: '#8B5E3C',
+                        chocolate: '#4A2C1A',
+                        caramel: '#D4A373',
+                        blush: '#F7D6D0',
+                        gold: '#C5A059'
+                    },
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        poppins: ['"Poppins"', 'sans-serif'],
+                    },
+                    transitionTimingFunction: {
+                        'expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base & Lenis Smooth Scroll Setup */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        body {
+            background-color: #FFF8F0;
+            color: #4A2C1A;
+            overflow-x: hidden;
+        }
+
+        /* Custom Utilities */
+        .glass {
+            background: rgba(255, 248, 240, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .glass-dark {
+            background: rgba(74, 44, 26, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #8B5E3C 0%, #D4A373 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Video Overlay Fade */
+        .video-overlay-fade {
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Hide Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #FFF8F0;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #D4A373;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8B5E3C;
+        }
+
+        /* Embellishments */
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+        }
+
+        /* Custom Buttons */
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: #8B5E3C;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+        }
+
+        .btn-primary:hover::after {
+            height: 100%;
+        }
+
+        .btn-primary:hover {
+            color: #FFF8F0;
+            border-color: #8B5E3C;
+        }
+
+        /* Timeline Process */
+        .timeline-dot::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #D4A373;
+            border: 3px solid #FFF8F0;
+            box-shadow: 0 0 0 3px #8B5E3C;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-dot::before {
+                left: -25px;
+            }
+        }
+
+        /* Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #FFF8F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease-out;
+        }
+
+        /* --- NEW NAV ANIMATIONS --- */
+        .hover-3d {
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        /* We only apply the CSS transition AFTER the GSAP page-load is done */
+        .animations-ready .hover-3d {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .hover-3d:hover {
+            transform: perspective(400px) translateZ(12px) translateY(-2px) rotateX(4deg);
+        }
+
+        /* Elegant Animated Underline for Desktop Nav */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #D4A373;
+            /* Caramel */
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* --- PREMIUM HERO & 3D ANIMATIONS --- */
+        .perspective-container {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+
+        .transform-origin-bottom {
+            transform-origin: bottom center;
+        }
+
+        /* 3D Button Hover Effects */
+        /* 3D Button Hover Effects - Smooth Cinematic Upgrade */
+        /* 3D Button Hover Effects - Smooth Cinematic Upgrade */
+        .btn-3d-hover {
+            transform-style: preserve-3d;
+            transform: perspective(1000px) translateZ(0px) translateY(0px) rotateX(0deg);
+        }
+
+        /* Only apply the CSS hover transitions AFTER GSAP has finished loading */
+        .animations-ready .btn-3d-hover {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-3d-hover:hover {
+            transform: perspective(1000px) translateZ(25px) translateY(-5px) rotateX(5deg);
+            box-shadow: 0 25px 40px -10px rgba(74, 44, 26, 0.35);
+        }
+
+        /* Smooth video tracking physics */
+        #video-3d-inner {
+            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            /* Smooth damping */
+        }
+
+        /* --- FEATURED SECTION 3D & CINEMATIC EFFECTS --- */
+
+        /* Smooth out the overall card transition and enable 3D space */
+        .tilt-card {
+            transform-style: preserve-3d;
+            will-change: transform;
+            /* Ultra-smooth return to center when mouse leaves */
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s ease, border-color 0.4s ease;
+        }
+
+        /* 3D Depth Elements - Make inner content float towards the user */
+        .feat-3d-pop {
+            transform: translateZ(40px);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .feat-3d-pop-high {
+            transform: translateZ(70px);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tilt-card:hover .feat-3d-pop {
+            transform: translateZ(60px);
+        }
+
+        .tilt-card:hover .feat-3d-pop-high {
+            transform: translateZ(90px);
+        }
+
+        /* Premium Glare Sweep Effect */
+        .feat-card-glare {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 80%);
+            transform: translateX(-150%) skewX(-15deg);
+            z-index: 10;
+            pointer-events: none;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: inherit;
+        }
+
+        .tilt-card:hover .feat-card-glare {
+            transform: translateX(150%) skewX(-15deg);
+        }
+
+        /* 3D Button Hover Effects */
+        .feat-btn-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease, text-shadow 0.3s ease;
+            display: inline-flex;
+            will-change: transform;
+        }
+
+        .feat-btn-3d:hover {
+            transform: perspective(600px) translateZ(30px) translateY(-3px);
+            color: #8B5E3C;
+            text-shadow: 0 10px 20px rgba(212, 163, 115, 0.4);
+        }
+
+        .feat-btn-3d i {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .feat-btn-3d:hover i {
+            transform: translateX(8px) scale(1.1);
+        }
+
+        /* --- ABOUT SECTION 3D & CINEMATIC EFFECTS --- */
+        .about-collage-wrapper {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .about-3d-layer {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s ease;
+            transform: translateZ(0px) scale(1);
+            will-change: transform;
+        }
+
+        .about-3d-layer-high {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s ease;
+            transform: translateZ(0px) scale(1);
+            will-change: transform;
+        }
+
+        /* Enhances the floating background blob */
+        .about-blob {
+            mix-blend-mode: soft-light;
+            filter: blur(100px);
+        }
+
+        /* --- FEATURES SECTION 3D & CINEMATIC EFFECTS --- */
+
+        /* Ambient Background Animation */
+        .bg-texture-anim {
+            background-position: 0 0;
+            animation: panTexture 60s linear infinite;
+        }
+
+        @keyframes panTexture {
+            100% {
+                background-position: -500px -500px;
+            }
+        }
+
+        .ambient-glow {
+            animation: pulseGlow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                transform: translate(-50%, -50%) scale(0.9);
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        /* Premium 3D Tilt Cards */
+        .feature-tilt-card {
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.4s ease, background 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-tilt-card:hover {
+            box-shadow: 0 30px 60px -15px rgba(212, 163, 115, 0.2), inset 0 0 20px rgba(212, 163, 115, 0.05);
+            border-color: rgba(212, 163, 115, 0.3);
+            background: rgba(74, 44, 26, 0.95);
+        }
+
+        /* Glass Glare Sheen */
+        .feature-glass-glare {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, rgba(255, 255, 255, 0) 20%, rgba(212, 163, 115, 0.15) 50%, rgba(255, 255, 255, 0) 80%);
+            transform: translateX(-150%) skewX(-15deg);
+            z-index: 0;
+            pointer-events: none;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: inherit;
+        }
+
+        .feature-tilt-card:hover .feature-glass-glare {
+            transform: translateX(150%) skewX(-15deg);
+        }
+
+        /* Inner 3D Pop */
+        .feature-inner-pop {
+            transform: translateZ(25px);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .feature-tilt-card:hover .feature-inner-pop {
+            transform: translateZ(45px);
+        }
+
+        /* Floating Icon Animation */
+        .feature-icon-wrapper {
+            animation: floatIcon 4s ease-in-out infinite alternate;
+            box-shadow: 0 0 0 rgba(212, 163, 115, 0);
+            transition: box-shadow 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateZ(35px);
+        }
+
+        .feature-tilt-card:hover .feature-icon-wrapper {
+            box-shadow: 0 15px 30px -5px rgba(212, 163, 115, 0.4);
+            transform: translateZ(55px);
+        }
+
+        @keyframes floatIcon {
+            0% {
+                transform: translateY(0px) translateZ(35px);
+            }
+
+            100% {
+                transform: translateY(-8px) translateZ(35px);
+            }
+        }
+
+        /* --- SIGNATURE CAKES CINEMATIC SWIPER EFFECTS --- */
+
+        /* 3D Card Container */
+        .cake-card-3d {
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s ease;
+        }
+
+        /* Swiper Active vs Inactive State (Zoom In/Out & Fade In/Out) */
+        .cake-swiper .swiper-slide {
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cake-swiper .swiper-slide:not(.swiper-slide-active) {
+            opacity: 0.4;
+            transform: scale(0.85);
+            /* Zoom Out */
+        }
+
+        .cake-swiper .swiper-slide.swiper-slide-active {
+            opacity: 1;
+            transform: scale(1);
+            /* Zoom In */
+            z-index: 10;
+        }
+
+        /* Overlay Staggered Text Reveals (Slide In / Fade In) */
+        .cake-text-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .swiper-slide-active .cake-text-reveal {
+            opacity: 1;
+            transform: translateY(0px);
+        }
+
+        .swiper-slide-active h3.cake-text-reveal {
+            transition-delay: 0.1s;
+        }
+
+        .swiper-slide-active p.cake-text-reveal {
+            transition-delay: 0.2s;
+        }
+
+        .swiper-slide-active a.cake-text-reveal {
+            transition-delay: 0.3s;
+        }
+
+        /* 3D Navigation Buttons */
+        .cake-btn-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease, box-shadow 0.5s ease;
+            will-change: transform;
+        }
+
+        .cake-btn-3d:hover {
+            transform: perspective(500px) translateZ(25px) scale(1.1);
+            box-shadow: 0 15px 30px -5px rgba(74, 44, 26, 0.35);
+        }
+
+        .cake-btn-3d i {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .cake-btn-3d:hover i {
+            transform: scale(1.2);
+        }
+
+        /* --- MENU SECTION 3D & HOVER EFFECTS (No Sliding) --- */
+        .menu-card-3d {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+
+        .menu-card-inner {
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.4s ease, background-color 0.4s ease;
+            border: 1px solid rgba(139, 94, 60, 0.1);
+            /* Soft beige border */
+        }
+
+        .menu-card-inner:hover {
+            box-shadow: 0 30px 60px -15px rgba(212, 163, 115, 0.25), inset 0 0 20px rgba(212, 163, 115, 0.05);
+            border-color: rgba(212, 163, 115, 0.5);
+            /* Caramel border glow */
+            background-color: #ffffff;
+        }
+
+        /* 3D Pop inside the card */
+        .menu-content-pop {
+            transform: translateZ(20px);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .menu-card-inner:hover .menu-content-pop {
+            transform: translateZ(45px);
+            /* Pops content closer to the screen */
+        }
+
+        /* Item Hover Effect (Scaling & Glow Only - No Slide) */
+        .menu-item-hover {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-origin: center center;
+            border-radius: 8px;
+            padding: 4px 8px;
+            margin: -4px -8px;
+            /* Offset padding to prevent layout shift */
+        }
+
+        .menu-item-hover:hover {
+            transform: scale(1.04) translateZ(10px);
+            background-color: rgba(212, 163, 115, 0.05);
+        }
+
+        .menu-item-hover:hover span:first-child {
+            color: #4A2C1A;
+            /* Dark chocolate */
+            font-weight: 500;
+        }
+
+        .menu-item-hover:hover .price-glow {
+            color: #8B5E3C;
+            text-shadow: 0 0 12px rgba(212, 163, 115, 0.5);
+            /* Premium glowing price */
+            transform: scale(1.1);
+        }
+
+        /* Download Button 3D Effect */
+        .menu-btn-3d {
+            transform-style: preserve-3d;
+            /* Changed 'all' to specific properties to stop fighting GSAP */
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease, background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+            will-change: transform;
+            background-color: transparent;
+        }
+
+        .menu-btn-3d:hover {
+            transform: perspective(600px) translateZ(40px) scale(1.05);
+            box-shadow: 0 25px 40px -10px rgba(74, 44, 26, 0.3), inset 0 0 15px rgba(255, 255, 255, 0.2);
+            background-color: #4A2C1A;
+            color: #FFF8F0;
+            border-color: #4A2C1A;
+        }
+
+        /* --- TESTIMONIALS SECTION 3D & CINEMATIC EFFECTS --- */
+
+        /* Ambient Floating Effects */
+        .testi-quote-icon {
+            animation: floatAmbient 6s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+
+        .testi-profile-3d {
+            animation: floatAmbientImg 8s ease-in-out infinite alternate;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes floatAmbient {
+            0% {
+                transform: translateY(0px) scale(1);
+                opacity: 0.8;
+                filter: drop-shadow(0 10px 15px rgba(212, 163, 115, 0.2));
+            }
+
+            100% {
+                transform: translateY(-10px) scale(1.05);
+                opacity: 1;
+                filter: drop-shadow(0 20px 25px rgba(212, 163, 115, 0.4));
+            }
+        }
+
+        @keyframes floatAmbientImg {
+            0% {
+                transform: translateY(0px) translateZ(20px);
+            }
+
+            100% {
+                transform: translateY(-8px) translateZ(30px);
+            }
+        }
+
+        /* 3D Depth Tracking for Active Slide */
+        .testi-card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+
+        .testi-text {
+            transform: translateZ(40px);
+            will-change: transform, filter, opacity;
+        }
+
+        .testi-name {
+            transform: translateZ(25px);
+        }
+
+        .testi-stars {
+            transform: translateZ(15px);
+        }
+
+        /* Profile Image Hover Elegance */
+        .testi-profile-3d {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+        }
+
+        .testi-profile-3d:hover {
+            transform: scale(1.15) translateZ(50px) !important;
+            /* overrides float */
+        }
+
+        .testi-profile-3d:hover .testi-img {
+            border-color: #8B5E3C;
+            box-shadow: 0 20px 40px -10px rgba(139, 94, 60, 0.5);
+        }
+
+        /* Cinematic Glare on Profile */
+        .testi-img-glare {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: linear-gradient(105deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 80%);
+            transform: translateX(-150%) skewX(-15deg);
+            z-index: 10;
+            pointer-events: none;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .testi-profile-3d:hover .testi-img-glare {
+            transform: translateX(150%) skewX(-15deg);
+        }
+
+        /* Star Shimmer Animation */
+        .testi-stars i {
+            opacity: 0.8;
+            animation: starShimmer 3s infinite ease-in-out;
+        }
+
+        .testi-stars i:nth-child(1) {
+            animation-delay: 0.0s;
+        }
+
+        .testi-stars i:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .testi-stars i:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .testi-stars i:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        .testi-stars i:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes starShimmer {
+
+            0%,
+            100% {
+                opacity: 0.7;
+                transform: scale(1);
+                text-shadow: none;
+                color: #D4A373;
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.15);
+                text-shadow: 0 0 12px rgba(212, 163, 115, 0.8);
+                color: #C5A059;
+            }
+        }
+
+        /* Premium Pagination Glow */
+        .testi-pagination-glow .swiper-pagination-bullet {
+            background: #D4A373;
+            opacity: 0.4;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(0.8);
+        }
+
+        .testi-pagination-glow .swiper-pagination-bullet-active {
+            opacity: 1;
+            background: #8B5E3C;
+            transform: scale(1.4);
+            box-shadow: 0 0 15px rgba(139, 94, 60, 0.5);
+        }
+
+        /* --- 8. PROCESS SECTION: 3D & CINEMATIC EFFECTS --- */
+        .process-perspective {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+
+        .process-img-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s ease;
+            will-change: transform;
+        }
+
+        .process-img-3d:hover {
+            box-shadow: 0 30px 60px -15px rgba(74, 44, 26, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .process-img-inner {
+            transform: translateZ(20px) scale(1.02);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+            will-change: transform, filter;
+        }
+
+        .process-img-3d:hover .process-img-inner {
+            transform: translateZ(45px) scale(1.08);
+        }
+
+        /* Ambient Timeline Glows */
+        .process-line-glow {
+            box-shadow: 0 0 15px 1px rgba(212, 163, 115, 0.4);
+            transform-origin: top center;
+            will-change: transform, opacity;
+        }
+
+        .process-dot-pulse::before {
+            animation: pulseDot 4s infinite alternate ease-in-out;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .process-step:hover .process-dot-pulse::before {
+            transform: scale(1.3);
+            background: #8B5E3C;
+            box-shadow: 0 0 0 4px #FFF8F0, 0 0 20px 5px rgba(212, 163, 115, 0.6);
+        }
+
+        @keyframes pulseDot {
+            0% {
+                box-shadow: 0 0 0 3px #8B5E3C, 0 0 10px rgba(212, 163, 115, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 3px #8B5E3C, 0 0 20px rgba(212, 163, 115, 0.6);
+            }
+        }
+
+        /* --- 9. GALLERY: 3D & CINEMATIC EFFECTS --- */
+
+        .gallery-perspective {
+            perspective: 1500px;
+            transform-style: preserve-3d;
+        }
+
+        /* Base 3D Card */
+        .gallery-card-3d {
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s ease, filter 0.8s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .gallery-card-3d:hover {
+            box-shadow: 0 40px 80px -20px rgba(74, 44, 26, 0.5), inset 0 0 30px rgba(255, 255, 255, 0.1);
+            filter: brightness(1.05);
+            z-index: 20;
+        }
+
+        /* Image Depth Layer */
+        .gallery-img {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+            transform: translateZ(0px) scale(1.01);
+            /* scale prevents edge bleeding */
+            will-change: transform;
+        }
+
+        .gallery-card-3d:hover .gallery-img {
+            transform: translateZ(20px) scale(1.08);
+            /* Cinematic slow zoom & pop */
+            filter: contrast(1.1);
+        }
+
+        /* Cinematic Overlay */
+        .gallery-overlay {
+            background: radial-gradient(circle at center, rgba(74, 44, 26, 0.1) 0%, rgba(74, 44, 26, 0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateZ(35px);
+            /* Suspended above the image */
+            pointer-events: none;
+        }
+
+        .gallery-card-3d:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Heart Icon Glow & Pulse */
+        .gallery-heart {
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease, text-shadow 0.6s ease, color 0.4s ease;
+            transform: scale(0.4) translateZ(50px);
+            /* Highest depth layer */
+            opacity: 0;
+            color: #FFF8F0;
+        }
+
+        .gallery-card-3d:hover .gallery-heart {
+            opacity: 1;
+            transform: scale(1) translateZ(70px);
+            text-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+            animation: heartPulse 2s infinite alternate ease-in-out 0.4s;
+        }
+
+        .gallery-heart:hover {
+            color: #F7D6D0;
+            /* Blush */
+            text-shadow: 0 0 30px rgba(247, 214, 208, 1);
+        }
+
+        @keyframes heartPulse {
+            0% {
+                transform: scale(1) translateZ(70px);
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+            }
+
+            100% {
+                transform: scale(1.15) translateZ(70px);
+                text-shadow: 0 0 40px rgba(255, 255, 255, 1);
+            }
+        }
+
+        /* Premium Link Underline */
+        .gallery-link-underline {
+            position: relative;
+            display: inline-block;
+        }
+
+        .gallery-link-underline::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 1px;
+            bottom: -3px;
+            left: 0;
+            background-color: #4A2C1A;
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery-link-underline:hover::after {
+            width: 100%;
+        }
+
+        /* --- 10. FAQ SECTION CINEMATIC & 3D EFFECTS --- */
+        .faq-perspective {
+            perspective: 1500px;
+            transform-style: preserve-3d;
+        }
+
+        /* 3D Card Hover Physics */
+        .faq-card-3d {
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s ease, border-color 0.5s ease, background-color 0.5s ease;
+        }
+
+        .faq-card-3d:hover {
+            box-shadow: 0 25px 50px -12px rgba(212, 163, 115, 0.2), inset 0 0 15px rgba(212, 163, 115, 0.05);
+            border-color: rgba(212, 163, 115, 0.3);
+            background-color: #FAFAFA;
+            z-index: 10;
+        }
+
+        /* Inner Button 3D Pop */
+        .faq-btn-3d {
+            transform: translateZ(10px);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+
+        .faq-card-3d:hover .faq-btn-3d {
+            transform: translateZ(25px);
+        }
+
+        /* Premium Icon Rotation & Glow */
+        .faq-icon-3d {
+            transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), text-shadow 0.5s ease, color 0.5s ease;
+        }
+
+        .faq-card-3d:hover .faq-icon-3d {
+            text-shadow: 0 0 12px rgba(212, 163, 115, 0.5);
+            transform: scale(1.15) translateZ(15px);
+        }
+
+        .faq-icon-3d.rotate-45 {
+            transform: rotate(45deg) scale(1.2) translateZ(15px) !important;
+            color: #8B5E3C;
+            text-shadow: 0 0 15px rgba(139, 94, 60, 0.6);
+        }
+
+        /* Ambient Background Element */
+        .faq-ambient-blob {
+            mix-blend-mode: multiply;
+            filter: blur(120px);
+            opacity: 0.5;
+            animation: floatFaq 15s ease-in-out infinite alternate;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        @keyframes floatFaq {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(-80px, 80px) scale(1.1);
+            }
+        }
+
+        /* Cinematic Accordion Transitions */
+        .faq-answer-wrap {
+            transition: max-height 0.8s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.8s ease;
+            will-change: max-height;
+        }
+
+        /* Text Blur-to-Clear Reveal */
+        .faq-answer-text {
+            opacity: 0;
+            filter: blur(8px);
+            transform: scale(0.98) translateY(-5px);
+            transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .faq-answer-wrap.is-open .faq-answer-text {
+            opacity: 1;
+            filter: blur(0px);
+            transform: scale(1) translateY(0);
+            transition-delay: 0.15s;
+            /* Allows box to open slightly before text fades in */
+        }
+
+        /* --- CONTACT SECTION CINEMATIC & 3D EFFECTS --- */
+        .contact-perspective {
+            perspective: 1500px;
+            transform-style: preserve-3d;
+        }
+
+        .contact-ambient-glow {
+            animation: contactPulse 12s infinite alternate ease-in-out;
+            will-change: transform, opacity;
+        }
+
+        @keyframes contactPulse {
+            0% {
+                transform: scale(1) translate(0px, 0px);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1.2) translate(50px, 50px);
+                opacity: 0.8;
+            }
+        }
+
+        /* Contact Info Block Hover Physics */
+        .contact-info-block {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease, box-shadow 0.6s ease;
+            transform-style: preserve-3d;
+            border: 1px solid transparent;
+        }
+
+        .contact-info-block:hover {
+            background-color: #ffffff;
+            box-shadow: 0 15px 30px -10px rgba(212, 163, 115, 0.15);
+            border-color: rgba(212, 163, 115, 0.2);
+            transform: scale(1.02) translateZ(10px);
+        }
+
+        .contact-icon-3d {
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), text-shadow 0.4s ease, color 0.4s ease;
+            will-change: transform;
+        }
+
+        .contact-info-block:hover .contact-icon-3d {
+            transform: scale(1.25) translateY(-3px) translateZ(15px);
+            text-shadow: 0 8px 15px rgba(212, 163, 115, 0.5);
+            color: #8B5E3C;
+        }
+
+        .contact-text-3d {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .contact-info-block:hover .contact-text-3d {
+            transform: translateZ(20px);
+        }
+
+        /* 3D Glass Form Container */
+        .contact-form-3d {
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s ease, border-color 0.5s ease;
+        }
+
+        .contact-form-3d:hover {
+            box-shadow: 0 30px 60px -15px rgba(74, 44, 26, 0.2), inset 0 0 20px rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 1);
+        }
+
+        .contact-form-inner {
+            transform: translateZ(25px);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-style: preserve-3d;
+        }
+
+        .contact-form-3d:hover .contact-form-inner {
+            transform: translateZ(40px);
+        }
+
+        /* Cinematic Glare Sweep */
+        .contact-glass-glare {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0) 80%);
+            transform: translateX(-150%) skewX(-15deg);
+            pointer-events: none;
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1;
+        }
+
+        .contact-form-3d:hover .contact-glass-glare,
+        .contact-map-3d:hover .contact-glass-glare {
+            transform: translateX(150%) skewX(-15deg);
+        }
+
+        /* Map 3D Physics */
+        .contact-map-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s ease;
+            will-change: transform;
+        }
+
+        .contact-map-3d:hover {
+            box-shadow: 0 25px 50px -15px rgba(74, 44, 26, 0.25), inset 0 0 15px rgba(212, 163, 115, 0.1);
+        }
+
+        .contact-map-inner {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .contact-map-3d:hover .contact-map-inner {
+            transform: translateZ(25px) scale(1.03);
+        }
+
+        /* Premium Input Fields */
+        .contact-input {
+            transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease;
+            will-change: transform, box-shadow;
+        }
+
+        .contact-input:focus {
+            background-color: #ffffff;
+            border-color: #D4A373;
+            box-shadow: 0 10px 25px -5px rgba(212, 163, 115, 0.25), inset 0 2px 5px rgba(74, 44, 26, 0.02);
+            transform: scale(1.02) translateZ(10px);
+        }
+
+        /* Floating Label Interactions */
+        .contact-label {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease, opacity 0.4s ease;
+            transform-origin: left bottom;
+            will-change: transform, color;
+        }
+
+        .contact-label.is-focused {
+            color: #8B5E3C;
+            transform: translateY(-3px) scale(1.05);
+            opacity: 1;
+        }
+
+        /* Submit Button 3D Effects */
+        .contact-btn-submit {
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease, background-color 0.3s ease;
+            will-change: transform;
+        }
+
+        .contact-btn-submit:hover {
+            transform: perspective(600px) translateZ(35px) scale(1.02);
+            box-shadow: 0 20px 40px -10px rgba(74, 44, 26, 0.4);
+            background-color: #8B5E3C;
+        }
+
+        .contact-btn-submit i {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .contact-btn-submit:hover i {
+            transform: translateX(5px) scale(1.2);
+        }
+
+        /* --- 12. NEWSLETTER CINEMATIC & 3D EFFECTS --- */
+
+        .newsletter-perspective {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+
+        /* Ambient Background Panning */
+        .nl-bg-anim {
+            background-size: 200% 200%;
+            animation: panLuxuryGradient 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes panLuxuryGradient {
+            0% {
+                background-position: 0% 50%;
+                opacity: 0.85;
+            }
+
+            100% {
+                background-position: 100% 50%;
+                opacity: 1;
+            }
+        }
+
+        /* Enhanced Floating Ambient Blob */
+        .nl-ambient-blob {
+            animation: floatNLBlob 12s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform, opacity;
+            filter: blur(90px);
+        }
+
+        @keyframes floatNLBlob {
+            0% {
+                transform: translate(-50%, -50%) scale(0.9);
+                opacity: 0.15;
+            }
+
+            100% {
+                transform: translate(-45%, -55%) scale(1.2);
+                opacity: 0.35;
+            }
+        }
+
+        /* 3D Form Container */
+        .nl-form-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+
+        /* Premium Input Enhancements */
+        .nl-input-3d {
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-style: preserve-3d;
+            transform: translateZ(10px);
+            will-change: transform, box-shadow, background-color;
+        }
+
+        .nl-input-3d:focus {
+            transform: translateZ(25px) scale(1.02);
+            background-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.15);
+        }
+
+        /* Elegant Placeholder Micro-Interaction */
+        .nl-input-3d::placeholder {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .nl-input-3d:focus::placeholder {
+            opacity: 0.3;
+            transform: translateX(8px);
+        }
+
+        /* Button Cinematic 3D Elevate & Glow */
+        .nl-btn-3d {
+            transform-style: preserve-3d;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateZ(15px);
+            will-change: transform, box-shadow;
+        }
+
+        .nl-btn-3d:hover {
+            transform: translateZ(40px) scale(1.04);
+            /* Overriding Tailwind utilities for a much richer, layered glow */
+            box-shadow: 0 25px 40px -10px rgba(0, 0, 0, 0.4), 0 0 35px rgba(255, 255, 255, 0.8) !important;
+            color: #4A2C1A !important;
+            text-shadow: 0 0 1px rgba(74, 44, 26, 0.2);
+        }
+    </style>
+</head>
+
+<body class="font-poppins antialiased selection:bg-caramel selection:text-white">
+
+    <!-- Preloader -->
+    <div id="loader">
+        <h2 class="font-playfair text-4xl text-chocolate animate-pulse tracking-widest">AURA</h2>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6 px-6 lg:px-16">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-8 py-4 shadow-sm">
+            <!-- Added 3D hover & target class -->
+            <a href="#"
+                class="nav-logo hover-3d font-playfair text-2xl font-bold leading-none text-chocolate tracking-wider inline-block">AURA</a>
+
+            <div class="hidden lg:flex space-x-8 items-center">
+                <!-- Added nav-link and hover-3d classes -->
+                <a href="#about"
+                    class="nav-link hover-3d text-sm font-medium hover:text-caramel transition-colors relative inline-block">Story</a>
+                <a href="#featured"
+                    class="nav-link hover-3d text-sm font-medium hover:text-caramel transition-colors relative inline-block">Signatures</a>
+                <a href="#menu"
+                    class="nav-link hover-3d text-sm font-medium hover:text-caramel transition-colors relative inline-block">Menu</a>
+                <a href="#gallery"
+                    class="nav-link hover-3d text-sm font-medium hover:text-caramel transition-colors relative inline-block">Gallery</a>
+                <a href="#contact"
+                    class="nav-link hover-3d text-sm font-medium hover:text-caramel transition-colors relative inline-block">Contact</a>
+            </div>
+
+            <div class="hidden lg:flex nav-btn-wrapper hover-3d inline-block">
+                <a href="#contact"
+                    class="px-6 py-2 border-2 border-chocolate text-chocolate rounded-full text-sm font-medium btn-primary z-10 bg-transparent inline-block">Order
+                    Now</a>
+            </div>
+
+            <button id="mobile-menu-btn"
+                class="lg:hidden text-chocolate text-2xl focus:outline-none hover-3d inline-block">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed inset-0 bg-cream z-40 flex flex-col items-center justify-center hidden"
+            style="clip-path: circle(0% at 100% 0%);">
+            <button id="close-menu-btn"
+                class="absolute top-10 right-10 text-3xl text-chocolate inline-block"><i
+                    class="fa-solid fa-times"></i></button>
+            
+            <!-- Wrapped links in overflow hidden for 3D slide-up effect -->
+            <div class="overflow-hidden my-4"><a href="#about"
+                    class="font-playfair text-4xl text-chocolate mobile-link inline-block transform-origin-left">Story</a>
+            </div>
+            <div class="overflow-hidden my-4"><a href="#featured"
+                    class="font-playfair text-4xl text-chocolate mobile-link inline-block transform-origin-left">Signatures</a>
+            </div>
+            <div class="overflow-hidden my-4"><a href="#menu"
+                    class="font-playfair text-4xl text-chocolate mobile-link inline-block transform-origin-left">Menu</a>
+            </div>
+            <div class="overflow-hidden my-4"><a href="#contact"
+                    class="font-playfair text-4xl text-chocolate mobile-link inline-block transform-origin-left">Contact</a>
+            </div>
+        </div>
+    </nav>
+    <div></div>
+    <!-- 9. GALLERY (Masonry Layout) -->
+    <section id="gallery" class="py-24 bg-white gallery-perspective" style="padding-top: 8rem;">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16 gallery-container-anim">
+
+            <div class="flex justify-between items-end mb-12">
+                <h2 class="gallery-heading-anim font-playfair text-4xl lg:text-5xl text-chocolate origin-left">Visual
+                    Tasting</h2>
+                <a href="gallery/"
+                    class="gallery-link-anim gallery-link-underline hidden md:inline-block text-caramel font-semibold uppercase tracking-widest text-sm hover:text-chocolate transition-colors duration-500">View Gallery</a>
+            </div>
+
+            <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+                <!-- 1. Artisan Loaf -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?auto=format&fit=crop&w=800&q=80" alt="Artisan Loaf" title="Artisan Loaf" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 2. Assorted Donuts -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80" alt="Assorted Donuts" title="Assorted Donuts" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 3. Sourdough Boule -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=800&q=80" alt="Sourdough Boule" title="Sourdough Boule" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 4. Fruit Danish -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1612203985729-70726954388c?auto=format&fit=crop&w=800&q=80" alt="Fruit Danish" title="Fruit Danish" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 5. Berry Sponge Cake -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=800&q=80" alt="Berry Sponge Cake" title="Berry Sponge Cake" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 6. Croissant -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=800&q=80" alt="Butter Croissant" title="Butter Croissant" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 7. Birthday Cake -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=800&q=80" alt="Celebration Cake" title="Celebration Cake" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 8. Colorful Macarons -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=800&q=80" alt="French Macarons" title="French Macarons" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 9. Fresh Fruit Tart -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=800&q=80" alt="Fresh Fruit Tart" title="Fresh Fruit Tart" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 10. Cinnamon Rolls -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?auto=format&fit=crop&w=800&q=80" alt="Cinnamon Rolls" title="Cinnamon Rolls" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 11. Chocolate Chip Cookies -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80" alt="Chocolate Chip Cookies" title="Chocolate Chip Cookies" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 12. Rustic Apple Pie -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1562007908-17c67e878c88?auto=format&fit=crop&w=800&q=80" alt="Rustic Apple Pie" title="Rustic Apple Pie" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 13. Gourmet Cupcakes -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?auto=format&fit=crop&w=800&q=80" alt="Gourmet Cupcakes" title="Gourmet Cupcakes" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 14. Strawberry Shortcake -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=800&q=80" alt="Strawberry Shortcake" title="Strawberry Shortcake" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 15. Blueberry Muffins -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&w=800&q=80" alt="Blueberry Muffins" title="Blueberry Muffins" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 16. Fudge Brownies -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80" alt="Fudge Brownies" title="Fudge Brownies" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 17. Chocolate Eclairs -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1621236378699-8597faf6a176?auto=format&fit=crop&w=800&q=80" alt="Chocolate Eclairs" title="Chocolate Eclairs" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 18. Decadent Chocolate Soufflé -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80" alt="Decadent Chocolate Soufflé" title="Decadent Chocolate Soufflé" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 19. Vanilla Cherry Cupcake -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?auto=format&fit=crop&w=800&q=80" alt="Vanilla Cherry Cupcake" title="Vanilla Cherry Cupcake" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 20. Lemon Meringue Tart -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1514517521153-1be72277b32f?auto=format&fit=crop&w=800&q=80" alt="Lemon Meringue Tart" title="Lemon Meringue Tart" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 21. Artisan Croissant -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1654808991961-141a731f55db?auto=format&fit=crop&w=800&q=80" alt="Artisan Croissant" title="Artisan Croissant" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 22. Decadent Chocolate Cake -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80" alt="Decadent Chocolate Cake" title="Decadent Chocolate Cake" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 23. Gourmet Cupcakes -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=800&q=80" alt="Gourmet Cupcakes" title="Gourmet Cupcakes" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 24. Stacked Cookies -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80" alt="Artisan Cookies" title="Artisan Cookies" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 25. Cherry Pecan Pie -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1601000938259-9e92002320b2?auto=format&fit=crop&w=800&q=80" alt="Cherry Pecan Pie" title="Cherry Pecan Pie" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 26. Rosemary Focaccia -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=800&q=80" alt="Rosemary Focaccia" title="Rosemary Focaccia" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+                <!-- 27. Chocolate Chip Cookies -->
+                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                    <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80" alt="Chocolate Chip Cookies" title="Chocolate Chip Cookies" class="gallery-img w-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center md:hidden gallery-link-anim">
+                <a href="#"
+                    class="gallery-link-underline text-caramel font-semibold uppercase tracking-widest text-sm text-chocolate">Explore
+                    Instagram</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 11. CONTACT SECTION -->
+    <section id="contact" class="py-24 bg-cream relative contact-perspective overflow-hidden">
+
+        <!-- Ambient Luxury Glow Background -->
+        <div
+            class="absolute w-[600px] h-[600px] bg-caramel/10 rounded-full blur-[100px] top-0 left-[-200px] pointer-events-none mix-blend-multiply contact-ambient-glow">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-16 flex flex-col lg:flex-row gap-16 relative z-10">
+
+            <!-- Contact Info & Map -->
+            <div class="w-full lg:w-1/2 contact-left-panel">
+                <h2 class="contact-anim-el font-playfair text-4xl lg:text-5xl text-chocolate mb-6">Visit Our Bakery</h2>
+                <p class="contact-anim-el text-softbrown mb-10">Step into our aromatic kitchen to pick up your daily
+                    treats, or drop us a message to plan your next event.</p>
+
+                <div class="space-y-6 mb-10 contact-anim-el">
+                    <div class="flex items-start gap-4 contact-info-block group p-4 -ml-4 rounded-2xl">
+                        <div class="contact-icon-wrapper">
+                            <i class="fa-solid fa-location-dot mt-1 text-caramel text-xl contact-icon-3d"></i>
+                        </div>
+                        <div class="contact-text-3d">
+                            <h4 class="font-medium text-chocolate">Address</h4>
+                            <p class="text-softbrown text-sm transition-colors duration-300 group-hover:text-chocolate">
+                                124 Artisan Ave, Pastry District<br>New York, NY 10012</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 contact-info-block group p-4 -ml-4 rounded-2xl">
+                        <div class="contact-icon-wrapper">
+                            <i class="fa-solid fa-clock mt-1 text-caramel text-xl contact-icon-3d"></i>
+                        </div>
+                        <div class="contact-text-3d">
+                            <h4 class="font-medium text-chocolate">Opening Hours</h4>
+                            <p class="text-softbrown text-sm transition-colors duration-300 group-hover:text-chocolate">
+                                Mon - Fri: 7:00 AM - 6:00 PM<br>Sat - Sun: 8:00 AM - 4:00 PM</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 contact-info-block group p-4 -ml-4 rounded-2xl">
+                        <div class="contact-icon-wrapper">
+                            <i class="fa-solid fa-phone mt-1 text-caramel text-xl contact-icon-3d"></i>
+                        </div>
+                        <div class="contact-text-3d">
+                            <h4 class="font-medium text-chocolate">Contact</h4>
+                            <p class="text-softbrown text-sm transition-colors duration-300 group-hover:text-chocolate">
+                                +1 (555) 123-4567<br>hello@aurabakery.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Map Container -->
+                <div
+                    class="contact-anim-el contact-map-3d w-full h-48 rounded-2xl overflow-hidden shadow-lg border border-beige group relative">
+                    <div class="contact-glass-glare z-10"></div>
+                    <div class="contact-map-inner w-full h-full relative z-0">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.493922114757!2d-74.00488668459449!3d40.72915837932971!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2599026416629%3A0xc47e3d11b33b0067!2sWashington%20Square%20Park!5e0!3m2!1sen!2sus!4v1648753235372!5m2!1sen!2sus"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade" class="pointer-events-none"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div
+                class="w-full lg:w-1/2 contact-form-3d relative bg-white/80 backdrop-blur-xl p-10 rounded-3xl shadow-[0_20px_40px_-15px_rgba(74,44,26,0.1)] border border-white/60">
+                <div class="contact-glass-glare rounded-3xl z-0"></div>
+                <div class="contact-form-inner relative z-10">
+                    <h3 class="contact-form-el font-playfair text-3xl text-chocolate mb-8 drop-shadow-sm">Send a Message
+                    </h3>
+                    <form class="space-y-6" onsubmit="event.preventDefault();">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="contact-form-el relative">
+                                <label class="contact-label block text-sm text-softbrown mb-2 font-medium">First
+                                    Name</label>
+                                <input type="text"
+                                    class="contact-input w-full bg-cream/50 px-4 py-3 rounded-xl border border-beige focus:outline-none transition-all"
+                                    placeholder="Jane">
+                            </div>
+                            <div class="contact-form-el relative">
+                                <label class="contact-label block text-sm text-softbrown mb-2 font-medium">Last
+                                    Name</label>
+                                <input type="text"
+                                    class="contact-input w-full bg-cream/50 px-4 py-3 rounded-xl border border-beige focus:outline-none transition-all"
+                                    placeholder="Doe">
+                            </div>
+                        </div>
+                        <div class="contact-form-el relative">
+                            <label class="contact-label block text-sm text-softbrown mb-2 font-medium">Email
+                                Address</label>
+                            <input type="email"
+                                class="contact-input w-full bg-cream/50 px-4 py-3 rounded-xl border border-beige focus:outline-none transition-all"
+                                placeholder="jane@example.com">
+                        </div>
+                        <div class="contact-form-el relative">
+                            <label class="contact-label block text-sm text-softbrown mb-2 font-medium">Message</label>
+                            <textarea rows="4"
+                                class="contact-input w-full bg-cream/50 px-4 py-3 rounded-xl border border-beige focus:outline-none transition-all"
+                                placeholder="How can we help you?"></textarea>
+                        </div>
+                        <div class="contact-form-el pt-2">
+                            <button type="submit"
+                                class="contact-btn-submit w-full bg-chocolate text-cream py-4 rounded-xl font-medium shadow-lg transition-all flex justify-center items-center gap-2">
+                                Send Inquiry <i class="fa-solid fa-arrow-right text-sm"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. NEWSLETTER -->
+    <section id="newsletter" class="py-24 bg-chocolate relative overflow-hidden newsletter-perspective">
+
+        <!-- Animated Background Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-r from-chocolate to-softbrown opacity-90 z-0 nl-bg-anim"></div>
+
+        <!-- Ambient Floating Luxury Blob -->
+        <div
+            class="blob bg-caramel w-96 h-96 rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-30 z-0 mix-blend-screen nl-ambient-blob">
+        </div>
+
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+
+            <!-- Cinematic Text Elements -->
+            <h2 class="font-playfair text-4xl lg:text-5xl text-cream mb-4 nl-text-anim">Get sweet updates & exclusive
+                offers.</h2>
+            <p class="text-beige/80 mb-10 text-lg nl-text-anim">Join our newsletter to receive weekly pastry menus and
+                secret discounts.</p>
+
+            <!-- 3D Interactive Form Container -->
+            <form class="flex flex-col sm:flex-row max-w-xl mx-auto gap-4 nl-form-3d"
+                onsubmit="event.preventDefault();">
+
+                <!-- Immersive Input Field -->
+                <input type="email"
+                    class="flex-1 bg-white/10 backdrop-blur-md border border-white/20 text-cream px-6 py-4 rounded-full focus:outline-none focus:border-caramel placeholder-beige/50 nl-input-3d"
+                    placeholder="Enter your email address...">
+
+                <!-- Premium Hover Button -->
+                 <a href="newsletter/">
+                <button
+                    class="bg-caramel text-chocolate px-8 py-4 rounded-full font-bold hover:bg-white transition-colors shadow-[0_0_20px_rgba(212,163,115,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] nl-btn-3d">Subscribe</button></a>
+            </form>
+        </div>
+    </section>
+
+    <!-- 13. FOOTER -->
+    <footer class="bg-white pt-20 pb-10 border-t border-beige">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+                <!-- Brand -->
+                <div>
+                    <h2 class="font-playfair text-3xl font-bold text-chocolate mb-6 tracking-wider">AURA</h2>
+                    <p class="text-softbrown text-sm mb-6">Elevating the art of baking through pure ingredients and
+                        passionate craftsmanship.</p>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-cream flex items-center justify-center text-chocolate hover:bg-caramel hover:text-white transition-colors"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-cream flex items-center justify-center text-chocolate hover:bg-caramel hover:text-white transition-colors"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-cream flex items-center justify-center text-chocolate hover:bg-caramel hover:text-white transition-colors"><i
+                                class="fa-brands fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-playfair text-xl text-chocolate mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#about" class="text-softbrown text-sm hover:text-caramel transition-colors">Our
+                                Story</a></li>
+                        <li><a href="#menu" class="text-softbrown text-sm hover:text-caramel transition-colors">Daily
+                                Menu</a></li>
+                        <li><a href="#signature-cakes"
+                                class="text-softbrown text-sm hover:text-caramel transition-colors">Custom Cakes</a>
+                        </li>
+                        <li><a href="#gallery"
+                                class="text-softbrown text-sm hover:text-caramel transition-colors">Gallery</a></li>
+                        <li><a href="#faq" class="text-softbrown text-sm hover:text-caramel transition-colors">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Policies -->
+                <div>
+                    <h4 class="font-playfair text-xl text-chocolate mb-6">Policies</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-softbrown text-sm hover:text-caramel transition-colors">Terms &
+                                Conditions</a></li>
+                        <li><a href="#" class="text-softbrown text-sm hover:text-caramel transition-colors">Privacy
+                                Policy</a></li>
+                        <li><a href="#" class="text-softbrown text-sm hover:text-caramel transition-colors">Refund
+                                Policy</a></li>
+                        <li><a href="#" class="text-softbrown text-sm hover:text-caramel transition-colors">Allergen
+                                Information</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Link (CTA) -->
+                <div>
+                    <h4 class="font-playfair text-xl text-chocolate mb-6">Wholesale</h4>
+                    <p class="text-softbrown text-sm mb-4">Partner with us to bring Aura pastries to your cafe or
+                        restaurant.</p>
+                    <a href="#contact"
+                        class="text-caramel font-semibold underline underline-offset-4 text-sm hover:text-chocolate transition-colors">Inquire
+                        Now</a>
+                </div>
+            </div>
+
+            <div class="border-t border-beige pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-softbrown text-xs text-center md:text-left mb-4 md:mb-0">&copy; 2024 Aura Premium Bakery.
+                    All rights reserved.</p>
+                <p class="text-softbrown text-xs text-center md:text-right">Crafted with passion & precision.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        window.addEventListener('load', () => {
+            // --- NEWSLETTER SECTION: CINEMATIC BLURS, ZOOMS & 3D HOVER ---
+
+            // 1. Enter Reveal: Cinematic Zoom, Fade, and Optical Blur (No sliding)
+            const nlEnterTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#newsletter",
+                    start: "top 75%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+
+            // Heading and Subtext Reveal
+            nlEnterTl.fromTo(".nl-text-anim",
+                { opacity: 0, scale: 0.9, filter: "blur(15px)" },
+                { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.6, stagger: 0.2, ease: "power3.out" }
+            )
+                // Form Floating Emergence
+                .fromTo(".nl-form-3d",
+                    { opacity: 0, scale: 0.95, filter: "blur(12px)", rotateX: -10 },
+                    {
+                        opacity: 1,
+                        scale: 1,
+                        filter: "blur(0px)",
+                        rotateX: 0,
+                        duration: 1.6,
+                        ease: "power3.out",
+                        clearProps: "transform" // Releases back to CSS for hover physics
+                    },
+                    "-=1.2"
+                );
+
+            // 2. Immersive 3D Depth Tracking on Form
+            const nlForm = document.querySelector('.nl-form-3d');
+            if (nlForm) {
+                nlForm.addEventListener('mousemove', (e) => {
+                    if (window.innerWidth < 768) return; // Disables complex physics on mobile
+
+                    const rect = nlForm.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    // Subtle, extremely smooth perspective tracking
+                    const rotateX = ((y - centerY) / centerY) * -6;
+                    const rotateY = ((x - centerX) / centerX) * 6;
+
+                    nlForm.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+
+                nlForm.addEventListener('mouseleave', () => {
+                    if (window.innerWidth < 768) return;
+                    // Softly returns to center via CSS transition
+                    nlForm.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+                });
+            }
+
+            // 3. Scroll Exit (Elegant Fade Out & Deep Background Zoom)
+            gsap.to(".newsletter-perspective", {
+                scale: 0.92,
+                opacity: 0,
+                filter: "blur(15px)",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#newsletter",
+                    start: "bottom 85%",
+                    end: "bottom top",
+                    scrub: 1
+                }
+            });
+            // --- CONTACT SECTION: CINEMATIC REVEALS & 3D PHYSICS ---
+
+            // 1. Enter Reveal: Zoom, Fade, and Optical Blur (No sliding)
+            const contactEnterTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#contact",
+                    start: "top 75%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+
+            // Left Panel Reveal (Text, Info Blocks, Map)
+            contactEnterTl.fromTo(".contact-anim-el",
+                { opacity: 0, scale: 0.95, filter: "blur(12px)" },
+                {
+                    opacity: 1,
+                    scale: 1,
+                    filter: "blur(0px)",
+                    duration: 1.4,
+                    stagger: 0.15,
+                    ease: "power3.out",
+                    clearProps: "transform,filter"
+                }
+            )
+                // Right Panel Reveal (Form Wrapper)
+                .fromTo(".contact-form-3d",
+                    { opacity: 0, scale: 0.9, filter: "blur(15px)", rotateX: -5 },
+                    {
+                        opacity: 1,
+                        scale: 1,
+                        filter: "blur(0px)",
+                        rotateX: 0,
+                        duration: 1.6,
+                        ease: "power3.out",
+                        clearProps: "transform,filter" // Hand over to CSS hover
+                    },
+                    "-=1.2"
+                )
+                // Staggered Form Elements Inside
+                .fromTo(".contact-form-el",
+                    { opacity: 0, scale: 0.95, filter: "blur(5px)" },
+                    { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.0, stagger: 0.1, ease: "power2.out" },
+                    "-=1.0"
+                );
+
+            // 2. Interactive 3D Depth on Map and Form
+            const contact3DCards = document.querySelectorAll('.contact-map-3d, .contact-form-3d');
+            contact3DCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    if (window.innerWidth < 768) return; // Optimize for desktop
+
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    // Ultra-smooth, cinematic tracking
+                    const rotateX = ((y - centerY) / centerY) * -5;
+                    const rotateY = ((x - centerX) / centerX) * 5;
+
+                    card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    if (window.innerWidth < 768) return;
+                    // Return to flat state via CSS transition
+                    card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                });
+            });
+
+            // 3. Immersive Input Field Micro-Interactions (Label Floating)
+            const contactInputs = document.querySelectorAll('.contact-input');
+            contactInputs.forEach(input => {
+                // Find the associated label
+                const label = input.previousElementSibling;
+
+                input.addEventListener('focus', () => {
+                    if (label && label.classList.contains('contact-label')) {
+                        label.classList.add('is-focused');
+                    }
+                });
+
+                input.addEventListener('blur', () => {
+                    if (label && label.classList.contains('contact-label') && input.value.trim() === "") {
+                        // Only remove float effect if input is empty
+                        label.classList.remove('is-focused');
+                    }
+                });
+            });
+
+            // 4. Scroll Exit (Fade Out, Deep Zoom Out)
+            gsap.to(".contact-perspective", {
+                scale: 0.95,
+                opacity: 0,
+                filter: "blur(12px)",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#contact",
+                    start: "bottom 95%",
+                    end: "bottom top",
+                    scrub: 1
+                }
+            });
+            // --- MENU SECTION: NON-SLIDING CINEMATIC ANIMATIONS ---
+
+            // 1. Entrance (Fades, Zooms, Optical Blurs, and 3D Flips ONLY)
+            const menuEnterTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#menu",
+                    start: "top 75%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+
+            menuEnterTl.from(".menu-anim-heading", {
+                scale: 1.15,            // Zoom In
+                filter: "blur(12px)",   // Creative cinematic focus pull
+                opacity: 0,             // Fade In
+                duration: 1.4,
+                ease: "power3.out"
+            })
+                .from(".menu-anim-divider", {
+                    scaleX: 0,              // Center-out expansion
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power4.out"
+                }, "-=1.0")
+                .from(".menu-card-3d", {
+                    rotateX: -30,           // 3D fold reveal (No positional sliding)
+                    scale: 0.9,             // Zoom In
+                    opacity: 0,             // Fade In
+                    duration: 1.2,
+                    stagger: 0.15,
+                    ease: "back.out(1.2)",
+                    clearProps: "transform" // Critical: release to vanilla JS hover
+                }, "-=0.6")
+                .from(".menu-btn-3d", {
+                    scale: 0.85,
+                    opacity: 0,
+                    filter: "blur(8px)",
+                    /* REMOVED the blur filter to prevent the browser rendering glitch */
+                    duration: 1.2,
+                    ease: "back.out(1.5)",
+                    clearProps: "all"       /* CHANGED to 'all' so it cleans up perfectly */
+                }, "-=0.8");
+
+            // 2. Scroll Exit (Fades and Zooms Out ONLY)
+            gsap.to(".menu-card-container", {
+                scale: 0.92,            // Zoom out deeply
+                opacity: 0,             // Fade Out
+                filter: "blur(5px)",    // Out of focus
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#menu",
+                    start: "bottom 85%",
+                    end: "bottom top",
+                    scrub: 1
+                }
+            });
+
+            // 3. Immersive 3D Hover Interactions for Menu Cards
+            const menuCardsInner = document.querySelectorAll('.menu-card-inner');
+            menuCardsInner.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    // Subtle tilt tied ONLY to rotation (no translations/sliding)
+                    const rotateX = ((y - centerY) / centerY) * -8; // Max 8 degrees
+                    const rotateY = ((x - centerX) / centerX) * 8;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    // Smooth reset back to 0
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                });
+            });
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => loader.style.display = 'none', 1000);
+
+            // --- MASTER PAGE LOAD TIMELINE (Nav + Hero Synced) ---
+            const masterTl = gsap.timeline({
+                delay: 0.5,
+                onComplete: () => document.body.classList.add('animations-ready')
+            });
+
+            // 1. Navbar Drops In
+            masterTl.from("#navbar > div", { y: -50, opacity: 0, duration: 1, ease: "power3.out" })
+                .from(".nav-logo, .nav-link, .nav-btn-wrapper", {
+                    y: 20, opacity: 0, duration: 0.8, stagger: 0.08, ease: "back.out(1.7)", clearProps: "transform"
+                }, "-=0.6")
+
+                // 2. Video Panel 'Zoom In' & 'Slide In'
+                .from("#hero-video-wrapper", {
+                    scale: 1.15, // Zoom in
+                    x: 100,      // Slide in from right
+                    opacity: 0,  // Fade in
+                    clipPath: "inset(0 100% 0 0)", // Cinematic wipe
+                    duration: 1.6,
+                    ease: "power4.inOut"
+                }, "-=1.0")
+
+                // 3. Hero Text 'Slide In' & 'Fade In' (3D flip up)
+                .from(".hero-slide-text", {
+                    y: 60,
+                    opacity: 0,
+                    rotateX: -60, // 3D swing effect
+                    duration: 1.2,
+                    stagger: 0.15,
+                    ease: "back.out(1.2)",
+                    clearProps: "transform"
+                }, "-=1.2")
+
+                // 4. Buttons & Badges Pop in
+                .from(".hero-btn, .floating-badge", {
+                    y: 30, opacity: 0, scale: 0.9, duration: 0.8, stagger: 0.1, ease: "power3.out", clearProps: "transform"
+                }, "-=0.8");
+        });
+        // --- PROCESS SECTION: CINEMATIC BLUR, ZOOM & 3D ANIMATIONS ---
+
+        // 1. Heading Reveal (Blur to Clear, Zoom In)
+        gsap.fromTo(".process-heading-wrap",
+            { opacity: 0, scale: 0.85, filter: "blur(15px)" },
+            {
+                opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.5, ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#process",
+                    start: "top 75%",
+                    toggleActions: "play none none reverse"
+                }
+            }
+        );
+
+        // 2. Cinematic Center Line Draw (ScaleY & Ambient Glow)
+        gsap.fromTo(".process-center-line",
+            { scaleY: 0, opacity: 0 },
+            {
+                scaleY: 1, opacity: 1, ease: "none",
+                scrollTrigger: {
+                    trigger: "#process",
+                    start: "top 50%",
+                    end: "bottom 80%",
+                    scrub: 1.5
+                }
+            }
+        );
+
+        // 3. Process Steps Staggered Reveal (NO sliding. Only Fade, Zoom & Blur)
+        const processSteps = document.querySelectorAll('.process-step');
+        processSteps.forEach((step) => {
+            const textWrap = step.querySelector('.process-text-anim');
+            const imgWrap = step.querySelector('.process-img-anim');
+
+            gsap.fromTo([textWrap, imgWrap],
+                { opacity: 0, scale: 0.9, filter: "blur(12px)" },
+                {
+                    opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.4, stagger: 0.2, ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: step,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        });
+
+        // 4. Immersive 3D Hover Interactions on Process Images
+        const processCards3D = document.querySelectorAll('.process-img-3d');
+        processCards3D.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                // Subtle, elegant rotation
+                const rotateX = ((y - centerY) / centerY) * -8;
+                const rotateY = ((x - centerX) / centerX) * 8;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            });
+        });
+
+        // 5. Scroll Exit (Fade Out & Zoom Out deeply into the background)
+        gsap.to(".process-container", {
+            scale: 0.9,
+            opacity: 0,
+            filter: "blur(8px)",
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#process",
+                start: "bottom 85%",
+                end: "bottom top",
+                scrub: 1
+            }
+        });
+        // Initialize Lenis for Smooth Scrolling
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-4');
+                navbar.classList.remove('py-6');
+                navbar.querySelector('.glass').classList.add('bg-cream/95', 'border-chocolate/10');
+            } else {
+                navbar.classList.add('py-6');
+                navbar.classList.remove('py-4');
+                navbar.querySelector('.glass').classList.remove('bg-cream/95', 'border-chocolate/10');
+            }
+        });
+
+       // --- NEW: Advanced GSAP Mobile Menu Animation ---
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        // Create a dedicated timeline for the menu
+        const menuTl = gsap.timeline({ paused: true, reversed: true });
+
+        // Build the animation timeline
+        menuTl.to(mobileMenu, {
+            display: "flex",
+            clipPath: "circle(150% at 100% 0%)", // Expands from top right corner
+            duration: 0.8,
+            ease: "power4.inOut"
+        })
+        .fromTo(mobileLinks, 
+            { 
+                y: 50, 
+                opacity: 0, 
+                rotateX: -45, 
+                transformOrigin: "top center" 
+            },
+            { 
+                y: 0, 
+                opacity: 1, 
+                rotateX: 0, 
+                duration: 0.6, 
+                stagger: 0.1, 
+                ease: "back.out(1.4)" 
+            }, 
+            "-=0.4"
+        );
+
+        // Toggle Function
+        function toggleMenu() {
+            if (menuTl.reversed()) {
+                document.body.style.overflow = 'hidden';
+                menuTl.play();
+            } else {
+                document.body.style.overflow = '';
+                menuTl.reverse();
+            }
+        }
+
+        // Event Listeners
+        mobileBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // Smoothly close before navigating
+                setTimeout(toggleMenu, 300);
+            });
+        });
+
+        // Randomized Cinematic Video Engine
+        const videoUrls = [
+            "https://video-previews.elements.envatousercontent.com/h264-video-previews/476463da-13cc-43fe-9993-5f1c3d07e994/11180150.mp4",
+            "https://video-previews.elements.envatousercontent.com/files/36b7a62e-9d8c-43d1-804d-7e1b821c8fdf/video_preview_h264.mp4",
+            "https://video-previews.elements.envatousercontent.com/files/c767a709-5e2f-4f4c-a8ac-491a0ac63e55/video_preview_h264.mp4",
+            "https://video-previews.elements.envatousercontent.com/d3ce9b8d-b7e6-4e79-82cf-c8e4a7f206d9/watermarked_preview/watermarked_preview.mp4",
+            "https://video-previews.elements.envatousercontent.com/1f46dd64-b47a-4261-97aa-f5936fd015f3/watermarked_preview/watermarked_preview.mp4",
+            "https://video-previews.elements.envatousercontent.com/0766cd22-7b97-44da-a7bc-9c44df19255b/watermarked_preview/watermarked_preview.mp4",
+            "https://video-previews.elements.envatousercontent.com/010185d7-bd32-4bac-b184-5e7e1bc3440d/watermarked_preview/watermarked_preview.mp4",
+            "https://video-previews.elements.envatousercontent.com/h264-video-previews/f060539b-bfd4-4762-a956-4f0743c5e9de/21689119.mp4",
+            "https://video-previews.elements.envatousercontent.com/889e55c4-9e06-451a-adb7-0dfc0cf41bd0/watermarked_preview/watermarked_preview.mp4",
+            "https://video-previews.elements.envatousercontent.com/1b48ccae-a874-4f88-ae98-0e99795ef78f/watermarked_preview/watermarked_preview.mp4",
+            "https://video-previews.elements.envatousercontent.com/files/22598bf5-4433-46ca-aa21-4bc23479feaf/video_preview_h264.mp4",
+            "https://video-previews.elements.envatousercontent.com/5ddf30b1-2038-4992-9ee9-5abef11634e1/watermarked_preview/watermarked_preview.mp4",
+            "https://video-previews.elements.envatousercontent.com/fd225227-2fc4-4a6e-b8a9-6802083ed98c/watermarked_preview/watermarked_preview.mp4",
+            "https://video-previews.elements.envatousercontent.com/0fd3bff1-a5d5-4938-a682-b739f0389fee/watermarked_preview/watermarked_preview.mp4",
+            "https://video-previews.elements.envatousercontent.com/ee03e4a7-fefb-4d3a-89a6-54b5e92e8fd9/watermarked_preview/watermarked_preview.mp4",
+            "https://video-previews.elements.envatousercontent.com/files/58aa13b0-ba5b-439a-8da6-eb71cfe92434/video_preview_h264.mp4"
+        ];
+
+        const videoEl = document.getElementById('hero-video');
+        const fadeOverlay = document.getElementById('video-fade-overlay');
+
+        function playRandomVideo() {
+            const randomIndex = Math.floor(Math.random() * videoUrls.length);
+            videoEl.src = videoUrls[randomIndex];
+            videoEl.play().catch(e => console.log("Autoplay prevented:", e));
+        }
+
+        // On video start, fade out overlay
+        videoEl.addEventListener('playing', () => {
+            fadeOverlay.classList.remove('opacity-100');
+            fadeOverlay.classList.add('opacity-0');
+        });
+
+        // Near end of video, fade in overlay, then change source
+        videoEl.addEventListener('timeupdate', () => {
+            // Check if within last 0.8 seconds
+            if (videoEl.duration - videoEl.currentTime < 0.8) {
+                fadeOverlay.classList.remove('opacity-0');
+                fadeOverlay.classList.add('opacity-100');
+            }
+        });
+
+        videoEl.addEventListener('ended', () => {
+            playRandomVideo();
+        });
+
+        // Init
+        playRandomVideo();
+
+        // Upgraded Cinematic 3D Tilt Effect
+        const tiltCards = document.querySelectorAll('.tilt-card');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                // Ensure smooth following tracking
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                // Fine-tuned physics: Max 12 degrees rotation for elegance
+                const rotateX = ((y - centerY) / centerY) * -12;
+                const rotateY = ((x - centerX) / centerX) * 12;
+
+                card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                // Relies on CSS transition for the buttery smooth return
+                card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+
+        // GSAP ScrollTrigger Animations
+        gsap.registerPlugin(ScrollTrigger);
+        // --- SIGNATURE CAKES: CINEMATIC REVEALS & 3D PHYSICS ---
+
+        // 1. Enter Animation: FADE IN, SLIDE IN, ZOOM IN (Using fromTo to prevent glitches)
+        const cakeEnterTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#signature-cakes",
+                start: "top 75%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // Staggered Heading Elements
+        cakeEnterTl.fromTo(".cake-heading-el", 
+            { y: 60, opacity: 0, rotateX: -40 },
+            { y: 0, opacity: 1, rotateX: 0, duration: 1.2, stagger: 0.15, ease: "back.out(1.2)" }
+        )
+        // Navigation Buttons
+        .fromTo(".cake-nav-container", 
+            { x: 40, scale: 0.8, opacity: 0 },
+            { x: 0, scale: 1, opacity: 1, duration: 1, ease: "power3.out" }, 
+            "-=0.8"
+        )
+        // Entire Swiper Container
+        .fromTo(".cake-swiper", 
+            { y: 100, scale: 0.9, opacity: 0 },
+            { y: 0, scale: 1, opacity: 1, duration: 1.4, ease: "power4.out", clearProps: "transform" }, 
+            "-=1.0"
+        );
+
+        // 2. Exit Animation: FADE OUT, SLIDE OUT, ZOOM OUT
+        // TARGETING THE PARENT (#signature-cakes) to prevent fighting with the entrance animation
+        gsap.to("#signature-cakes", {
+            scale: 0.95,
+            opacity: 0,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#signature-cakes",
+                start: "bottom 85%",    
+                end: "bottom top",
+                scrub: 1
+            }
+        });
+
+        // 3. Immersive 3D Hover Interactions on Cake Slides
+        const cakeCards = document.querySelectorAll('.cake-card-3d');
+        cakeCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                // Very subtle rotation for large luxury images
+                const rotateX = ((y - centerY) / centerY) * -6;
+                const rotateY = ((x - centerX) / centerX) * 6;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            });
+        });
+
+        // --- FEATURES SECTION: MULTI-DIRECTIONAL SLIDE ANIMATIONS & 3D HOVER ---
+
+        // 1. Enter Animation: FADE IN, SLIDE IN (Extensive), ZOOM IN
+        const featureEnterTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#features",
+                start: "top 75%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // Heading & Text - Slide Up
+        featureEnterTl.from(".feature-heading", {
+            y: 80,                 // Slide In
+            opacity: 0,            // Fade In
+            rotateX: -30,
+            duration: 1.2,
+            ease: "back.out(1.2)"
+        })
+            .from(".feature-text", {
+                y: 40,                 // Slide In
+                opacity: 0,            // Fade In
+                duration: 1,
+                ease: "power3.out"
+            }, "-=0.8")
+
+            // Card 1 - Slide from Left
+            .from(".feature-card-1", {
+                x: -150,               // Slide In (Left)
+                opacity: 0,            // Fade In
+                scale: 0.9,            // Zoom In
+                rotateY: 15,
+                duration: 1.2,
+                ease: "power4.out",
+                clearProps: "transform" // Releases to vanilla JS hover
+            }, "-=1.55")
+
+            // Card 2 - Slide from Bottom
+            .from(".feature-card-2", {
+                y: 150,                // Slide In (Bottom)
+                opacity: 0,            // Fade In
+                scale: 0.9,            // Zoom In
+                rotateX: 15,
+                duration: 1.2,
+                ease: "power4.out",
+                clearProps: "transform"
+            }, "-=1.55")
+
+            // Card 3 - Slide from Right
+            .from(".feature-card-3", {
+                x: 150,                // Slide In (Right)
+                opacity: 0,            // Fade In
+                scale: 0.9,            // Zoom In
+                rotateY: -15,
+                duration: 1.2,
+                ease: "power4.out",
+                clearProps: "transform"
+            }, "-=1.55")
+
+            // Icons - Zoom In pop effect
+            .from(".feature-icon-wrapper", {
+                scale: 0,              // Zoom In
+                opacity: 0,            // Fade In
+                duration: 0.8,
+                stagger: 0.15,
+                ease: "back.out(1.5)"
+            }, "-=0.8");
+
+        // 2. Exit Animation: FADE OUT, SLIDE OUT, ZOOM OUT
+        gsap.to(".feature-cards-container", {
+            y: 120,                // Slide Out (Downward)
+            scale: 0.9,            // Zoom Out
+            opacity: 0,            // Fade Out
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#features",
+                start: "bottom 80%", // Triggers as section starts to leave
+                end: "bottom top",
+                scrub: 1
+            }
+        });
+
+        // 3. Immersive 3D Hover Interactions
+        const featureCards = document.querySelectorAll('.feature-tilt-card');
+        featureCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                // Controlled elegant rotation
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                // Smooth reset handled by CSS transition
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+
+        // --- FEATURED SECTION: CINEMATIC SCROLL REVEALS & EXITS ---
+
+        // 1. Enter Animation: FADE IN, SLIDE IN, ZOOM IN
+        const featEnterTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#featured",
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // Staggered Heading Elements
+        featEnterTl.from(".feat-heading-el", {
+            y: 50,             // Slide In (up)
+            opacity: 0,        // Fade In
+            rotateX: -45,      // 3D fold reveal
+            duration: 1.2,
+            stagger: 0.15,
+            ease: "back.out(1.2)"
+        })
+            .from(".feat-heading-line", {
+                scaleX: 0,         // Zoom In (X axis)
+                opacity: 0,
+                duration: 0.8,
+                ease: "power3.out"
+            }, "-=0.8")
+            // Staggered Product Cards
+            .from(".feat-card-wrapper", {
+                y: 80,             // Slide In
+                opacity: 0,        // Fade In
+                scale: 0.85,       // Zoom In
+                duration: 1.2,
+                stagger: 0.2,
+                ease: "power4.out",
+                clearProps: "transform" // Releases element back to vanilla JS hover physics
+            }, "-=0.6");
+
+        // 2. Exit Animation: FADE OUT, SLIDE OUT, ZOOM OUT
+        gsap.to(".feat-card-container", {
+            y: -120,           // Slide Out (upwards)
+            scale: 0.9,        // Zoom Out (shrinking back into depth)
+            opacity: 0,        // Fade Out
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#featured",
+                start: "top top", // Triggers when the section hits the top of viewport
+                end: "bottom top", // Ends when section is completely scrolled past
+                scrub: 1 // Smoothly tied to user scroll speed
+            }
+        });
+
+        // --- ABOUT US SECTION: CINEMATIC STORYTELLING & 3D PARALLAX ---
+
+        // 1. Ambient Blob Animation
+        gsap.to(".about-blob", {
+            x: 80,
+            y: -60,
+            scale: 1.15,
+            duration: 10,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+        // 2. Interactive 3D Depth on Image Collage (Hover)
+        const aboutCollage = document.querySelector('.about-collage-wrapper');
+        const aboutImg1 = document.querySelector('.about-img-1');
+        const aboutImg2 = document.querySelector('.about-img-2');
+
+        aboutCollage.addEventListener('mousemove', (e) => {
+            const rect = aboutCollage.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            // Subtle rotation for the container
+            const rotateX = ((y - centerY) / centerY) * -6;
+            const rotateY = ((x - centerX) / centerX) * 6;
+
+            aboutCollage.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+            // Layered parallax pop-out effect
+            aboutImg1.style.transform = `translateZ(20px) scale(1.02)`;
+            aboutImg2.style.transform = `translateZ(60px) scale(1.05)`;
+        });
+
+        aboutCollage.addEventListener('mouseleave', () => {
+            aboutCollage.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg)`;
+            aboutImg1.style.transform = `translateZ(0px) scale(1)`;
+            aboutImg2.style.transform = `translateZ(0px) scale(1)`;
+        });
+
+        // 3. Scroll Reveal Enter (FADE IN, SLIDE IN, ZOOM IN)
+        const aboutEnterTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#about",
+                start: "top 75%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        aboutEnterTl.from(".about-img-1", {
+            opacity: 0,           // Fade In
+            scale: 0.85,          // Zoom In
+            rotateZ: -5,
+            duration: 1.4,
+            ease: "power3.out"
+        })
+            .from(".about-img-2", {
+                opacity: 0,           // Fade In
+                scale: 0.85,          // Zoom In
+                rotateZ: 5,
+                duration: 1.4,
+                ease: "power3.out"
+            }, "-=1.0")
+            .from(".about-heading", {
+                y: 60,                // Slide In
+                opacity: 0,           // Fade In
+                rotateX: -45,
+                duration: 1.2,
+                ease: "back.out(1.2)"
+            }, "-=1.2")
+            .from(".about-text", {
+                y: 40,                // Slide In
+                opacity: 0,           // Fade In
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out"
+            }, "-=0.8")
+            .from(".about-stat", {
+                y: 30,                // Slide In
+                scale: 0.8,           // Zoom In
+                opacity: 0,           // Fade In
+                duration: 0.8,
+                stagger: 0.15,
+                ease: "back.out(1.5)"
+            }, "-=0.6");
+
+        // 4. Scroll Exit (FADE OUT, SLIDE OUT, ZOOM OUT)
+        gsap.to(".about-container", {
+            y: -150,              // Slide Out (Upwards)
+            scale: 0.92,          // Zoom Out (Slight shrink into background)
+            opacity: 0,           // Fade Out
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#about",
+                start: "top top", // Triggers when the section hits the top of viewport
+                end: "bottom top", // Ends when the section leaves
+                scrub: 1
+            }
+        });
+        // --- NEW: HERO SCROLL & EXIT ANIMATIONS (Fade Out, Slide Out, Zoom Out) ---
+
+        // Text & Content sliding out left & fading out
+        gsap.to(".hero-left-panel", {
+            x: -100,        // Slide out
+            opacity: 0,     // Fade out
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // Video panel zooming out & fading out
+        gsap.to("#hero-video-wrapper", {
+            scale: 0.9,     // Zoom out
+            y: 100,         // Slide out slightly down
+            opacity: 0.3,   // Fade out
+            borderRadius: "3rem",
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // --- NEW: 3D MOUSE MOVEMENT ON VIDEO ---
+        const videoWrapper = document.getElementById('hero-video-wrapper');
+        const videoInner = document.getElementById('video-3d-inner');
+
+        videoWrapper.addEventListener('mousemove', (e) => {
+            const rect = videoWrapper.getBoundingClientRect();
+            // Calculate mouse position relative to center of wrapper (-1 to 1)
+            const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+            const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+
+            // Apply 3D rotation (Max 6 degrees for subtlety)
+            const rotateX = y * -6;
+            const rotateY = x * 6;
+
+            // Apply slight physical shift opposite to mouse for depth
+            const translateX = x * -10;
+            const translateY = y * -10;
+
+            videoInner.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(${translateX}px, ${translateY}px, 0) scale(1.05)`;
+        });
+
+        // Reset video to center when mouse leaves
+        videoWrapper.addEventListener('mouseleave', () => {
+            videoInner.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0) scale(1.05)`;
+        });
+        // --- GALLERY SECTION: CINEMATIC BLURS, ZOOMS, AND 3D HOVER ---
+
+        // 1. Enter Animation: Fades, Blurs, and Zooms (NO sliding)
+        const galleryEnterTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#gallery",
+                start: "top 75%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // Heading & Links (Blur & Zoom Reveal)
+        galleryEnterTl.fromTo(".gallery-heading-anim",
+            { opacity: 0, scale: 0.9, filter: "blur(15px)" },
+            { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.6, ease: "power3.out" }
+        )
+            .fromTo(".gallery-link-anim",
+                { opacity: 0, filter: "blur(5px)" },
+                { opacity: 1, filter: "blur(0px)", duration: 1.2, ease: "power2.out" },
+                "-=1.2"
+            );
+
+        // Masonry Cards (Organic Random Stagger, Blur to Clear, Zoom out to neutral)
+        const galleryCards = document.querySelectorAll('.gallery-card-3d');
+        galleryEnterTl.fromTo(galleryCards,
+            { opacity: 0, scale: 0.85, filter: "blur(8px)", rotateX: -15 },
+            {
+                opacity: 1,
+                scale: 1,
+                filter: "blur(0px)",
+                rotateX: 0,
+                duration: 1.8,
+                stagger: {
+                    amount: 1.2,
+                    from: "random" // Creates an organic, non-linear luxury reveal
+                },
+                ease: "power3.out",
+                clearProps: "transform" // Releases CSS to take over for 3D hovering
+            },
+            "-=2"
+        );
+
+        // 2. Interactive 3D Depth on Hover
+        galleryCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                // Disable aggressive 3D rotation on mobile for performance/UX
+                if (window.innerWidth < 768) return;
+
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                // Ultra-smooth, elegant tracking
+                const rotateX = ((y - centerY) / centerY) * -8;
+                const rotateY = ((x - centerX) / centerX) * 8;
+
+                card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                if (window.innerWidth < 768) return;
+                // Return to flat via CSS transition
+                card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+
+        // 3. Exit Scroll (Fade Out, Deep Zoom Out)
+        gsap.to(".gallery-container-anim", {
+            scale: 0.9,
+            opacity: 0,
+            filter: "blur(12px)",
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#gallery",
+                start: "bottom 85%",
+                end: "bottom top",
+                scrub: 1
+            }
+        });
+        // General Fade Up Elements
+        const fadeUps = document.querySelectorAll('.gsap-fade-up');
+        fadeUps.forEach(el => {
+            gsap.fromTo(el,
+                { y: 50, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 1, ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        });
+
+        // Parallax Images
+        const parallaxImgs = document.querySelectorAll('.parallax-img');
+        parallaxImgs.forEach(img => {
+            const speed = img.getAttribute('data-speed') || 0.05;
+            gsap.to(img, {
+                y: () => (window.innerHeight - img.getBoundingClientRect().top) * speed,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        });
+
+        // Swiper Initialization
+        const cakeSwiper = new Swiper('.cake-swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 30,
+            centeredSlides: false,
+            loop: true,
+            grabCursor: true,
+            navigation: {
+                nextEl: '.swiper-button-next-custom',
+                prevEl: '.swiper-button-prev-custom',
+            },
+            breakpoints: {
+                320: { spaceBetween: 20 },
+                768: { spaceBetween: 30 }
+            }
+        });
+
+        // --- TESTIMONIALS: CINEMATIC SCROLL REVEALS & 3D PHYSICS ---
+
+        // 1. Enter Section Reveal
+        // Set initial states explicitly to prevent any "popping" or FOUC (Flash of Unstyled Content)
+        gsap.set([".testi-blob", ".testi-quote-icon", ".testi-swiper-container"], { opacity: 0 });
+        gsap.set(".testi-blob", { scale: 0.8, filter: "blur(20px)" });
+        gsap.set(".testi-quote-icon", { y: 40, scale: 0.5, filter: "blur(10px)" });
+        gsap.set(".testi-swiper-container", { y: 60, scale: 0.95 });
+
+        const testiEnterTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#testimonials",
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        testiEnterTl.to(".testi-blob", {
+            scale: 1, opacity: 1, filter: "blur(0px)", duration: 2, ease: "power2.out"
+        })
+            .to(".testi-quote-icon", {
+                y: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: 1.5, ease: "back.out(1.2)"
+            }, "-=1.5")
+            .to(".testi-swiper-container", {
+                y: 0, scale: 1, opacity: 1, duration: 1.5, ease: "power3.out", clearProps: "transform"
+            }, "-=1.0");
+
+        // 2. Swiper Initialization with Inner Slide Cinematic Animations
+        const testimonialSwiper = new Swiper('.testimonial-swiper', {
+            slidesPerView: 1,
+            loop: true,
+            speed: 1200, // Luxurious slow crossfade
+            autoplay: {
+                delay: 6000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            effect: 'fade',
+            fadeEffect: { crossFade: true },
+            on: {
+                // When a slide transitions in, trigger inner element animations
+                slideChangeTransitionStart: function () {
+                    const activeSlide = this.slides[this.activeIndex];
+                    const text = activeSlide.querySelector('.testi-text');
+                    const profile = activeSlide.querySelector('.testi-profile-3d');
+                    const name = activeSlide.querySelector('.testi-name');
+                    const stars = activeSlide.querySelector('.testi-stars');
+
+                    // Layered cinematic build-in using fromTo for absolute stability
+                    gsap.fromTo(text,
+                        { opacity: 0, y: 20, filter: "blur(8px)" },
+                        { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.2, ease: "power3.out", delay: 0.1 }
+                    );
+                    gsap.fromTo(profile,
+                        { opacity: 0, scale: 0.8, filter: "blur(8px)" },
+                        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.0, ease: "back.out(1.5)", delay: 0.3 }
+                    );
+                    gsap.fromTo(name,
+                        { opacity: 0, y: 10, filter: "blur(4px)" },
+                        { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.0, ease: "power3.out", delay: 0.4 }
+                    );
+                    gsap.fromTo(stars,
+                        { opacity: 0, y: 10, filter: "blur(4px)" },
+                        { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.0, ease: "power3.out", delay: 0.5 }
+                    );
+                }
+            }
+        });
+
+        // 3. Immersive 3D Hover Tracking over the active testimonial text
+        const testiContainer = document.querySelector('.testi-container-3d');
+
+        testiContainer.addEventListener('mousemove', (e) => {
+            const activeCard = document.querySelector('.testimonial-swiper .swiper-slide-active .testi-card-3d');
+            if (!activeCard) return;
+
+            const rect = testiContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            // Extremely soft, luxurious tracking
+            const rotateX = ((y - centerY) / centerY) * -4;
+            const rotateY = ((x - centerX) / centerX) * 4;
+
+            activeCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        testiContainer.addEventListener('mouseleave', () => {
+            const activeCards = document.querySelectorAll('.testi-card-3d');
+            activeCards.forEach(card => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            });
+        });
+
+        // 4. Scroll Exit (Fade Out / Zoom Out into distance)
+        gsap.to(".testi-container-3d", {
+            scale: 0.9,
+            opacity: 0,
+            filter: "blur(10px)",
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#testimonials",
+                start: "bottom 85%",
+                end: "bottom top",
+                scrub: 1
+            }
+        });
+
+        // --- FAQ SECTION: CINEMATIC REVEALS & 3D ACCORDIONS ---
+
+        // 1. Enter Reveal: Zoom, Fade, and Blur (No sliding)
+        const faqEnterTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#faq",
+                start: "top 75%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        faqEnterTl.fromTo(".faq-anim-heading",
+            { opacity: 0, scale: 0.9, filter: "blur(12px)" },
+            { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.6, ease: "power3.out" }
+        )
+            .fromTo(".faq-card-3d",
+                { opacity: 0, scale: 0.95, filter: "blur(8px)", rotateX: -10 },
+                {
+                    opacity: 1,
+                    scale: 1,
+                    filter: "blur(0px)",
+                    rotateX: 0,
+                    duration: 1.4,
+                    stagger: 0.15,
+                    ease: "power3.out",
+                    clearProps: "transform" // Releases CSS to take over for 3D hovering
+                },
+                "-=1.0"
+            );
+
+        // 2. Interactive 3D Depth on Hover
+        const faqCards = document.querySelectorAll('.faq-card-3d');
+        faqCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                if (window.innerWidth < 768) return; // Disable heavy 3D on mobile for smoothness
+
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                // Ultra-smooth, subtle tracking for wide cards
+                const rotateX = ((y - centerY) / centerY) * -4;
+                const rotateY = ((x - centerX) / centerX) * 2;
+
+                card.style.transform = `perspective(1500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                if (window.innerWidth < 768) return;
+                // Return to flat state via CSS transition
+                card.style.transform = `perspective(1500px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+
+        // 3. Cinematic Accordion Logic
+        const faqBtns = document.querySelectorAll('.faq-item button');
+        faqBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const parentCard = btn.closest('.faq-card-3d');
+                const contentWrap = btn.nextElementSibling;
+                const icon = btn.querySelector('i');
+                const isOpen = contentWrap.classList.contains('is-open');
+
+                // Gracefully close all other items
+                document.querySelectorAll('.faq-item > div').forEach(div => {
+                    div.style.maxHeight = null;
+                    div.classList.remove('is-open');
+                });
+                document.querySelectorAll('.faq-item i').forEach(i => {
+                    i.classList.remove('rotate-45');
+                });
+                document.querySelectorAll('.faq-card-3d').forEach(card => {
+                    card.style.backgroundColor = ""; // Reset active background
+                    card.style.borderColor = "";
+                });
+
+                // Open clicked item
+                if (!isOpen) {
+                    contentWrap.classList.add('is-open');
+                    contentWrap.style.maxHeight = contentWrap.scrollHeight + "px";
+                    icon.classList.add('rotate-45');
+
+                    // Add subtle active state highlight to the parent card
+                    parentCard.style.backgroundColor = "#FFF8F0";
+                    parentCard.style.borderColor = "rgba(212, 163, 115, 0.4)";
+                }
+            });
+        });
+
+        // 4. Scroll Exit (Fade Out, Deep Zoom Out)
+        gsap.to(".faq-perspective", {
+            scale: 0.95,
+            opacity: 0,
+            filter: "blur(10px)",
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#faq",
+                start: "bottom 90%",
+                end: "bottom top",
+                scrub: 1
+            }
+        });
+    </script>
+</body>
+
+</html>
