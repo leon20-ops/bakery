@@ -1308,201 +1308,214 @@
     </nav>
     <div></div>
     <!-- 9. GALLERY (Masonry Layout) -->
-    <section id="gallery" class="py-24 bg-white gallery-perspective" style="padding-top: 8rem;">
-        <div class="max-w-7xl mx-auto px-6 lg:px-16 gallery-container-anim">
+    <!-- 9. GALLERY (Masonry Layout) -->
+    <section id="gallery" class="py-24 bg-white gallery-perspective relative overflow-hidden" style="padding-top: 8rem;">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16 gallery-container-anim relative z-10">
 
             <div class="flex justify-between items-end mb-12">
-                <h2 class="gallery-heading-anim font-playfair text-4xl lg:text-5xl text-chocolate origin-left">Visual
-                    Tasting</h2>
-                <a href="gallery/"
-                    class="gallery-link-anim gallery-link-underline hidden md:inline-block text-caramel font-semibold uppercase tracking-widest text-sm hover:text-chocolate transition-colors duration-500">View Gallery</a>
+                <!-- Hero Heading Classes Applied -->
+                <div class="gsap-hero-el overflow-hidden perspective-container">
+                    <h2 class="hero-slide-text font-playfair text-4xl lg:text-5xl text-chocolate inline-block transform-origin-bottom">
+                        Visual Tasting
+                    </h2>
+                </div>
+                
+                <!-- Hero Link/Button Classes Applied -->
+                <div class="gsap-hero-el perspective-container hidden md:inline-block">
+                    <a href="gallery/"
+                        class="hero-btn btn-3d-hover gallery-link-underline text-caramel font-semibold uppercase tracking-widest text-sm hover:text-chocolate transition-colors duration-500 inline-block">
+                        View Gallery
+                    </a>
+                </div>
             </div>
 
-            <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+            <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 perspective-container">
+                <!-- Hero Element & Button Pop-in Classes Applied to All Cards -->
+                
                 <!-- 1. Artisan Loaf -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?auto=format&fit=crop&w=800&q=80" alt="Artisan Loaf" title="Artisan Loaf" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 2. Assorted Donuts -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80" alt="Assorted Donuts" title="Assorted Donuts" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 3. Sourdough Boule -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=800&q=80" alt="Sourdough Boule" title="Sourdough Boule" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 4. Fruit Danish -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1612203985729-70726954388c?auto=format&fit=crop&w=800&q=80" alt="Fruit Danish" title="Fruit Danish" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 5. Berry Sponge Cake -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=800&q=80" alt="Berry Sponge Cake" title="Berry Sponge Cake" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 6. Croissant -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=800&q=80" alt="Butter Croissant" title="Butter Croissant" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 7. Birthday Cake -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=800&q=80" alt="Celebration Cake" title="Celebration Cake" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 8. Colorful Macarons -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=800&q=80" alt="French Macarons" title="French Macarons" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 9. Fresh Fruit Tart -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=800&q=80" alt="Fresh Fruit Tart" title="Fresh Fruit Tart" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 10. Cinnamon Rolls -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?auto=format&fit=crop&w=800&q=80" alt="Cinnamon Rolls" title="Cinnamon Rolls" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 11. Chocolate Chip Cookies -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80" alt="Chocolate Chip Cookies" title="Chocolate Chip Cookies" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 12. Rustic Apple Pie -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1562007908-17c67e878c88?auto=format&fit=crop&w=800&q=80" alt="Rustic Apple Pie" title="Rustic Apple Pie" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 13. Gourmet Cupcakes -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?auto=format&fit=crop&w=800&q=80" alt="Gourmet Cupcakes" title="Gourmet Cupcakes" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 14. Strawberry Shortcake -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=800&q=80" alt="Strawberry Shortcake" title="Strawberry Shortcake" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 15. Blueberry Muffins -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&w=800&q=80" alt="Blueberry Muffins" title="Blueberry Muffins" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 16. Fudge Brownies -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80" alt="Fudge Brownies" title="Fudge Brownies" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 17. Chocolate Eclairs -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1621236378699-8597faf6a176?auto=format&fit=crop&w=800&q=80" alt="Chocolate Eclairs" title="Chocolate Eclairs" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 18. Decadent Chocolate Soufflé -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80" alt="Decadent Chocolate Soufflé" title="Decadent Chocolate Soufflé" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 19. Vanilla Cherry Cupcake -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?auto=format&fit=crop&w=800&q=80" alt="Vanilla Cherry Cupcake" title="Vanilla Cherry Cupcake" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 20. Lemon Meringue Tart -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1514517521153-1be72277b32f?auto=format&fit=crop&w=800&q=80" alt="Lemon Meringue Tart" title="Lemon Meringue Tart" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 21. Artisan Croissant -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1654808991961-141a731f55db?auto=format&fit=crop&w=800&q=80" alt="Artisan Croissant" title="Artisan Croissant" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 22. Decadent Chocolate Cake -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80" alt="Decadent Chocolate Cake" title="Decadent Chocolate Cake" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 23. Gourmet Cupcakes -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=800&q=80" alt="Gourmet Cupcakes" title="Gourmet Cupcakes" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 24. Stacked Cookies -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80" alt="Artisan Cookies" title="Artisan Cookies" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 25. Cherry Pecan Pie -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1601000938259-9e92002320b2?auto=format&fit=crop&w=800&q=80" alt="Cherry Pecan Pie" title="Cherry Pecan Pie" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 26. Rosemary Focaccia -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=800&q=80" alt="Rosemary Focaccia" title="Rosemary Focaccia" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
                     </div>
                 </div>
                 <!-- 27. Chocolate Chip Cookies -->
-                <div class="gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid">
+                <div class="gsap-hero-el hero-btn gallery-card-3d relative rounded-2xl overflow-hidden cursor-pointer break-inside-avoid w-full inline-block">
                     <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80" alt="Chocolate Chip Cookies" title="Chocolate Chip Cookies" class="gallery-img w-full object-cover">
                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
                         <i class="gallery-heart fa-solid fa-heart text-3xl"></i>
@@ -1510,10 +1523,12 @@
                 </div>
             </div>
 
-            <div class="mt-8 text-center md:hidden gallery-link-anim">
+            <!-- Hero Button Classes Applied to Mobile Link -->
+            <div class="mt-8 text-center md:hidden gsap-hero-el perspective-container">
                 <a href="#"
-                    class="gallery-link-underline text-caramel font-semibold uppercase tracking-widest text-sm text-chocolate">Explore
-                    Instagram</a>
+                    class="hero-btn btn-3d-hover gallery-link-underline text-caramel font-semibold uppercase tracking-widest text-sm text-chocolate inline-block">
+                    Explore Instagram
+                </a>
             </div>
         </div>
     </section>
