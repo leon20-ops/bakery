@@ -721,29 +721,39 @@
                                 required>
                             <label for="signup-name" class="floating-label">Full Name</label>
                         </div>
-
                         <div class="input-group">
                             <input type="email" id="signup-email" class="premium-input peer interactive" placeholder=" "
                                 required>
                             <label for="signup-email" class="floating-label">Email Address</label>
                         </div>
-
-                        <!-- Custom Select -->
-                        <div class="input-group relative">
-                            <select id="signup-favorite"
-                                class="premium-input peer interactive appearance-none cursor-pointer pb-2 pt-6"
+                        <div class="input-group">
+                            <input type="password" id="signup-password" class="premium-input peer interactive" placeholder=" "
                                 required>
-                                <option value="" disabled selected hidden></option>
-                                <option value="croissant">Butter Croissant</option>
-                                <option value="sourdough">Artisan Sourdough</option>
-                                <option value="cake">Custom Cakes</option>
-                                <option value="macaron">French Macarons</option>
+                            <label for="signup-password" class="floating-label">Password</label>
+                        </div>
+                        <!-- Custom Select -->
+                        <div class="input-group relative w-full">
+
+                            <select id="signup-favorite"
+                                class="premium-input peer interactive appearance-none cursor-pointer w-full px-4 pb-2 pt-6 bg-transparent"
+                                required>
+                                <!-- Added bg-softbrown text-white here to make the dropdown menu brown -->
+                                <option value="croissant" class="bg-softbrown text-white">Butter Croissant</option>
+                                <option value="sourdough" class="bg-softbrown text-white">Artisan Sourdough</option>
+                                <option value="cake" class="bg-softbrown text-white">Custom Cakes</option>
+                                <option value="macaron" class="bg-softbrown text-white">French Macarons</option>
                             </select>
+
+                            <!-- Fixed Label: Centered and normal size by default, transitions to top left ONLY when focused or filled -->
                             <label for="signup-favorite"
-                                class="floating-label top-2 text-[0.65rem] font-medium text-caramel uppercase tracking-wide">Favorite
-                                Treat</label>
+                                class="floating-label absolute left-4 top-1/2 mt-0.6 -translate-y-1 text-sm transition-all duration-200 peer-focus:top-2 peer-focus:translate-y-0 peer-focus:text-[0.65rem] peer-valid:top-2 peer-valid:translate-y-0 peer-valid:text-[0.65rem] pointer-events-none font-medium text-caramel uppercase tracking-wide">
+                                Favorite Treat
+                            </label>
+
+                            <!-- Icon remains completely unchanged -->
                             <i
                                 class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-softbrown pointer-events-none text-xs"></i>
+
                         </div>
 
                         <button type="submit"
@@ -880,72 +890,72 @@
         document.addEventListener('DOMContentLoaded', () => {
 
             // --- Premium Cinematic Cursor Logic (Lerp + Hardware Acceleration) ---
-const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+            const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-if (isDesktop) {
-    const cursor = document.getElementById('custom-cursor');
-    const dot = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
+            if (isDesktop) {
+                const cursor = document.getElementById('custom-cursor');
+                const dot = document.getElementById('cursor-dot');
+                const ring = document.getElementById('cursor-ring');
 
-    // Mouse tracking variables
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
+                // Mouse tracking variables
+                let mouseX = window.innerWidth / 2;
+                let mouseY = window.innerHeight / 2;
 
-    // Lerp tracking variables for the smooth trailing ring
-    let ringX = mouseX;
-    let ringY = mouseY;
+                // Lerp tracking variables for the smooth trailing ring
+                let ringX = mouseX;
+                let ringY = mouseY;
 
-    // --- FIX 1: INCREASED SPEED ---
-    // Changed from 0.15 to 0.35. Higher = much faster, snappier follow.
-    const speed = 0.35; 
+                // --- FIX 1: INCREASED SPEED ---
+                // Changed from 0.15 to 0.35. Higher = much faster, snappier follow.
+                const speed = 0.35;
 
-    // --- FIX 2: SEPARATE CALCULATION FROM RENDERING ---
-    // Only capture the raw coordinates here. NO DOM updates. 
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
+                // --- FIX 2: SEPARATE CALCULATION FROM RENDERING ---
+                // Only capture the raw coordinates here. NO DOM updates. 
+                window.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                });
 
-    // Render Loop: Syncs perfectly with your monitor's refresh rate (60hz, 120hz, etc)
-    function renderCursor() {
-        // Dot follows instantly, completely synced to monitor frames
-        dot.style.transform = `translate3d(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%), 0)`;
+                // Render Loop: Syncs perfectly with your monitor's refresh rate (60hz, 120hz, etc)
+                function renderCursor() {
+                    // Dot follows instantly, completely synced to monitor frames
+                    dot.style.transform = `translate3d(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%), 0)`;
 
-        // Linear Interpolation for the trailing ring
-        ringX += (mouseX - ringX) * speed;
-        ringY += (mouseY - ringY) * speed;
-        ring.style.transform = `translate3d(calc(${ringX}px - 50%), calc(${ringY}px - 50%), 0)`;
+                    // Linear Interpolation for the trailing ring
+                    ringX += (mouseX - ringX) * speed;
+                    ringY += (mouseY - ringY) * speed;
+                    ring.style.transform = `translate3d(calc(${ringX}px - 50%), calc(${ringY}px - 50%), 0)`;
 
-        requestAnimationFrame(renderCursor);
-    }
-    // Start the loop
-    requestAnimationFrame(renderCursor);
+                    requestAnimationFrame(renderCursor);
+                }
+                // Start the loop
+                requestAnimationFrame(renderCursor);
 
-    // 3. Hover Interactions (Buttons, Links, Selects)
-    const btnInteractives = document.querySelectorAll('button, a, select, .interactive, .social-btn, label');
-    btnInteractives.forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hover-btn'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hover-btn'));
-    });
+                // 3. Hover Interactions (Buttons, Links, Selects)
+                const btnInteractives = document.querySelectorAll('button, a, select, .interactive, .social-btn, label');
+                btnInteractives.forEach(el => {
+                    el.addEventListener('mouseenter', () => cursor.classList.add('hover-btn'));
+                    el.addEventListener('mouseleave', () => cursor.classList.remove('hover-btn'));
+                });
 
-    // 4. Hover Interactions (Text Inputs)
-    const textInputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]');
-    textInputs.forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hover-input'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hover-input'));
-    });
+                // 4. Hover Interactions (Text Inputs)
+                const textInputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]');
+                textInputs.forEach(el => {
+                    el.addEventListener('mouseenter', () => cursor.classList.add('hover-input'));
+                    el.addEventListener('mouseleave', () => cursor.classList.remove('hover-input'));
+                });
 
-    // 5. Ripple Click Effect
-    window.addEventListener('mousedown', (e) => {
-        const ripple = document.createElement('div');
-        ripple.className = 'cursor-ripple';
-        ripple.style.setProperty('--x', `${e.clientX}px`);
-        ripple.style.setProperty('--y', `${e.clientY}px`);
-        cursor.appendChild(ripple);
-        
-        setTimeout(() => { ripple.remove(); }, 600);
-    });
-}
+                // 5. Ripple Click Effect
+                window.addEventListener('mousedown', (e) => {
+                    const ripple = document.createElement('div');
+                    ripple.className = 'cursor-ripple';
+                    ripple.style.setProperty('--x', `${e.clientX}px`);
+                    ripple.style.setProperty('--y', `${e.clientY}px`);
+                    cursor.appendChild(ripple);
+
+                    setTimeout(() => { ripple.remove(); }, 600);
+                });
+            }
 
             // --- CINEMATIC 3D BACKGROUND & PARTICLE ENGINE ---
 
