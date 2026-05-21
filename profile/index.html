@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Member Dashboard</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FFF8F0',
+                        beige: '#F5E6D3',
+                        softbrown: '#8B5E3C',
+                        chocolate: '#4A2C1A',
+                        caramel: '#D4A373',
+                        blush: '#F7D6D0',
+                        gold: '#C5A059'
+                    },
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        poppins: ['"Poppins"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(74, 44, 26, 0.05)',
+                        'glass-hover': '0 20px 40px -10px rgba(212, 163, 115, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup */
+        body {
+            background-color: #FFF8F0;
+            color: #4A2C1A;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Hide Scrollbar but keep functionality */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4A373;
+            border-radius: 10px;
+        }
+
+        /* Ambient Background Animations */
+        .ambient-blob {
+            position: fixed;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: floatBlob 15s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+            pointer-events: none;
+        }
+
+        @keyframes floatBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, -50px) scale(1.2); }
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #4A2C1A 0%, #8B5E3C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- 3D Card Physics --- */
+        .perspective-grid {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+
+        .news-card-3d {
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .news-card-3d:hover {
+            box-shadow: 0 30px 60px -15px rgba(139, 94, 60, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            border-color: rgba(212, 163, 115, 0.4);
+            z-index: 10;
+        }
+
+        /* Inner Content Depth */
+        .card-content-pop {
+            transform: translateZ(30px);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+        
+        .news-card-3d:hover .card-content-pop {
+            transform: translateZ(50px);
+        }
+
+        .card-img-wrap {
+            transform: translateZ(10px);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        .news-card-3d:hover .card-img-wrap {
+            transform: translateZ(25px);
+        }
+
+        .card-img {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .news-card-3d:hover .card-img {
+            transform: scale(1.08);
+        }
+
+        /* Card Glare Effect */
+        .card-glare {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, rgba(255,255,255,0) 20%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 80%);
+            transform: translateX(-150%) skewX(-15deg);
+            z-index: 20;
+            pointer-events: none;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: inherit;
+        }
+
+        .news-card-3d:hover .card-glare {
+            transform: translateX(150%) skewX(-15deg);
+        }
+
+        /* Button 3D Hover */
+        .btn-3d {
+            transform-style: preserve-3d;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+
+        .btn-3d:hover {
+            transform: translateY(-2px) translateZ(20px);
+            box-shadow: 0 10px 20px -5px rgba(74, 44, 26, 0.2);
+        }
+
+        /* Logout Button specific */
+        .btn-logout {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-logout::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: #F7D6D0; /* Blush */
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+        }
+
+        .btn-logout:hover::before {
+            left: 0;
+        }
+        .btn-logout:hover {
+            color: #4A2C1A;
+            border-color: #F7D6D0;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px -3px rgba(247, 214, 208, 0.5);
+        }
+
+        /* Modal Styles */
+        #article-modal {
+            opacity: 0;
+            visibility: hidden;
+            transition: visibility 0.4s ease;
+        }
+        #article-modal.is-active {
+            visibility: visible;
+        }
+
+        /* Preloader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #FFF8F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body class="font-poppins antialiased selection:bg-caramel selection:text-white">
+
+    <!-- Preloader -->
+    <div id="loader" class="flex flex-col items-center justify-center">
+        <h2 class="font-playfair text-4xl text-chocolate animate-pulse tracking-widest mb-2">AURA</h2>
+        <div class="w-12 h-[1px] bg-caramel/50 relative overflow-hidden">
+            <div class="absolute inset-y-0 left-0 bg-caramel w-full animate-[slide_1s_ease-in-out_infinite]"></div>
+        </div>
+    </div>
+
+    <!-- Ambient Background Elements -->
+    <div class="ambient-blob bg-beige w-[600px] h-[600px] rounded-full top-[-10%] left-[-10%]"></div>
+    <div class="ambient-blob bg-blush/40 w-[500px] h-[500px] rounded-full bottom-[10%] right-[-5%] animation-delay-2000"></div>
+    <div class="ambient-blob bg-caramel/20 w-[400px] h-[400px] rounded-full top-[40%] left-[30%] animation-delay-4000"></div>
+
+    <!-- Header Navigation -->
+    <header class="fixed w-full z-40 top-0 transition-all duration-300 pt-6 px-4 md:px-8" id="main-header">
+        <div class="max-w-7xl mx-auto glass-panel rounded-full px-6 py-3 flex justify-between items-center shadow-glass relative z-10">
+            <!-- Logo -->
+            <a href="#" class="font-playfair text-2xl font-bold text-chocolate tracking-wider btn-3d">AURA</a>
+            
+            <!-- User Actions -->
+            <div class="flex items-center gap-4 md:gap-6">
+                <div class="hidden md:flex items-center gap-3">
+                    <img src="https://ui-avatars.com/api/?name=Jane+Doe&background=F5E6D3&color=4A2C1A" alt="Profile" class="w-8 h-8 rounded-full border border-caramel/30">
+                    <span class="text-sm font-medium text-softbrown">Welcome, Jane</span>
+                </div>
+                <div class="h-6 w-[1px] bg-chocolate/10 hidden md:block"></div>
+                <button onclick="handleLogout()" class="btn-logout px-5 py-2 rounded-full border border-chocolate/20 text-chocolate text-sm font-medium flex items-center gap-2 bg-transparent z-10">
+                    <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i> 
+                    <span class="hidden sm:inline">Sign Out</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard Area -->
+    <main class="pt-32 pb-24 px-4 md:px-8 min-h-screen relative z-10">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Dashboard Header -->
+            <div class="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 header-anim">
+                <div>
+                    <p class="text-caramel font-semibold tracking-widest text-sm uppercase mb-2">Member Exclusive</p>
+                    <h1 class="font-playfair text-4xl md:text-5xl lg:text-6xl text-gradient pb-2 leading-tight">Bakery News & Updates</h1>
+                </div>
+                
+                <!-- Mock Filters -->
+                <div class="flex items-center gap-2 bg-white/50 p-1.5 rounded-full border border-beige backdrop-blur-sm self-start md:self-auto">
+                    <button class="px-4 py-2 rounded-full bg-white text-chocolate shadow-sm text-xs font-medium transition-all">Latest</button>
+                    <button class="px-4 py-2 rounded-full text-softbrown hover:text-chocolate text-xs font-medium transition-all">Announcements</button>
+                    <button class="px-4 py-2 rounded-full text-softbrown hover:text-chocolate text-xs font-medium transition-all hidden sm:block">Events</button>
+                </div>
+            </div>
+
+            <!-- News Grid -->
+            <div class="perspective-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="news-container">
+                
+                <!-- Featured Card (Spans 2 cols on lg) -->
+                <article class="news-card-3d lg:col-span-2 glass-panel rounded-3xl p-2 flex flex-col md:flex-row gap-6 relative group cursor-pointer" onclick="openModal(1)">
+                    <div class="card-glare"></div>
+                    
+                    <div class="card-img-wrap w-full md:w-1/2 h-64 md:h-auto rounded-2xl relative">
+                        <img src="https://images.unsplash.com/photo-1555507036-ab1f40ce88f7?q=80&w=1000&auto=format&fit=crop" alt="Autumn Menu" class="card-img w-full h-full object-cover rounded-2xl">
+                        <div class="absolute top-4 left-4 glass-panel px-3 py-1 rounded-full text-xs font-bold text-chocolate flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-caramel animate-pulse"></div> New
+                        </div>
+                    </div>
+                    
+                    <div class="card-content-pop w-full md:w-1/2 p-4 md:p-6 md:pl-0 flex flex-col justify-center">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-xs font-semibold text-caramel uppercase tracking-wider">Announcement</span>
+                            <span class="text-xs text-softbrown"><i class="fa-regular fa-calendar mr-1"></i> Oct 24, 2024</span>
+                        </div>
+                        <h2 class="font-playfair text-2xl md:text-3xl text-chocolate mb-3 leading-snug">The Autumn Collection is Here: Spiced Pear & Cardamom</h2>
+                        <p class="text-sm text-softbrown mb-6 line-clamp-3">Embrace the crisp air with our newly unveiled autumn menu. Featuring locally sourced pears, warm cardamom, and our signature 48-hour fermented sourdough. Pre-orders are now available for members.</p>
+                        <div class="mt-auto">
+                            <span class="inline-flex items-center gap-2 text-sm font-medium text-chocolate group-hover:text-caramel transition-colors">
+                                Read Full Story <i class="fa-solid fa-arrow-right text-xs transform group-hover:translate-x-1 transition-transform"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Standard Card 1 -->
+                <article class="news-card-3d glass-panel rounded-3xl p-5 flex flex-col relative group cursor-pointer" onclick="openModal(2)">
+                    <div class="card-glare"></div>
+                    <div class="card-img-wrap w-full h-48 rounded-2xl mb-5">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600&auto=format&fit=crop" alt="Sourcing" class="card-img w-full h-full object-cover rounded-2xl">
+                    </div>
+                    <div class="card-content-pop flex flex-col flex-grow">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-xs font-semibold text-caramel uppercase tracking-wider">Behind The Scenes</span>
+                        </div>
+                        <h3 class="font-playfair text-xl text-chocolate mb-2">Journey to the Mill: Sourcing Organic Heritage Flour</h3>
+                        <p class="text-sm text-softbrown mb-4 line-clamp-2">Take a visual tour of the local mill where we source the ancient grains that give our bread its distinct, robust flavor profile.</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-xs text-softbrown/70">Oct 18, 2024</span>
+                            <span class="w-8 h-8 rounded-full bg-cream flex items-center justify-center text-chocolate group-hover:bg-caramel group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Standard Card 2 -->
+                <article class="news-card-3d glass-panel rounded-3xl p-5 flex flex-col relative group cursor-pointer" onclick="openModal(3)">
+                    <div class="card-glare"></div>
+                    <div class="card-img-wrap w-full h-48 rounded-2xl mb-5">
+                        <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=600&auto=format&fit=crop" alt="Masterclass" class="card-img w-full h-full object-cover rounded-2xl">
+                    </div>
+                    <div class="card-content-pop flex flex-col flex-grow">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-xs font-semibold text-caramel uppercase tracking-wider">Event</span>
+                        </div>
+                        <h3 class="font-playfair text-xl text-chocolate mb-2">Member Exclusive: Croissant Masterclass Registration</h3>
+                        <p class="text-sm text-softbrown mb-4 line-clamp-2">Join Head Baker Julian for an intimate weekend workshop on mastering the art of lamination and French butter.</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-xs text-softbrown/70">Oct 12, 2024</span>
+                            <span class="w-8 h-8 rounded-full bg-cream flex items-center justify-center text-chocolate group-hover:bg-caramel group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                 <!-- Standard Card 3 -->
+                 <article class="news-card-3d glass-panel rounded-3xl p-5 flex flex-col relative group cursor-pointer" onclick="openModal(4)">
+                    <div class="card-glare"></div>
+                    <div class="card-img-wrap w-full h-48 rounded-2xl mb-5">
+                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=600&auto=format&fit=crop" alt="Award" class="card-img w-full h-full object-cover rounded-2xl">
+                    </div>
+                    <div class="card-content-pop flex flex-col flex-grow">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-xs font-semibold text-caramel uppercase tracking-wider">Community</span>
+                        </div>
+                        <h3 class="font-playfair text-xl text-chocolate mb-2">Aura Named 'Best Patisserie' in City Culinary Awards</h3>
+                        <p class="text-sm text-softbrown mb-4 line-clamp-2">We are deeply honored to accept this award. Thank you to our dedicated members who continually support our craft.</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-xs text-softbrown/70">Sep 28, 2024</span>
+                            <span class="w-8 h-8 rounded-full bg-cream flex items-center justify-center text-chocolate group-hover:bg-caramel group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Standard Card 4 -->
+                <article class="news-card-3d glass-panel rounded-3xl p-5 flex flex-col relative group cursor-pointer" onclick="openModal(5)">
+                    <div class="card-glare"></div>
+                    <div class="card-content-pop flex flex-col flex-grow justify-center py-6">
+                        <div class="w-12 h-12 rounded-full bg-caramel/20 flex items-center justify-center mb-4 text-caramel mx-auto">
+                            <i class="fa-solid fa-gift text-xl"></i>
+                        </div>
+                        <div class="text-center">
+                            <span class="text-xs font-semibold text-caramel uppercase tracking-wider block mb-2">Holiday Notice</span>
+                            <h3 class="font-playfair text-xl text-chocolate mb-3">Early Bird Holiday Orders Opening Soon</h3>
+                            <p class="text-sm text-softbrown mb-6">Prepare for the festive season. Members get 48-hour priority access to reserve yule logs and custom hampers.</p>
+                            
+                            <span class="inline-block px-5 py-2 rounded-full bg-chocolate text-cream text-xs font-medium group-hover:bg-softbrown transition-colors">
+                                Set Reminder
+                            </span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Article Modal (Hidden by default) -->
+    <div id="article-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-chocolate/40 backdrop-blur-sm modal-bg" onclick="closeModal()"></div>
+        
+        <!-- Modal Content Container -->
+        <div class="modal-content relative bg-cream w-full max-w-3xl max-h-[90vh] rounded-3xl shadow-2xl overflow-hidden flex flex-col transform origin-center">
+            
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-chocolate hover:bg-caramel hover:text-white transition-colors z-20 shadow-sm btn-3d">
+                <i class="fa-solid fa-times"></i>
+            </button>
+
+            <!-- Scrollable Area -->
+            <div class="overflow-y-auto w-full h-full relative" id="modal-scroll-area">
+                
+                <!-- Dynamic Image (Replaced via JS) -->
+                <div class="w-full h-64 sm:h-80 relative modal-img-wrap">
+                    <img id="modal-img" src="" alt="Article Image" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-cream via-transparent to-transparent"></div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="p-6 sm:p-10 -mt-16 relative z-10">
+                    <div class="glass-panel inline-flex items-center gap-3 px-4 py-1.5 rounded-full mb-4 shadow-sm modal-meta">
+                        <span id="modal-category" class="text-xs font-semibold text-caramel uppercase tracking-wider">Category</span>
+                        <div class="w-1 h-1 rounded-full bg-chocolate/30"></div>
+                        <span id="modal-date" class="text-xs text-softbrown">Date</span>
+                    </div>
+                    
+                    <h2 id="modal-title" class="font-playfair text-3xl sm:text-4xl text-chocolate mb-6 leading-tight modal-text">Article Title</h2>
+                    
+                    <div id="modal-body" class="prose prose-sm sm:prose-base prose-p:text-softbrown prose-p:leading-relaxed prose-headings:font-playfair prose-headings:text-chocolate max-w-none modal-text pb-10">
+                        <!-- Content inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GSAP & Lenis Scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        // --- Mock Data for Modal ---
+        const articlesData = {
+            1: {
+                title: "The Autumn Collection is Here: Spiced Pear & Cardamom",
+                category: "Announcement",
+                date: "Oct 24, 2024",
+                img: "https://images.unsplash.com/photo-1555507036-ab1f40ce88f7?q=80&w=1000&auto=format&fit=crop",
+                content: `
+                    <p>As the leaves begin to turn and a crisp chill fills the air, we are thrilled to welcome you back to the warmth of Aura Bakery with our highly anticipated Autumn Collection.</p>
+                    <p>This season, our culinary team has drawn inspiration from the rustic orchards surrounding the city. The star of our new menu is the <strong>Spiced Pear & Cardamom Tart</strong>. We slow-poach local Bartlett pears in a fragrant syrup of green cardamom, star anise, and vanilla bean, resting them atop a buttery, flaky frangipane base.</p>
+                    <p>In addition to our pastries, we are introducing a limited-edition <em>Pumpkin Seed Sourdough</em>. Using our signature 48-hour wild yeast fermentation process, we fold in roasted heirloom pumpkin seeds and a touch of dark molasses for a deeply complex, crusty loaf perfect for autumn soups.</p>
+                    <p>As a valued member, your pre-order access begins today, 48 hours before the public release. Log into your account to reserve your weekend treats.</p>
+                `
+            },
+            2: {
+                title: "Journey to the Mill: Sourcing Organic Heritage Flour",
+                category: "Behind The Scenes",
+                date: "Oct 18, 2024",
+                img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=1000&auto=format&fit=crop",
+                content: `<p>Great bread begins long before the dough is mixed. It starts in the soil. This week, we took a trip to Sunrise Stone Mill to oversee the milling of our latest batch of organic heritage wheat.</p><p>We believe in transparency and quality, which is why 100% of the flour used in our artisanal loaves is stone-ground. This traditional method preserves the natural oils and nutrients of the wheat berry, resulting in bread that is not only healthier but possesses a robust, nutty flavor that commercial flour simply cannot replicate.</p>`
+            },
+            3: {
+                title: "Member Exclusive: Croissant Masterclass Registration",
+                category: "Event",
+                date: "Oct 12, 2024",
+                img: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=1000&auto=format&fit=crop",
+                content: `<p>Have you ever wondered how we achieve the perfect honeycomb interior and shatteringly crisp exterior on our croissants? Now is your chance to learn.</p><p>Join Head Baker Julian for an exclusive, hands-on masterclass designed specifically for our members. You will learn the delicate art of lamination, temperature control, and the secrets of working with high-fat European butter. Spots are strictly limited to 10 participants to ensure personalized guidance.</p>`
+            },
+            4: {
+                title: "Aura Named 'Best Patisserie' in City Culinary Awards",
+                category: "Community",
+                date: "Sep 28, 2024",
+                img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=1000&auto=format&fit=crop",
+                content: `<p>We are beyond humbled to announce that Aura Bakery has been awarded the title of 'Best Patisserie' at the annual City Culinary Excellence Awards.</p><p>This accolade is a testament to the early mornings, the meticulous ingredient sourcing, and the unwavering passion of our entire team. But most importantly, this award belongs to you—our community. Your continuous support allows us to pursue our craft without compromise. Thank you.</p>`
+            },
+            5: {
+                title: "Early Bird Holiday Orders Opening Soon",
+                category: "Holiday Notice",
+                date: "Sep 15, 2024",
+                img: "https://images.unsplash.com/photo-1481391319762-47dff72954d9?q=80&w=1000&auto=format&fit=crop",
+                content: `<p>The festive season is approaching faster than expected. To ensure our members are never left without their favorite centerpieces, early bird holiday reservations will open on November 1st.</p><p>Keep an eye on your inbox for the official catalog, featuring our renowned Buche de Noel, artisan panettone, and custom luxury gift hampers.</p>`
+            }
+        };
+
+        // --- Setup Lenis Smooth Scrolling ---
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // --- Page Load Animations (GSAP) ---
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            
+            const loadTl = gsap.timeline();
+            
+            loadTl.to(loader, {
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.inOut",
+                onComplete: () => loader.style.display = 'none'
+            })
+            // Header Slide Down
+            .from("#main-header > div", {
+                y: -50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            }, "-=0.2")
+            // Dashboard Title Reveal
+            .from(".header-anim", {
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            }, "-=0.6")
+            // Cards Staggered 3D Reveal
+            .from(".news-card-3d", {
+                y: 60,
+                opacity: 0,
+                rotateX: -15, // 3D unfold effect
+                scale: 0.95,
+                duration: 1.2,
+                stagger: 0.15,
+                ease: "back.out(1.2)",
+                clearProps: "transform" // Critical: hand back control to CSS for hover physics
+            }, "-=0.8");
+        });
+
+        // --- 3D Hover Physics for Cards ---
+        const cards = document.querySelectorAll('.news-card-3d');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                if(window.innerWidth < 768) return; // Disable heavy physics on mobile
+
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                // Subtle rotation based on mouse position relative to center
+                const rotateX = ((y - centerY) / centerY) * -6; // Max 6 deg
+                const rotateY = ((x - centerX) / centerX) * 6;
+
+                card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                if(window.innerWidth < 768) return;
+                // Rely on CSS transition for smooth return to 0
+                card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+
+        // --- Header Scroll Effect ---
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                header.classList.add('pt-3');
+                header.classList.remove('pt-6');
+                header.querySelector('.glass-panel').classList.add('bg-white/80', 'backdrop-blur-xl');
+            } else {
+                header.classList.add('pt-6');
+                header.classList.remove('pt-3');
+                header.querySelector('.glass-panel').classList.remove('bg-white/80', 'backdrop-blur-xl');
+            }
+        });
+
+        // --- Modal Logic & GSAP Animations ---
+        const modal = document.getElementById('article-modal');
+        const modalContent = document.querySelector('.modal-content');
+        let modalTl = gsap.timeline({ paused: true });
+
+        // Build Modal Animation Timeline
+        modalTl.fromTo(modal, 
+            { autoAlpha: 0 }, 
+            { autoAlpha: 1, duration: 0.3, ease: "power2.out" }
+        )
+        .fromTo(modalContent, 
+            { scale: 0.9, y: 30, opacity: 0, rotateX: -10 },
+            { scale: 1, y: 0, opacity: 1, rotateX: 0, duration: 0.6, ease: "back.out(1.2)" },
+            "-=0.1"
+        )
+        // Stagger inner content
+        .fromTo([".modal-img-wrap", ".modal-meta", ".modal-text"],
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out" },
+            "-=0.3"
+        );
+
+        function openModal(id) {
+            const data = articlesData[id];
+            if(!data) return;
+
+            // Populate Data
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-category').textContent = data.category;
+            document.getElementById('modal-date').textContent = data.date;
+            document.getElementById('modal-body').innerHTML = data.content;
+            
+            const imgEl = document.getElementById('modal-img');
+            if(data.img) {
+                imgEl.src = data.img;
+                imgEl.parentElement.style.display = 'block';
+            } else {
+                imgEl.parentElement.style.display = 'none';
+            }
+
+            // Reset scroll position
+            document.getElementById('modal-scroll-area').scrollTop = 0;
+
+            // Lock body scroll (Lenis handling)
+            lenis.stop();
+            modal.classList.add('is-active');
+            
+            // Play animation
+            modalTl.restart();
+        }
+
+        function closeModal() {
+            // Reverse animation
+            modalTl.reverse().then(() => {
+                modal.classList.remove('is-active');
+                lenis.start(); // Unlock body scroll
+            });
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('is-active')) {
+                closeModal();
+            }
+        });
+
+        // --- Logout Interaction ---
+        function handleLogout() {
+            const btn = document.querySelector('.btn-logout');
+            
+            // Simple animated feedback before "redirecting"
+            gsap.to(btn, {
+                scale: 0.95,
+                opacity: 0.5,
+                duration: 0.2,
+                yoyo: true,
+                repeat: 1,
+                onComplete: () => {
+                    alert("Logging out securely... (Mock Action)");
+                    // window.location.href = '/login';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
