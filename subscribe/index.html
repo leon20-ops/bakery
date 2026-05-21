@@ -552,19 +552,20 @@
                 transform: none !important;
             }
 
+            /* ADD !important HERE */
             .sign-up-panel {
-                display: none;
+                display: none !important;
             }
-
-            /* Hidden by default */
 
             /* Mobile Active State */
+            /* ADD !important HERE */
             .auth-container.mobile-signup-active .sign-in-panel {
-                display: none;
+                display: none !important;
             }
 
+            /* ADD !important HERE */
             .auth-container.mobile-signup-active .sign-up-panel {
-                display: flex;
+                display: flex !important;
                 animation: fadeInUp 0.6s ease forwards;
             }
 
@@ -715,7 +716,7 @@
                             secret recipes, and exclusive bakery offers.</p>
                     </div>
 
-                    <form id="signup-form" class="flex flex-col gap-6">
+                    <form id="signup-form" class="flex flex-col gap-5">
                         <div class="input-group">
                             <input type="text" id="signup-name" class="premium-input peer interactive" placeholder=" "
                                 required>
@@ -779,7 +780,7 @@
                             and saved preferences.</p>
                     </div>
 
-                    <form id="signin-form" class="space-y-2">
+                    <form id="signin-form" class="flex flex-col gap-5">
                         <div class="input-group">
                             <input type="email" id="signin-email" class="premium-input peer interactive" placeholder=" "
                                 required>
@@ -794,7 +795,7 @@
                                 onclick="togglePassword('signin-password', this)"></i>
                         </div>
 
-                        <div class="flex items-center justify-between mt-2 mb-6 text-sm">
+                        <div class="flex items-center justify-between text-sm">
                             <label class="flex items-center gap-2 cursor-pointer interactive group">
                                 <div
                                     class="relative w-4 h-4 rounded border border-softbrown dark:border-caramel flex items-center justify-center group-hover:border-caramel transition-colors">
