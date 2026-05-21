@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Premium Bakery Authentication</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FFF8F0',
+                        beige: '#F5E6D3',
+                        softbrown: '#8B5E3C',
+                        chocolate: '#4A2C1A',
+                        caramel: '#D4A373',
+                        blush: '#F7D6D0',
+                        // Dark mode specific colors (Mocha Theme)
+                        mocha: {
+                            900: '#1A0F0A',
+                            800: '#2A1810',
+                            700: '#3D261A',
+                            text: '#F5E6D3'
+                        }
+                    },
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        poppins: ['"Poppins"', 'sans-serif'],
+                    },
+                    animation: {
+                        'blob': 'blob 15s infinite alternate ease-in-out',
+                        'blob-reverse': 'blob-reverse 20s infinite alternate ease-in-out',
+                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'slide-toast': 'slideToast 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'spin-slow': 'spin 1.5s linear infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '100%': { transform: 'translate(50px, -50px) scale(1.1)' }
+                        },
+                        'blob-reverse': {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '100%': { transform: 'translate(-50px, 50px) scale(1.1)' }
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideToast: {
+                            '0%': { opacity: '0', transform: 'translateX(100%)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Layout */
+        body {
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* --- THE ULTIMATE CURSOR FIX --- */
+        /* Hide default cursor EVERYWHERE, but ONLY on devices with a mouse (not touchscreens) */
+        @media (hover: hover) and (pointer: fine) {
+
+            *,
+            *::before,
+            *::after {
+                cursor: none !important;
+            }
+
+            #custom-cursor {
+                display: block !important;
+                mix-blend-mode: exclusion;
+                /* Premium cinematic color inversion */
+            }
+        }
+
+        /* Ultra-Modern Cursor Base Styles */
+        #cursor-dot {
+            transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
+        }
+
+        #cursor-ring {
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.4s ease,
+                border-radius 0.4s ease,
+                border-color 0.4s ease;
+        }
+
+        /* Hover States: Buttons & Links */
+        #custom-cursor.hover-btn #cursor-ring {
+            width: 65px;
+            height: 65px;
+            background-color: rgba(212, 163, 115, 0.2);
+            border-color: rgba(212, 163, 115, 0.8);
+            box-shadow: 0 0 30px rgba(212, 163, 115, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        #custom-cursor.hover-btn #cursor-dot {
+            opacity: 0;
+            /* Fade out inner dot for a clean glass circle */
+        }
+
+        /* Hover States: Text Inputs */
+        #custom-cursor.hover-input #cursor-ring {
+            width: 6px;
+            height: 32px;
+            /* Morphs into a sleek text caret */
+            border-radius: 4px;
+            background-color: rgba(212, 163, 115, 0.6);
+            border-color: transparent;
+        }
+
+        #custom-cursor.hover-input #cursor-dot {
+            opacity: 0;
+        }
+
+        /* Ripple Click Animation */
+        @keyframes cursorPulse {
+            0% {
+                transform: translate3d(calc(var(--x) - 50%), calc(var(--y) - 50%), 0) scale(1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translate3d(calc(var(--x) - 50%), calc(var(--y) - 50%), 0) scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        .cursor-ripple {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #D4A373;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: cursorPulse 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 30px 60px rgba(74, 44, 26, 0.1);
+        }
+
+        .dark .glass-panel {
+            background: rgba(42, 24, 16, 0.7);
+            border: 1px solid rgba(212, 163, 115, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        /* --- CINEMATIC AMBIENT ENVIRONMENT --- */
+        .perspective-1000 {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        /* Animated Film Grain */
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            animation: panNoise 8s steps(10) infinite;
+        }
+
+        @keyframes panNoise {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+        /* Morphing Volumetric Light Orbs */
+        .orb {
+            position: absolute;
+            filter: blur(80px);
+            will-change: transform, border-radius;
+            mix-blend-mode: multiply;
+            transition: background-color 0.7s ease;
+        }
+
+        .dark .orb {
+            mix-blend-mode: screen;
+            /* Swaps blending for dark mode magic */
+            filter: blur(100px);
+        }
+
+        /* Positioning & Unique Animations per Orb */
+        .orb-1 {
+            width: 45vw;
+            height: 45vw;
+            top: -10%;
+            left: -10%;
+            animation: float1 25s infinite ease-in-out alternate, morph 15s infinite ease-in-out alternate;
+        }
+
+        .orb-2 {
+            width: 55vw;
+            height: 55vw;
+            bottom: -20%;
+            right: -10%;
+            animation: float2 30s infinite ease-in-out alternate, morph 18s infinite ease-in-out alternate-reverse;
+        }
+
+        .orb-3 {
+            width: 35vw;
+            height: 35vw;
+            top: 40%;
+            left: 50%;
+            animation: float3 20s infinite ease-in-out alternate, morph 12s infinite ease-in-out alternate;
+        }
+
+        .orb-4 {
+            width: 40vw;
+            height: 40vw;
+            top: 20%;
+            left: 20%;
+            animation: float1 28s infinite ease-in-out alternate-reverse, morph 20s infinite ease-in-out alternate-reverse;
+        }
+
+        /* Organic Shape Shifting */
+        @keyframes morph {
+            0% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+
+            50% {
+                border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+            }
+
+            100% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+        }
+
+        /* GPU Accelerated Floating Movements */
+        @keyframes float1 {
+            0% {
+                transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+            }
+
+            100% {
+                transform: translate3d(10%, 10%, 0) scale(1.1) rotate(10deg);
+            }
+        }
+
+        @keyframes float2 {
+            0% {
+                transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+            }
+
+            100% {
+                transform: translate3d(-10%, -15%, 0) scale(1.15) rotate(-10deg);
+            }
+        }
+
+        @keyframes float3 {
+            0% {
+                transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+            }
+
+            100% {
+                transform: translate3d(-15%, 15%, 0) scale(1.05) rotate(15deg);
+            }
+        }
+
+        /* Premium Form Inputs */
+        .input-group {
+            position: relative;
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        .premium-input {
+            width: 100%;
+            padding: 1rem 1rem 0.5rem 1rem;
+            background: rgba(255, 248, 240, 0.5);
+            border: 1px solid rgba(139, 94, 60, 0.2);
+            border-radius: 0.75rem;
+            font-size: 0.9rem;
+            color: #4A2C1A;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .dark .premium-input {
+            background: rgba(0, 0, 0, 0.2);
+            border-color: rgba(212, 163, 115, 0.2);
+            color: #F5E6D3;
+        }
+
+        .premium-input:focus {
+            border-color: #D4A373;
+            box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.1);
+            background: #ffffff;
+        }
+
+        .dark .premium-input:focus {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Floating Label Logic */
+        .floating-label {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8B5E3C;
+            font-size: 0.9rem;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .dark .floating-label {
+            color: rgba(245, 230, 211, 0.6);
+        }
+
+        /* Float label when input is focused OR has content (using :not(:placeholder-shown)) */
+        .premium-input:focus~.floating-label,
+        .premium-input:not(:placeholder-shown)~.floating-label {
+            top: 0.5rem;
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: #D4A373;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Password Eye Icon */
+        .pwd-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #8B5E3C;
+            transition: color 0.3s ease;
+        }
+
+        .pwd-toggle:hover {
+            color: #D4A373;
+        }
+
+        .dark .pwd-toggle {
+            color: #D4A373;
+        }
+
+        /* Social Buttons */
+        .social-btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            border: 1px solid rgba(139, 94, 60, 0.2);
+            color: #4A2C1A;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            background: transparent;
+        }
+
+        .dark .social-btn {
+            border-color: rgba(212, 163, 115, 0.2);
+            color: #F5E6D3;
+        }
+
+        .social-btn:hover {
+            background: #D4A373;
+            color: #fff;
+            transform: translateY(-3px);
+            border-color: #D4A373;
+            box-shadow: 0 10px 20px rgba(212, 163, 115, 0.3);
+        }
+
+        /* --- DESKTOP SLIDING ANIMATION SYSTEM --- */
+        .auth-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            min-height: 600px;
+            overflow: hidden;
+            border-radius: 2rem;
+        }
+
+        .form-panel {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            transition: all 0.7s cubic-bezier(0.25, 1, 0.25, 1);
+            width: 50%;
+        }
+
+        .sign-in-panel {
+            left: 0;
+            z-index: 2;
+        }
+
+        .sign-up-panel {
+            left: 0;
+            opacity: 0;
+            z-index: 1;
+            transform: translateX(50%);
+            pointer-events: none;
+        }
+
+        /* Overlay System */
+        .overlay-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.25, 1);
+            z-index: 100;
+        }
+
+        .overlay {
+            position: relative;
+            left: -100%;
+            height: 100%;
+            width: 200%;
+            transform: translateX(0);
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.25, 1);
+        }
+
+        /* Image sizing inside overlay */
+        .overlay-img-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6) contrast(1.1);
+        }
+
+        .overlay-inner-panel {
+            position: absolute;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 3rem;
+            text-align: center;
+            height: 100%;
+            width: 50%;
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.25, 1);
+            z-index: 10;
+        }
+
+        .overlay-left {
+            transform: translateX(-20%);
+            opacity: 0;
+        }
+
+        .overlay-right {
+            right: 0;
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        /* ACTIVE STATE (Toggled via JS) */
+        .auth-container.right-panel-active .sign-in-panel {
+            transform: translateX(100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .auth-container.right-panel-active .sign-up-panel {
+            transform: translateX(100%);
+            opacity: 1;
+            z-index: 5;
+            pointer-events: auto;
+        }
+
+        .auth-container.right-panel-active .overlay-container {
+            transform: translateX(-100%);
+        }
+
+        .auth-container.right-panel-active .overlay {
+            transform: translateX(50%);
+        }
+
+        .auth-container.right-panel-active .overlay-left {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .auth-container.right-panel-active .overlay-right {
+            transform: translateX(20%);
+            opacity: 0;
+        }
+
+        /* --- MOBILE ADAPTATION --- */
+        @media (max-width: 768px) {
+            .auth-container {
+                min-height: auto;
+                max-width: 100%;
+                border-radius: 1.5rem;
+            }
+
+            .form-panel {
+                width: 100%;
+                position: relative;
+                left: 0;
+                transform: none;
+                transition: opacity 0.5s ease;
+                padding: 2rem 1.5rem;
+            }
+
+            .overlay-container {
+                display: none;
+                /* Hide complex sliding on mobile */
+            }
+
+            /* Mobile Fade Toggle System */
+            .sign-in-panel,
+            .sign-up-panel {
+                opacity: 1;
+                pointer-events: auto;
+                transform: none !important;
+            }
+
+            .sign-up-panel {
+                display: none;
+            }
+
+            /* Hidden by default */
+
+            /* Mobile Active State */
+            .auth-container.mobile-signup-active .sign-in-panel {
+                display: none;
+            }
+
+            .auth-container.mobile-signup-active .sign-up-panel {
+                display: flex;
+                animation: fadeInUp 0.6s ease forwards;
+            }
+
+            /* Mobile Toggle Buttons */
+            .mobile-toggle {
+                display: block;
+                margin-top: 2rem;
+                text-align: center;
+                color: #8B5E3C;
+                font-size: 0.9rem;
+            }
+
+            .dark .mobile-toggle {
+                color: #D4A373;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-toggle {
+                display: none;
+            }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s linear infinite;
+        }
+
+        .btn-loading .spinner {
+            display: inline-block;
+        }
+
+        .btn-loading .btn-text {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Toast Notifications */
+        #toast-container {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .toast {
+            background: #ffffff;
+            border-left: 4px solid #D4A373;
+            color: #4A2C1A;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .dark .toast {
+            background: #3D261A;
+            color: #F5E6D3;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body
+    class="font-poppins bg-cream dark:bg-mocha-900 transition-colors duration-700 min-h-screen flex items-center justify-center p-4 lg:p-12 relative text-chocolate dark:text-mocha-text selection:bg-caramel selection:text-white">
+
+    <!-- Premium Futuristic Custom Cursor -->
+    <div id="custom-cursor" class="pointer-events-none fixed inset-0 z-[9999] hidden">
+        <!-- Smooth Trailing Glow/Ring -->
+        <div id="cursor-ring"
+            class="absolute top-0 left-0 w-10 h-10 border border-caramel/40 bg-caramel/10 backdrop-blur-[2px] rounded-full will-change-transform shadow-[0_0_15px_rgba(212,163,115,0.3)]">
+        </div>
+        <!-- Instant Follow Dot -->
+        <div id="cursor-dot"
+            class="absolute top-0 left-0 w-2 h-2 bg-caramel rounded-full will-change-transform shadow-[0_0_10px_rgba(212,163,115,0.8)]">
+        </div>
+    </div>
+
+    <!-- Premium Cinematic 3D Environment -->
+    <div id="cinematic-background"
+        class="fixed inset-0 z-0 overflow-hidden pointer-events-none perspective-1000 bg-cream dark:bg-mocha-900 transition-colors duration-700">
+
+        <!-- Animated Film Grain/Noise -->
+        <div
+            class="absolute inset-0 bg-noise opacity-[0.04] dark:opacity-[0.06] z-10 mix-blend-overlay pointer-events-none">
+        </div>
+
+        <!-- 3D Parallax Container -->
+        <div id="parallax-wrapper" class="absolute inset-0 w-full h-full will-change-transform scale-110">
+
+            <!-- Organic Morphing Light Blobs -->
+            <div class="orb orb-1 bg-[#D4A373]/40 dark:bg-[#D4A373]/15"></div>
+            <div class="orb orb-2 bg-[#F7D6D0]/50 dark:bg-[#8B5E3C]/20"></div>
+            <div class="orb orb-3 bg-[#C5A059]/30 dark:bg-[#C5A059]/10"></div>
+            <div class="orb orb-4 bg-white/60 dark:bg-[#3D261A]/40"></div>
+
+            <!-- Magic Dust Particle System -->
+            <canvas id="particle-canvas" class="absolute inset-0 z-20 pointer-events-none"></canvas>
+        </div>
+
+        <!-- Cinematic Vignette Overlay -->
+        <div
+            class="absolute inset-0 z-30 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(74,44,26,0.12)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(26,15,10,0.7)_100%)]">
+        </div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button id="theme-toggle"
+        class="interactive fixed top-6 right-6 z-50 w-12 h-12 rounded-full glass-panel flex items-center justify-center text-chocolate dark:text-caramel hover:scale-110 transition-transform">
+        <i class="fa-solid fa-moon dark:hidden text-xl"></i>
+        <i class="fa-solid fa-sun hidden dark:block text-xl"></i>
+    </button>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Main Auth Container -->
+    <main class="w-full max-w-7xl mx-auto flex justify-center items-center relative z-10 animate-fade-in-up">
+
+        <div class="auth-container glass-panel shadow-2xl" id="auth-container">
+
+            <!-- 1. SIGN UP / NEWSLETTER PANEL -->
+            <div
+                class="form-panel sign-up-panel flex flex-col justify-center px-8 lg:px-16 bg-white/40 dark:bg-mocha-800/60 backdrop-blur-sm">
+                <div class="w-full max-w-sm mx-auto">
+                    <div class="text-center mb-8">
+                        <h2 class="font-playfair text-3xl lg:text-4xl font-bold mb-2">Join the Club</h2>
+                        <p class="text-softbrown dark:text-mocha-text/70 text-sm">Subscribe for weekly pastry menus,
+                            secret recipes, and exclusive bakery offers.</p>
+                    </div>
+
+                    <form id="signup-form" class="space-y-2">
+                        <div class="input-group">
+                            <input type="text" id="signup-name" class="premium-input peer interactive" placeholder=" "
+                                required>
+                            <label for="signup-name" class="floating-label">Full Name</label>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="email" id="signup-email" class="premium-input peer interactive" placeholder=" "
+                                required>
+                            <label for="signup-email" class="floating-label">Email Address</label>
+                        </div>
+
+                        <!-- Custom Select -->
+                        <div class="input-group relative">
+                            <select id="signup-favorite"
+                                class="premium-input peer interactive appearance-none cursor-pointer pb-2 pt-6"
+                                required>
+                                <option value="" disabled selected hidden></option>
+                                <option value="croissant">Butter Croissant</option>
+                                <option value="sourdough">Artisan Sourdough</option>
+                                <option value="cake">Custom Cakes</option>
+                                <option value="macaron">French Macarons</option>
+                            </select>
+                            <label for="signup-favorite"
+                                class="floating-label top-2 text-[0.65rem] font-medium text-caramel uppercase tracking-wide">Favorite
+                                Treat</label>
+                            <i
+                                class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-softbrown pointer-events-none text-xs"></i>
+                        </div>
+
+                        <button type="submit"
+                            class="interactive w-full bg-chocolate dark:bg-caramel text-cream dark:text-mocha-900 font-semibold py-4 rounded-xl mt-4 hover:bg-softbrown dark:hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl flex justify-center items-center gap-2">
+                            <span class="btn-text">Subscribe Now</span>
+                            <div class="spinner"></div>
+                        </button>
+                    </form>
+
+                    <!-- Mobile Toggle -->
+                    <p class="mobile-toggle interactive cursor-pointer" onclick="toggleMobileView()">Already have an
+                        account? <span class="font-semibold underline underline-offset-4">Sign In</span></p>
+                </div>
+            </div>
+
+            <!-- 2. SIGN IN PANEL -->
+            <div
+                class="form-panel sign-in-panel flex flex-col justify-center px-8 lg:px-16 bg-white/40 dark:bg-mocha-800/60 backdrop-blur-sm">
+                <div class="w-full max-w-sm mx-auto">
+                    <div class="text-center mb-8">
+                        <h2 class="font-playfair text-3xl lg:text-4xl font-bold mb-2">Welcome Back</h2>
+                        <p class="text-softbrown dark:text-mocha-text/70 text-sm">Sign in to access your luxury orders
+                            and saved preferences.</p>
+                    </div>
+
+                    <form id="signin-form" class="space-y-2">
+                        <div class="input-group">
+                            <input type="email" id="signin-email" class="premium-input peer interactive" placeholder=" "
+                                required>
+                            <label for="signin-email" class="floating-label">Email Address</label>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="password" id="signin-password" class="premium-input peer interactive pr-10"
+                                placeholder=" " required>
+                            <label for="signin-password" class="floating-label">Password</label>
+                            <i class="fa-regular fa-eye pwd-toggle interactive"
+                                onclick="togglePassword('signin-password', this)"></i>
+                        </div>
+
+                        <div class="flex items-center justify-between mt-2 mb-6 text-sm">
+                            <label class="flex items-center gap-2 cursor-pointer interactive group">
+                                <div
+                                    class="relative w-4 h-4 rounded border border-softbrown dark:border-caramel flex items-center justify-center group-hover:border-caramel transition-colors">
+                                    <input type="checkbox" class="peer opacity-0 absolute inset-0 cursor-pointer">
+                                    <i
+                                        class="fa-solid fa-check text-[10px] text-caramel opacity-0 peer-checked:opacity-100 transition-opacity"></i>
+                                </div>
+                                <span
+                                    class="text-softbrown dark:text-mocha-text/80 group-hover:text-chocolate dark:group-hover:text-white transition-colors">Remember
+                                    me</span>
+                            </label>
+                            <a href="#"
+                                class="text-caramel font-medium hover:text-chocolate dark:hover:text-white transition-colors interactive">Forgot
+                                password?</a>
+                        </div>
+
+                        <button type="submit"
+                            class="interactive w-full bg-chocolate dark:bg-caramel text-cream dark:text-mocha-900 font-semibold py-4 rounded-xl hover:bg-softbrown dark:hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl flex justify-center items-center gap-2">
+                            <span class="btn-text">Sign In</span>
+                            <div class="spinner"></div>
+                        </button>
+                    </form>
+
+                    <!-- Social Login -->
+                    <div class="mt-8">
+                        <div class="relative flex items-center justify-center mb-6">
+                            <div class="absolute w-full border-t border-softbrown/20 dark:border-mocha-text/10"></div>
+                            <span
+                                class="relative bg-transparent px-4 text-xs text-softbrown dark:text-mocha-text/60 font-medium uppercase tracking-widest backdrop-blur-md">Or
+                                continue with</span>
+                        </div>
+                        <div class="flex justify-center gap-4">
+                            <button class="social-btn interactive"><i class="fa-brands fa-google text-lg"></i></button>
+                            <button class="social-btn interactive"><i class="fa-brands fa-apple text-lg"></i></button>
+                            <button class="social-btn interactive"><i
+                                    class="fa-brands fa-facebook-f text-lg"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Toggle -->
+                    <p class="mobile-toggle interactive cursor-pointer" onclick="toggleMobileView()">Don't have an
+                        account? <span class="font-semibold underline underline-offset-4">Subscribe</span></p>
+                </div>
+            </div>
+
+            <!-- 3. SLIDING OVERLAY (Desktop Only) -->
+            <div class="overlay-container hidden md:block">
+                <div class="overlay bg-chocolate dark:bg-mocha-900 text-cream">
+                    <!-- Background Image -->
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=1200&auto=format&fit=crop"
+                        alt="Bakery Bread" class="overlay-img-bg dark:hidden">
+                    <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=1200&auto=format&fit=crop"
+                        alt="Dark Cake" class="overlay-img-bg hidden dark:block">
+
+                    <!-- Dark Gradient for text readability -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-chocolate/90 via-chocolate/40 to-transparent dark:from-mocha-900/90 dark:via-mocha-900/60 z-0">
+                    </div>
+
+                    <!-- Left Overlay (Shown when Sign Up is active, prompts to Sign In) -->
+                    <div class="overlay-inner-panel overlay-left">
+                        <div
+                            class="w-16 h-16 border-2 border-caramel rounded-full flex items-center justify-center mb-6 animate-spin-slow">
+                            <i class="fa-solid fa-wheat-awn text-2xl text-caramel"></i>
+                        </div>
+                        <h2 class="font-playfair text-4xl font-bold mb-4 drop-shadow-md">One of us?</h2>
+                        <p class="font-light text-sm text-beige/90 mb-8 leading-relaxed max-w-xs drop-shadow">If you
+                            already have an account, sign in to view your luxury orders and preferences.</p>
+                        <button
+                            class="interactive bg-transparent border-2 border-cream text-cream px-10 py-3 rounded-full font-semibold hover:bg-cream hover:text-chocolate transition-colors"
+                            id="signInBtn">Sign In</button>
+                    </div>
+
+                    <!-- Right Overlay (Shown when Sign In is active, prompts to Sign Up) -->
+                    <div class="overlay-inner-panel overlay-right">
+                        <div
+                            class="w-16 h-16 border-2 border-caramel rounded-full flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-cake-candles text-2xl text-caramel"></i>
+                        </div>
+                        <h2 class="font-playfair text-4xl font-bold mb-4 drop-shadow-md">New Here?</h2>
+                        <p class="font-light text-sm text-beige/90 mb-8 leading-relaxed max-w-xs drop-shadow">Subscribe
+                            to our newsletter and create an account to experience the art of premium baking.</p>
+                        <button
+                            class="interactive bg-transparent border-2 border-cream text-cream px-10 py-3 rounded-full font-semibold hover:bg-cream hover:text-chocolate transition-colors"
+                            id="signUpBtn">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Premium Cinematic Cursor Logic (Lerp + Hardware Acceleration) ---
+const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+if (isDesktop) {
+    const cursor = document.getElementById('custom-cursor');
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+
+    // Mouse tracking variables
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    // Lerp tracking variables for the smooth trailing ring
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    // --- FIX 1: INCREASED SPEED ---
+    // Changed from 0.15 to 0.35. Higher = much faster, snappier follow.
+    const speed = 0.35; 
+
+    // --- FIX 2: SEPARATE CALCULATION FROM RENDERING ---
+    // Only capture the raw coordinates here. NO DOM updates. 
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    // Render Loop: Syncs perfectly with your monitor's refresh rate (60hz, 120hz, etc)
+    function renderCursor() {
+        // Dot follows instantly, completely synced to monitor frames
+        dot.style.transform = `translate3d(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%), 0)`;
+
+        // Linear Interpolation for the trailing ring
+        ringX += (mouseX - ringX) * speed;
+        ringY += (mouseY - ringY) * speed;
+        ring.style.transform = `translate3d(calc(${ringX}px - 50%), calc(${ringY}px - 50%), 0)`;
+
+        requestAnimationFrame(renderCursor);
+    }
+    // Start the loop
+    requestAnimationFrame(renderCursor);
+
+    // 3. Hover Interactions (Buttons, Links, Selects)
+    const btnInteractives = document.querySelectorAll('button, a, select, .interactive, .social-btn, label');
+    btnInteractives.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover-btn'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover-btn'));
+    });
+
+    // 4. Hover Interactions (Text Inputs)
+    const textInputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]');
+    textInputs.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover-input'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover-input'));
+    });
+
+    // 5. Ripple Click Effect
+    window.addEventListener('mousedown', (e) => {
+        const ripple = document.createElement('div');
+        ripple.className = 'cursor-ripple';
+        ripple.style.setProperty('--x', `${e.clientX}px`);
+        ripple.style.setProperty('--y', `${e.clientY}px`);
+        cursor.appendChild(ripple);
+        
+        setTimeout(() => { ripple.remove(); }, 600);
+    });
+}
+
+            // --- CINEMATIC 3D BACKGROUND & PARTICLE ENGINE ---
+
+            (function initCinematicBackground() {
+                const wrapper = document.getElementById('parallax-wrapper');
+                const canvas = document.getElementById('particle-canvas');
+                if (!canvas || !wrapper) return;
+
+                const ctx = canvas.getContext('2d');
+                let width, height;
+                let particles = [];
+
+                // Performance: Less particles on mobile
+                const isMobile = window.innerWidth < 768;
+                const particleCount = isMobile ? 30 : 80;
+
+                // Mouse Tracking for Parallax & Wind effect
+                let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+                let targetParallax = { x: 0, y: 0 };
+                let currentParallax = { x: 0, y: 0 };
+
+                // --- 1. Canvas Setup ---
+                function resize() {
+                    width = window.innerWidth;
+                    height = window.innerHeight;
+                    // Support for high DPI displays (Retina screens)
+                    const dpr = window.devicePixelRatio || 1;
+                    canvas.width = width * dpr;
+                    canvas.height = height * dpr;
+                    ctx.scale(dpr, dpr);
+                }
+                window.addEventListener('resize', resize);
+                resize();
+
+                // --- 2. Particle Class ---
+                class Particle {
+                    constructor() {
+                        this.reset();
+                        // Randomize initial Y so they start all over the screen
+                        this.y = Math.random() * height;
+                    }
+
+                    reset() {
+                        this.x = Math.random() * width;
+                        this.y = height + Math.random() * 100; // Start slightly below screen
+                        this.size = Math.random() * 2.5 + 0.5;
+                        this.speedY = -(Math.random() * 0.5 + 0.1); // Float upwards
+                        this.speedX = (Math.random() - 0.5) * 0.3;  // Sway sideways
+                        this.opacity = Math.random() * 0.5 + 0.1;
+                        this.baseOpacity = this.opacity;
+
+                        // Random glowing color (Gold / Caramel / Blush)
+                        const colors = ['212, 163, 115', '247, 214, 208', '197, 160, 89', '255, 248, 240'];
+                        this.color = colors[Math.floor(Math.random() * colors.length)];
+
+                        // Sine wave properties for organic floating
+                        this.angle = Math.random() * Math.PI * 2;
+                        this.angleSpeed = Math.random() * 0.02 + 0.01;
+                    }
+
+                    update(windX) {
+                        // Organic movement
+                        this.angle += this.angleSpeed;
+                        this.x += this.speedX + Math.sin(this.angle) * 0.5 + windX;
+                        this.y += this.speedY;
+
+                        // Twinkle effect
+                        this.opacity = this.baseOpacity + Math.sin(this.angle * 2) * 0.2;
+
+                        // Reset if out of bounds
+                        if (this.y < -10 || this.x < -10 || this.x > width + 10) {
+                            this.reset();
+                        }
+                    }
+
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(${this.color}, ${Math.max(0, this.opacity)})`;
+
+                        // Glowing effect
+                        ctx.shadowBlur = this.size * 3;
+                        ctx.shadowColor = `rgba(${this.color}, ${Math.max(0, this.opacity)})`;
+
+                        ctx.fill();
+                        // Reset shadow for performance
+                        ctx.shadowBlur = 0;
+                    }
+                }
+
+                // Initialize Particles
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+
+                // --- 3. Interaction & Animation Loop ---
+                if (!isMobile) {
+                    window.addEventListener('mousemove', (e) => {
+                        mouse.x = e.clientX;
+                        mouse.y = e.clientY;
+
+                        // Calculate parallax targets (-1 to 1 based on screen center)
+                        targetParallax.x = (mouse.x / width - 0.5) * 2;
+                        targetParallax.y = (mouse.y / height - 0.5) * 2;
+                    });
+                }
+
+                function animate() {
+                    ctx.clearRect(0, 0, width, height);
+
+                    // Smooth Lerp for Parallax
+                    currentParallax.x += (targetParallax.x - currentParallax.x) * 0.05;
+                    currentParallax.y += (targetParallax.y - currentParallax.y) * 0.05;
+
+                    // Apply 3D tilt and shift to the entire background wrapper
+                    if (!isMobile) {
+                        const tiltX = currentParallax.y * -8; // Max 8 degrees tilt
+                        const tiltY = currentParallax.x * 8;
+                        const shiftX = currentParallax.x * -30; // Max 30px shift
+                        const shiftY = currentParallax.y * -30;
+
+                        wrapper.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translate3d(${shiftX}px, ${shiftY}px, 0)`;
+                    }
+
+                    // Render Particles (Wind effect tied to mouse parallax)
+                    const windX = currentParallax.x * 0.5;
+
+                    particles.forEach(particle => {
+                        particle.update(windX);
+                        particle.draw();
+                    });
+
+                    requestAnimationFrame(animate);
+                }
+
+                animate();
+            })();
+
+            // --- Desktop Sliding Panel Logic ---
+            const signUpBtn = document.getElementById('signUpBtn');
+            const signInBtn = document.getElementById('signInBtn');
+            const container = document.getElementById('auth-container');
+
+            if (signUpBtn && signInBtn) {
+                signUpBtn.addEventListener('click', () => {
+                    container.classList.add("right-panel-active");
+                });
+
+                signInBtn.addEventListener('click', () => {
+                    container.classList.remove("right-panel-active");
+                });
+            }
+
+
+            // --- Theme Toggle Logic (Dark Chocolate Mode) ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const htmlElement = document.documentElement;
+
+            // Check local storage or system preference
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                htmlElement.classList.add('dark');
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                htmlElement.classList.toggle('dark');
+                if (htmlElement.classList.contains('dark')) {
+                    localStorage.theme = 'dark';
+                } else {
+                    localStorage.theme = 'light';
+                }
+            });
+
+
+            // --- Form Submission Logic (Simulated) ---
+            const forms = [
+                { id: 'signin-form', successMsg: 'Welcome back to Aura!' },
+                { id: 'signup-form', successMsg: 'Subscribed successfully. Check your email!' }
+            ];
+
+            forms.forEach(f => {
+                const formEl = document.getElementById(f.id);
+                if (formEl) {
+                    formEl.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        const btn = formEl.querySelector('button[type="submit"]');
+
+                        // Set loading state
+                        btn.classList.add('btn-loading');
+                        btn.disabled = true;
+
+                        // Simulate API Call
+                        setTimeout(() => {
+                            btn.classList.remove('btn-loading');
+                            btn.disabled = false;
+                            formEl.reset(); // Clear inputs
+
+                            // Remove focus float effect from labels by blurring
+                            const inputs = formEl.querySelectorAll('input, select');
+                            inputs.forEach(input => input.blur());
+
+                            showToast(f.successMsg, 'success');
+
+                            // If on mobile and signed up, flip back to sign in
+                            if (f.id === 'signup-form' && window.innerWidth <= 768) {
+                                setTimeout(toggleMobileView, 1500);
+                            } else if (f.id === 'signup-form') {
+                                // Desktop switch back
+                                setTimeout(() => container.classList.remove("right-panel-active"), 1500);
+                            }
+
+                        }, 1500);
+                    });
+                }
+            });
+        });
+
+        // --- Global Helper Functions ---
+
+        // Mobile Toggle Function (Crossfade)
+        function toggleMobileView() {
+            const container = document.getElementById('auth-container');
+            container.classList.toggle('mobile-signup-active');
+        }
+
+        // Password Show/Hide Toggle
+        function togglePassword(inputId, iconEl) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                iconEl.classList.remove('fa-eye');
+                iconEl.classList.add('fa-eye-slash');
+            } else {
+                input.type = "password";
+                iconEl.classList.remove('fa-eye-slash');
+                iconEl.classList.add('fa-eye');
+            }
+        }
+
+        // Elegant Toast Notification System
+        function showToast(message, type = 'success') {
+            const toastContainer = document.getElementById('toast-container');
+
+            const toast = document.createElement('div');
+            toast.className = 'toast animate-slide-toast';
+
+            // Icon based on type
+            const iconClass = type === 'success' ? 'fa-solid fa-check-circle text-caramel' : 'fa-solid fa-circle-exclamation text-red-500';
+
+            toast.innerHTML = `
+                <i class="${iconClass} text-xl"></i>
+                <span>${message}</span>
+            `;
+
+            toastContainer.appendChild(toast);
+
+            // Remove toast after 4 seconds
+            setTimeout(() => {
+                toast.style.animation = 'slideToast 0.5s cubic-bezier(0.16, 1, 0.3, 1) reverse forwards';
+                setTimeout(() => toast.remove(), 500);
+            }, 4000);
+        }
+    </script>
+</body>
+
+</html>
