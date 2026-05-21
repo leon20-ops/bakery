@@ -291,6 +291,12 @@
             <!-- Dashboard Header -->
             <div class="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 header-anim">
                 <div>
+                    <!-- Mobile Profile Display (Hidden on Desktop) -->
+                    <div class="flex md:hidden items-center gap-3 mb-6">
+                        <img src="https://ui-avatars.com/api/?name=Jane+Doe&background=F5E6D3&color=4A2C1A" alt="Profile" class="w-10 h-10 rounded-full border border-caramel/30 shadow-sm">
+                        <span class="text-base font-medium text-chocolate">Welcome, Jane</span>
+                    </div>
+
                     <p class="text-caramel font-semibold tracking-widest text-sm uppercase mb-2">Member Exclusive</p>
                     <h1 class="font-playfair text-4xl md:text-5xl lg:text-6xl text-gradient pb-2 leading-tight">Bakery
                         News & Updates</h1>
@@ -475,7 +481,8 @@
             </button>
 
             <!-- Scrollable Area -->
-            <div class="overflow-y-auto w-full h-full relative" id="modal-scroll-area">
+            <div class="overflow-y-auto w-full h-full relative overscroll-contain" id="modal-scroll-area"
+                data-lenis-prevent>
 
                 <!-- Dynamic Image (Replaced via JS) -->
                 <div class="w-full h-64 sm:h-80 relative modal-img-wrap">
@@ -695,7 +702,8 @@
             document.getElementById('modal-scroll-area').scrollTop = 0;
 
             // Lock body scroll (Lenis handling)
-            lenis.stop();
+            // To this:
+            document.body.style.overflowY = 'hidden';
             modal.classList.add('is-active');
 
             // Play animation
@@ -704,9 +712,10 @@
 
         function closeModal() {
             // Reverse animation
+            // To this:
             modalTl.reverse().then(() => {
                 modal.classList.remove('is-active');
-                lenis.start(); // Unlock body scroll
+                document.body.style.overflowY = ''; // Unlock body scroll
             });
         }
 
