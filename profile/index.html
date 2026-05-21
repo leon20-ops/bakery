@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -47,7 +47,7 @@
         body {
             background-color: #FFF8F0;
             color: #4A2C1A;
-            overflow-x: hidden;
+            overflow-x: clip; /* Changed from hidden to prevent Lenis conflicts */
             -webkit-font-smoothing: antialiased;
         }
 
@@ -238,7 +238,7 @@
     <header class="fixed w-full z-40 top-0 transition-all duration-300 pt-6 px-4 md:px-8" id="main-header">
         <div class="max-w-7xl mx-auto glass-panel rounded-full px-6 py-3 flex justify-between items-center shadow-glass relative z-10">
             <!-- Logo -->
-            <a href="#" class="font-playfair text-2xl font-bold text-chocolate tracking-wider btn-3d">AURA</a>
+            <a href="#" onclick="event.preventDefault(); lenis.scrollTo(0);" class="font-playfair text-2xl font-bold text-chocolate tracking-wider btn-3d">AURA</a>
             
             <!-- User Actions -->
             <div class="flex items-center gap-4 md:gap-6">
@@ -266,11 +266,11 @@
                     <h1 class="font-playfair text-4xl md:text-5xl lg:text-6xl text-gradient pb-2 leading-tight">Bakery News & Updates</h1>
                 </div>
                 
-                <!-- Mock Filters -->
+                <!-- Filters -->
                 <div class="flex items-center gap-2 bg-white/50 p-1.5 rounded-full border border-beige backdrop-blur-sm self-start md:self-auto">
-                    <button class="px-4 py-2 rounded-full bg-white text-chocolate shadow-sm text-xs font-medium transition-all">Latest</button>
-                    <button class="px-4 py-2 rounded-full text-softbrown hover:text-chocolate text-xs font-medium transition-all">Announcements</button>
-                    <button class="px-4 py-2 rounded-full text-softbrown hover:text-chocolate text-xs font-medium transition-all hidden sm:block">Events</button>
+                    <button class="filter-btn px-4 py-2 rounded-full bg-white text-chocolate shadow-sm text-xs font-medium transition-all" data-filter="All">Latest</button>
+                    <button class="filter-btn px-4 py-2 rounded-full text-softbrown hover:text-chocolate text-xs font-medium transition-all" data-filter="Announcement">Announcements</button>
+                    <button class="filter-btn px-4 py-2 rounded-full text-softbrown hover:text-chocolate text-xs font-medium transition-all hidden sm:block" data-filter="Event">Events</button>
                 </div>
             </div>
 
@@ -278,11 +278,11 @@
             <div class="perspective-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="news-container">
                 
                 <!-- Featured Card (Spans 2 cols on lg) -->
-                <article class="news-card-3d lg:col-span-2 glass-panel rounded-3xl p-2 flex flex-col md:flex-row gap-6 relative group cursor-pointer" onclick="openModal(1)">
+                <article class="news-card-3d lg:col-span-2 glass-panel rounded-3xl p-2 flex flex-col md:flex-row gap-6 relative group cursor-pointer" onclick="openModal(1)" data-category="Announcement">
                     <div class="card-glare"></div>
                     
                     <div class="card-img-wrap w-full md:w-1/2 h-64 md:h-auto rounded-2xl relative">
-                        <img src="https://images.unsplash.com/photo-1555507036-ab1f40ce88f7?q=80&w=1000&auto=format&fit=crop" alt="Autumn Menu" class="card-img w-full h-full object-cover rounded-2xl">
+                        <img src="https://images.unsplash.com/photo-1612203985729-70726954388c?auto=format&fit=crop&w=800&q=80" alt="Autumn Menu" class="card-img w-full h-full object-cover rounded-2xl">
                         <div class="absolute top-4 left-4 glass-panel px-3 py-1 rounded-full text-xs font-bold text-chocolate flex items-center gap-2">
                             <div class="w-1.5 h-1.5 rounded-full bg-caramel animate-pulse"></div> New
                         </div>
@@ -304,7 +304,7 @@
                 </article>
 
                 <!-- Standard Card 1 -->
-                <article class="news-card-3d glass-panel rounded-3xl p-5 flex flex-col relative group cursor-pointer" onclick="openModal(2)">
+                <article class="news-card-3d glass-panel rounded-3xl p-5 flex flex-col relative group cursor-pointer" onclick="openModal(2)" data-category="Behind The Scenes">
                     <div class="card-glare"></div>
                     <div class="card-img-wrap w-full h-48 rounded-2xl mb-5">
                         <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600&auto=format&fit=crop" alt="Sourcing" class="card-img w-full h-full object-cover rounded-2xl">
@@ -325,7 +325,7 @@
                 </article>
 
                 <!-- Standard Card 2 -->
-                <article class="news-card-3d glass-panel rounded-3xl p-5 flex flex-col relative group cursor-pointer" onclick="openModal(3)">
+                <article class="news-card-3d glass-panel rounded-3xl p-5 flex flex-col relative group cursor-pointer" onclick="openModal(3)" data-category="Event">
                     <div class="card-glare"></div>
                     <div class="card-img-wrap w-full h-48 rounded-2xl mb-5">
                         <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=600&auto=format&fit=crop" alt="Masterclass" class="card-img w-full h-full object-cover rounded-2xl">
@@ -346,7 +346,7 @@
                 </article>
 
                  <!-- Standard Card 3 -->
-                 <article class="news-card-3d glass-panel rounded-3xl p-5 flex flex-col relative group cursor-pointer" onclick="openModal(4)">
+                 <article class="news-card-3d glass-panel rounded-3xl p-5 flex flex-col relative group cursor-pointer" onclick="openModal(4)" data-category="Community">
                     <div class="card-glare"></div>
                     <div class="card-img-wrap w-full h-48 rounded-2xl mb-5">
                         <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=600&auto=format&fit=crop" alt="Award" class="card-img w-full h-full object-cover rounded-2xl">
@@ -367,7 +367,7 @@
                 </article>
 
                 <!-- Standard Card 4 -->
-                <article class="news-card-3d glass-panel rounded-3xl p-5 flex flex-col relative group cursor-pointer" onclick="openModal(5)">
+                <article class="news-card-3d glass-panel rounded-3xl p-5 flex flex-col relative group cursor-pointer" onclick="openModal(5)" data-category="Holiday Notice">
                     <div class="card-glare"></div>
                     <div class="card-content-pop flex flex-col flex-grow justify-center py-6">
                         <div class="w-12 h-12 rounded-full bg-caramel/20 flex items-center justify-center mb-4 text-caramel mx-auto">
@@ -525,8 +525,38 @@
                 duration: 1.2,
                 stagger: 0.15,
                 ease: "back.out(1.2)",
-                clearProps: "transform" // Critical: hand back control to CSS for hover physics
+                clearProps: "transform,opacity" // Critical: hand back control to CSS for hover physics
             }, "-=0.8");
+        });
+
+        // --- News Filtering Logic ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const articlesNodeList = document.querySelectorAll('.news-card-3d');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Adjust Active Button Styles
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-white', 'text-chocolate', 'shadow-sm');
+                    b.classList.add('text-softbrown');
+                });
+                btn.classList.add('bg-white', 'text-chocolate', 'shadow-sm');
+                btn.classList.remove('text-softbrown');
+
+                const filterType = btn.dataset.filter;
+
+                articlesNodeList.forEach(article => {
+                    if (filterType === 'All' || article.dataset.category === filterType) {
+                        article.style.display = ''; // Fallback to flex layout assigned by class
+                        gsap.fromTo(article, 
+                            { opacity: 0, scale: 0.95 }, 
+                            { opacity: 1, scale: 1, duration: 0.4, clearProps: "opacity,transform" }
+                        );
+                    } else {
+                        article.style.display = 'none';
+                    }
+                });
+            });
         });
 
         // --- 3D Hover Physics for Cards ---
